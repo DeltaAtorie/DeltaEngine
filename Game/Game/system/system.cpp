@@ -69,9 +69,9 @@ void InitWindow(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, 
 		hInstance,				//アプリケーションのインスタンス。
 		NULL
 	);
-
-	ShowWindow(g_hWnd, nCmdShow);
-
+	SetWindowLong(g_hWnd, GWL_STYLE, GetWindowLong(g_hWnd, GWL_STYLE) & ~WS_CAPTION);
+	ShowWindow(g_hWnd, SW_MAXIMIZE);//フルスクリーン
+	//ShowWindow(g_hWnd, nCmdShow);//指定幅
 }
 
 
@@ -80,8 +80,6 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 {
 	//ウィンドウを初期化。
 	InitWindow(hInstance, hPrevInstance, lpCmdLine, nCmdShow, appName);
-
-	
 }
 //ウィンドウメッセージをディスパッチ。falseが返ってきたら、ゲーム終了。
 bool DispatchWindowMessage()

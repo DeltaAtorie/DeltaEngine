@@ -2,21 +2,25 @@
  * @brief	�X�v���C�g�p�̃V�F�[�_�[�B
  */
 
-cbuffer cb : register(b0){
-	float4x4 mvp;		//���[���h�r���[�v���W�F�N�V�����s��B
-	float4 mulColor;	//��Z�J���[�B
+cbuffer cb : register(b0)
+{
+	float4x4 mvp;
+	float4 mulColor;
 };
-struct VSInput{
+
+struct VSInput
+{
 	float4 pos : POSITION;
 	float2 uv  : TEXCOORD0;
 };
 
-struct PSInput{
+struct PSInput
+{
 	float4 pos : SV_POSITION;
 	float2 uv  : TEXCOORD0;
 };
 
-Texture2D<float4> colorTexture : register(t0);	//�J���[�e�N�X�`���B
+Texture2D<float4> colorTexture : register(t0);
 sampler Sampler : register(s0);
 
 PSInput VSMain(VSInput In) 
@@ -28,5 +32,6 @@ PSInput VSMain(VSInput In)
 }
 float4 PSMain( PSInput In ) : SV_Target0
 {
-	return colorTexture.Sample(Sampler, In.uv) * mulColor;
+	float4 TexColor = colorTexture.Sample(Sampler,In.uv);
+	return TexColor * mulColor;
 }
