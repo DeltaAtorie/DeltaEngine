@@ -141,7 +141,6 @@ void DimensionalCollision::DecisionDataDelete(int Number)
 	}
 }
 
-
 //ÉRÉsÅ[
 bool DimensionalCollision::CopyDecisionData(ObjectData& Decision, int ObjectName)
 {
@@ -438,7 +437,6 @@ bool DimensionalCollision::DecisionAndEmptysCollision(int ObjectName1, int Tag2,
 	}
 	return false;
 }
-
 
 bool DimensionalCollision::DecisionAndDecisionsCollision(int ObjectName1, int Tag2,int Number)
 {
