@@ -120,6 +120,28 @@ void DimensionalCollision::DecisionInSideDataSet(int Count)
 	DecisionData[Count][DIRECTION_LEFT].LowerRightVertexPositionY = DecisionData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
 }
 
+void DimensionalCollision::DecisionDataDelete(int Number)
+{
+	for (int A = 0; A < 256; A++)
+	{
+		for (int B = DIRECTION_NON; B <= DIRECTION_LEFT; B++)
+		{
+			if (DecisionData[A][B].ObjectName == Number)
+			{
+				DecisionData[A][B].ObjectName = (int)(InitValue);
+				DecisionData[A][B].Tag = (int)(InitValue);
+				DecisionData[A][B].UpperLeftVertexPositionX = (InitValue);
+				DecisionData[A][B].UpperLeftVertexPositionY = (InitValue);
+				DecisionData[A][B].LowerRightVertexPositionX = (InitValue);
+				DecisionData[A][B].LowerRightVertexPositionY = (InitValue);
+				DecisionData[A][B].Wide = (int)(InitValue);
+				DecisionData[A][B].Height = (int)(InitValue);
+			}
+		}
+	}
+}
+
+
 //ƒRƒs[
 bool DimensionalCollision::CopyDecisionData(ObjectData& Decision, int ObjectName)
 {

@@ -30,6 +30,9 @@ public:
 	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag);
 	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag, int& Number);
 
+	//当たり判定の削除
+	void DecisionDataDelete(int ObjectName);
+
 	//コピー
 	bool CopyDecisionData(ObjectData& Decision, int ObjectName);//【本体】のコピー
 	bool CopyDecisionsData(ObjectData& Decision, int Tag, int Count);//【タグが付いた複数の本体】のコピー
@@ -55,7 +58,6 @@ public:
 	bool DecisionAndDecisionsCollision(int ObjectName1, int Tag2,int Number);//【本体】と【指定タグが付いた複数の本体】の衝突
 	bool EmptysAndEmptysCollision(int Tag1, int Direction1, int Number1, int Tag2, int Direction2);//【指定タグが付いた複数の空】と【タグが付いた複数の空】の衝突
 
-
 	int OddConversion(int Number)
 	{
 		if (Number % 2 == 0)
@@ -76,7 +78,6 @@ public:
 			return Number;
 		}
 	}
-
 	Vector4 GetWidth()
 	{
 		return CollisionWidth;
