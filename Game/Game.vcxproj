@@ -56,20 +56,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Preview|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -223,7 +223,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DimensionalEffect\Fade.cpp" />
+    <ClCompile Include="DimensionalEffect\Weather.cpp" />
+    <ClCompile Include="DimensionalElement\DimensionalAnimation.cpp" />
+    <ClCompile Include="DimensionalElement\DimensionalCamera.cpp" />
+    <ClCompile Include="DimensionalElement\DimensionalCollision.cpp" />
+    <ClCompile Include="DimensionalElement\MapCreate.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Operation\Controller.cpp" />
+    <ClCompile Include="Operation\Mouse.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -232,6 +241,20 @@
     <ClCompile Include="system\system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DimensionalEffect\DimensionalEffect.h" />
+    <ClInclude Include="DimensionalEffect\Fade.h" />
+    <ClInclude Include="DimensionalEffect\Weather.h" />
+    <ClInclude Include="DimensionalElement\DimensionalAnimation.h" />
+    <ClInclude Include="DimensionalElement\DimensionalCamera.h" />
+    <ClInclude Include="DimensionalElement\DimensionalCollision.h" />
+    <ClInclude Include="DimensionalElement\DimensionalElement.h" />
+    <ClInclude Include="DimensionalElement\MapCreate.h" />
+    <ClInclude Include="DimensionalStorage\NumberStorage.h" />
+    <ClInclude Include="DimensionalStorage\StructStorage.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Operation\Controller.h" />
+    <ClInclude Include="Operation\Mouse.h" />
+    <ClInclude Include="Operation\Operation.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
   </ItemGroup>

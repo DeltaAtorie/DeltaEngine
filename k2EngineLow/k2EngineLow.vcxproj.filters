@@ -225,6 +225,15 @@
     <ClCompile Include="graphics\FrameBuffer.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\FontRender.cpp" />
+    <ClCompile Include="graphics\Geometry.cpp" />
+    <ClCompile Include="graphics\ModelRender.cpp" />
+    <ClCompile Include="graphics\RenderingEngine.cpp" />
+    <ClCompile Include="graphics\SpriteRender.cpp" />
+    <ClCompile Include="physics\PhysicsSphereObject.cpp" />
+    <ClCompile Include="physics\PhysicsStaticObjectPos.cpp" />
+    <ClCompile Include="Camera\CameraCollisionSolver.cpp" />
+    <ClCompile Include="Camera\SpringCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="k2EngineLowPreCompile.h" />
@@ -499,6 +508,16 @@
     <ClInclude Include="graphics\FrameBuffer.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\FontRender.h" />
+    <ClInclude Include="graphics\Geometry.h" />
+    <ClInclude Include="graphics\IRender.h" />
+    <ClInclude Include="graphics\ModelRender.h" />
+    <ClInclude Include="graphics\RenderingEngine.h" />
+    <ClInclude Include="graphics\SpriteRender.h" />
+    <ClInclude Include="physics\PhysicsSphereObject.h" />
+    <ClInclude Include="physics\PhysicsStaticObjectPos.h" />
+    <ClInclude Include="Camera\CameraCollisionSolver.h" />
+    <ClInclude Include="Camera\SpringCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="graphics">

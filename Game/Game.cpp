@@ -8,7 +8,7 @@ Game::Game()
 {
 	S_Operation.P_Mouse = NewGO<Mouse>(1, "mouse");
 	S_Operation.P_Controller = NewGO<Controller>(1, "controller");
-
+	
 	S_Element.P_Camera = NewGO<DimensionalCamera>(1, "camera");
 	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
