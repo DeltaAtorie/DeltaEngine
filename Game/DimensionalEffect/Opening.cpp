@@ -10,7 +10,7 @@ Opening::Opening()
 	{
 		if (objData.EqualObjectName("WallPaper") == true)
 		{
-			M_WallTexture.Init("Assets/Sprite/Opening/WallPaper.DDS", 1920.0f, 1080.0f,true);
+			M_WallTexture.FadeInit("Assets/Sprite/Opening/WallPaper.DDS","Assets/Sprite/Opening/WallPaperOn.DDS", &M_Alfha, 1920.0f, 1080.0f);
 			M_WallPosition = objData.position;
 			M_WallTexture.SetPosition(M_WallPosition);
 			M_WallTexture.Update();
@@ -34,7 +34,20 @@ bool Opening::Start()
 }
 void Opening::Update()
 {
-
+	if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
+	{
+		if (M_Alfha.y > 0.0f && M_Alfha.x < 1.0f)
+		{
+			M_Alfha.x += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			M_Alfha.y -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+		}
+	}else {
+		if (M_Alfha.x > 0.0f && M_Alfha.y < 1.0f)
+		{
+			M_Alfha.x -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			M_Alfha.y += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+		}
+	}
 }
 void Opening::Render(RenderContext& rc)
 {

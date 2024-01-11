@@ -17,7 +17,8 @@ private:
 
 	Level2DRender M_Level2D;
 
-	Vector2 M_Alfha = { 0.2f,0.8f };
+	Vector2 M_Alfha = { 1.0f,0.0f };
+	float M_AlfhaSpeed = 3.0f;
 
 	ClassDimensionalElement S_Element;
 };
