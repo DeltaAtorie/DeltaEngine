@@ -1,6 +1,8 @@
 #pragma once
 enum CollisionStorage
 {
+	COLLISION_BUTTON,
+	COLLISION_MOUSE,
 	COLLISION_NON
 };
 enum TagStorage

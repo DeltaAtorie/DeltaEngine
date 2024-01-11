@@ -1,4 +1,5 @@
 #pragma once
+#include "DimensionalStorage/StructStorage.h"
 struct MouseFlag
 {
 	bool M_LeftButtonFlag = false;
@@ -9,6 +10,7 @@ struct MouseFlag
 class Mouse : public IGameObject
 {
 public:
+	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
 	
@@ -16,9 +18,7 @@ public:
 
 	void MouseMove();
 	void MouseSet();
-	void MouseReset();
 
-	void MouseCursorTextureSet(const char* Sprite, const float w, const float h, bool ColorOut = false);
 	void MouseCorsorTextureSetCheck();
 
 	void MouseFlagJudge();
@@ -52,4 +52,6 @@ private:
 
 	float M_DeltaTime = 0.0f;
 	float FlickSpeedThreshold = 6000.0f;
+
+	ClassDimensionalElement S_Element;
 };

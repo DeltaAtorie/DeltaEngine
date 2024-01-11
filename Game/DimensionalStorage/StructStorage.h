@@ -26,10 +26,12 @@ struct ClassDimensionalElement
 	MapCreate* P_MapCreate            = nullptr;
 };
 
+class Opening;
 class Weather;
 class Fade;
 struct ClassDimensionalEffect
 {
+	Opening* P_Opening = nullptr;
 	Weather* P_Weather = nullptr;
 	Fade* P_Fade       = nullptr;
 };

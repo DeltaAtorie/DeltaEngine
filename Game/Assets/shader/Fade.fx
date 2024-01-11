@@ -20,7 +20,14 @@ struct PSInput
 	float2 uv  : TEXCOORD0;
 };
 
-Texture2D<float4> Texture : register(t0);
+cbuffer AlfhaCb : register(b1)
+{
+    float2 Alfha;  
+};
+
+Texture2D<float4> Texture1 : register(t0);
+Texture2D<float4> Texture2 : register(t1);
+
 sampler Sampler : register(s0);
 
 PSInput VSMain(VSInput In) 
@@ -32,13 +39,13 @@ PSInput VSMain(VSInput In)
 }
 float4 PSMain( PSInput In ) : SV_Target0
 {
-	float4 TexColor = Texture.Sample(Sampler,In.uv);
-	if(TexColor.r == 1.0f && TexColor.g == 1.0f && TexColor.b == 1.0f)
-	{
-		TexColor.r = 0.5f;
-		TexColor.g = 0.5f;
-		TexColor.b = 0.5f;
-	}
-	TexColor.rgb = pow(TexColor.rgb, 1.0 / 2.2);
-	return TexColor * mulColor;
+	float2 alfha = Alfha;
+	float4 TexColor1 = Texture1.Sample(Sampler,In.uv);
+	float4 TexColor2 = Texture2.Sample(Sampler,In.uv);
+
+	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
+	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
+
+	float4 TexFinal = TexColor1 * alfha.x + TexColor2 * alfha.y;
+	return TexFinal;
 }

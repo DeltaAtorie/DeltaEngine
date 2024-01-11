@@ -1,16 +1,32 @@
 #include "stdafx.h"
 #include "Mouse.h"
+#include "DimensionalElement/DimensionalElement.h"
 #include "DimensionalStorage/NumberStorage.h"
+bool Mouse::Start()
+{
+	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
+	S_Element.P_Collision->DecisionDataSet(75, 75, M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE, TAG_NON);
+	return true;
+}
 void Mouse::Update()
 {
 	M_HWnd = GetConsoleWindow();
+
     GetCursorPos(&M_CursorPosition);
+
     ScreenToClient(M_HWnd, &M_CursorPosition);
+
     MouseSet();
+
 	MouseMove();
+
     MouseCorsorTextureSetCheck();
+
 	MouseFlagJudge();
+
     MouseCurSorSetPosition(M_MouseCousorPosition);
+
+	S_Element.P_Collision->DecisionSetPosition(M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE);
     M_MouseCursorTexture.SetPosition(M_MouseCousorPosition);
     M_MouseCursorTexture.Update();
 }
@@ -53,15 +69,7 @@ void Mouse::MouseSet()
 	M_Converted.x = (M_CursorPosition.x * M_Window.x) / M_Client.x;
 	M_Converted.y = (M_CursorPosition.y * M_Window.y) / M_Client.y;
 }
-void Mouse::MouseReset()
-{
-	SetCursorPos(M_Client.x / 2, M_Client.y / 2);
-}
 
-void Mouse::MouseCursorTextureSet(const char* Sprite, const float w, const float h, bool ColorOut)
-{
-    M_MouseCursorTexture.Init(Sprite, w, h, ColorOut);
-}
 void Mouse::MouseCorsorTextureSetCheck()
 {
 	if (M_MouseCursorTexture.GetInitFlag())

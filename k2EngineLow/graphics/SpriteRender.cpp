@@ -13,16 +13,11 @@ namespace nsK2EngineLow
 		AlphaBlendMode alphaBlendMode
 	)
 	{
-		if (ColorChange)
-		{
-			InitData.m_fxFilePath = "Assets/shader/ColorChange.fx";
-		}else {
 		if (ColorOut)
 		{
 			InitData.m_fxFilePath = "Assets/shader/ColorOut.fx";
 		}else {
 			InitData.m_fxFilePath = "Assets/shader/sprite.fx";
-		}
 		}
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
@@ -59,6 +54,35 @@ namespace nsK2EngineLow
 
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
+	void SpriteRender::FadeInit
+	(
+		const char* Sprite1,
+		const char* Sprite2,
+		Vector2* Alpha,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Fade.fx";
+
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = Sprite1;
+		InitData.m_ddsFilePath[1] = Sprite2;
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_expandConstantBuffer = Alpha;
+		InitData.m_expandConstantBufferSize = sizeof(Alpha);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

@@ -26,6 +26,16 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
+		void FadeInit
+		(
+			const char* Sprite1,
+			const char* Sprite2,
+			Vector2* Alpha,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
 		//çXêV
 		void Update()
 		{

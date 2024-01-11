@@ -6,13 +6,14 @@
 #include "DimensionalElement/DimensionalElement.h"
 Game::Game()
 {
-	S_Operation.P_Mouse = NewGO<Mouse>(1, "mouse");
-	S_Operation.P_Controller = NewGO<Controller>(1, "controller");
-	
 	S_Element.P_Camera = NewGO<DimensionalCamera>(1, "camera");
 	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
+
+	S_Operation.P_Mouse = NewGO<Mouse>(1, "mouse");
+	S_Operation.P_Controller = NewGO<Controller>(1, "controller");
 	
+	S_Effect.P_Opening = NewGO<Opening>(1, "opening");
 	S_Effect.P_Weather = NewGO<Weather>(1, "weather");
 	S_Effect.P_Fade = NewGO<Fade>(1, "fade");
 }
