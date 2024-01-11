@@ -4,6 +4,17 @@
 #include "DimensionalStorage/NumberStorage.h"
 bool Mouse::Start()
 {
+	HWND hwnd = GetForegroundWindow();
+
+	RECT rect;
+	GetWindowRect(hwnd, &rect); 
+
+	float width = rect.right - rect.left;
+	float height = rect.bottom - rect.top;
+
+	M_Client.x = width;
+	M_Client.y = height;
+
 	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
 	S_Element.P_Collision->DecisionDataSet(75, 75, M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE, TAG_NON);
 	return true;
