@@ -10,7 +10,7 @@ Game::Game()
 	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
 
-	S_Operation.P_Mouse = NewGO<Mouse>(1, "mouse");
+	S_Operation.P_Mouse = NewGO<Mouse>(2, "mouse");
 	S_Operation.P_Controller = NewGO<Controller>(1, "controller");
 	
 	S_Effect.P_Opening = NewGO<Opening>(1, "opening");
