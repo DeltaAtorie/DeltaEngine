@@ -12,14 +12,11 @@ class Mouse : public IGameObject
 public:
 	bool Start();
 	void Update();
-	void Render(RenderContext& rc);
 	
 	void MouseCurSorSetPosition(Vector3& Position);
 
 	void MouseMove();
 	void MouseSet();
-
-	void MouseCorsorTextureSetCheck();
 
 	void MouseFlagJudge();
 	bool GetMouseFlag(int Number);
@@ -34,7 +31,6 @@ public:
 	Vector2 GetDelta()
 	{return M_Delta;}
 private:
-	SpriteRender M_MouseCursorTexture;
 	Vector3 M_MouseCousorPosition;
 	Vector3 M_MouseCousorMoveSpeed;
 

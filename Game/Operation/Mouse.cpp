@@ -4,19 +4,19 @@
 #include "DimensionalStorage/NumberStorage.h"
 bool Mouse::Start()
 {
-	HWND hwnd = GetForegroundWindow();
+	HCURSOR hCursor = LoadCursorFromFile(L"Assets/Sprite/Tool/Cursor.ani");
+	SetCursor(hCursor);
 
+	HWND hwnd = GetForegroundWindow();
 	RECT rect;
 	GetWindowRect(hwnd, &rect); 
-
 	float width = rect.right - rect.left;
 	float height = rect.bottom - rect.top;
-
 	M_Client.x = width;
 	M_Client.y = height;
 
 	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
-	S_Element.P_Collision->DecisionDataSet(75, 75, M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE, TAG_NON);
+	S_Element.P_Collision->DecisionDataSet(30, 30, M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE, TAG_NON);
 	return true;
 }
 void Mouse::Update()
@@ -31,20 +31,11 @@ void Mouse::Update()
 
 	MouseMove();
 
-    MouseCorsorTextureSetCheck();
-
 	MouseFlagJudge();
 
     MouseCurSorSetPosition(M_MouseCousorPosition);
 
 	S_Element.P_Collision->DecisionSetPosition(M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE);
-    M_MouseCursorTexture.SetPosition(M_MouseCousorPosition);
-    M_MouseCursorTexture.Update();
-}
-void Mouse::Render(RenderContext& rc)
-{
-	if (M_MouseCursorTexture.GetInitFlag())
-	{M_MouseCursorTexture.Draw(rc);}
 }
 
 void Mouse::MouseCurSorSetPosition(Vector3& Position)
@@ -79,19 +70,6 @@ void Mouse::MouseSet()
 {
 	M_Converted.x = (M_CursorPosition.x * M_Window.x) / M_Client.x;
 	M_Converted.y = (M_CursorPosition.y * M_Window.y) / M_Client.y;
-}
-
-void Mouse::MouseCorsorTextureSetCheck()
-{
-	if (M_MouseCursorTexture.GetInitFlag())
-	{
-		ShowCursor(false);
-	}else {
-		if (!M_MouseCursorTexture.GetInitFlag())
-		{
-			ShowCursor(true);
-		}
-	}
 }
 
 void Mouse::MouseFlagJudge()
