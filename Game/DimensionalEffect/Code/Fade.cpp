@@ -64,7 +64,7 @@ void Fade::Update()
 	{
 		if (M_AlphaResetDecision)
 		{
-			M_Alpha = 10.0f;
+			M_Alpha = 1.0f;
 			M_AlphaResetDecision = false;
 		}
 		M_Alpha -= FadeSpeed * g_gameTime->GetFrameDeltaTime();
@@ -83,9 +83,9 @@ void Fade::Update()
 				M_AlphaResetDecision = false;
 			}
 			M_Alpha += FadeSpeed * g_gameTime->GetFrameDeltaTime();
-			if (M_Alpha >= 10.0f)
+			if (M_Alpha >= 1.0f)
 			{
-				M_Alpha = 10.0f;
+				M_Alpha = 1.0f;
 				M_State = ENSTATE_IDLE;
 				M_AlphaResetDecision = true;
 			}

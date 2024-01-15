@@ -20,8 +20,8 @@ private:
 	Vector2 M_Alfha = { 1.0f,0.0f };
 	float M_AlfhaSpeed = 3.5f;
 
-	bool M_Flag = false;
-
+	bool M_PowerFlag = false;
+	bool M_ClickFlag = true;
 	ClassDimensionalElement S_Element;
 	ClassDimensionalEffect S_Effect;
 	ClassOperation S_Operation;

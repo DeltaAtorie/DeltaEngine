@@ -38,43 +38,55 @@ bool Opening::Start()
 }
 void Opening::Update()
 {
-	if (!M_Flag)
+	if (!M_ClickFlag)
 	{
-		if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
+		if (!M_PowerFlag)
 		{
-			if (M_Alfha.y > 0.0f && M_Alfha.x < 1.0f)
+			if (M_Alfha.x < 1.0f && M_Alfha.y > 0.0f)
 			{
 				M_Alfha.x += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
 				M_Alfha.y -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			}else {
+			if (M_Alfha.x >= 1.0f && M_Alfha.y <= 0.0f)
+			{
+				M_ClickFlag = true;
 			}
-		}
-	}else {
-		if (M_Flag)
+				
+			}
+		}else {
+		if (M_PowerFlag)
 		{
 			if (M_Alfha.x > 0.0f && M_Alfha.y < 1.0f)
 			{
 				M_Alfha.x -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
 				M_Alfha.y += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			}else {
+			if (M_Alfha.x <= 0.0f && M_Alfha.y >= 1.0f)
+			{
+				M_ClickFlag = true;
+			}
+			}
+			}
+		}
+	}else {
+	if (M_ClickFlag)
+	{
+		if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
+		{
+			if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && !M_PowerFlag)
+			{
+				M_PowerFlag = true;
+				M_ClickFlag = false;
+			}else {
+			if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_PowerFlag)
+			{
+				M_PowerFlag = false;
+				M_ClickFlag = false;
+			}
+			}
 			}
 		}
 	}
-
-	if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
-	{
-		if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && !M_Flag)
-		{
-			M_Flag = true;
-			S_Effect.P_Fade->StartFadeIn();
-		}
-	}
-
-	/*if (M_Flag)
-	{
-		if (M_Alfha.x == 0.0f && M_Alfha.y == 1.0f)
-		{
-			S_Effect.P_Fade->StartFadeOut();
-		}
-	}*/
 }
 void Opening::Render(RenderContext& rc)
 {

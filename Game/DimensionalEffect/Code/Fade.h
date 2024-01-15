@@ -29,7 +29,7 @@ private:
 	bool M_ButtonFadeInDecision = true;
 	bool M_ButtonFadeOutDecision = false;
 	float M_ButtonAlpha = 1.0f;
-	float M_Alpha = 10.0f;
-	float FadeSpeed = 5.0f;
+	float M_Alpha = 0.0f;
+	float FadeSpeed = 1.0f;
 };
 
