@@ -1,5 +1,4 @@
 #pragma once
-#include "DimensionalAnimation.h"
-#include "DimensionalCamera.h"
-#include "DimensionalCollision.h"
-#include "MapCreate.h"
+#include "Code/DimensionalCamera.h"
+#include "Code/DimensionalCollision.h"
+#include "Code/MapCreate.h"

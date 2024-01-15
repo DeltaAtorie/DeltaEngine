@@ -1,3 +1,3 @@
 #pragma once
-#include "Controller.h"
-#include "Mouse.h"
+#include "Code/Controller.h"
+#include "Code/Mouse.h"

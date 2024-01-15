@@ -1,5 +1,5 @@
 #pragma once
-#include "DimensionalAnimation.h"
-#include "Opening.h"
-#include "Fade.h"
-#include "Weather.h"
+#include "Code/DimensionalAnimation.h"
+#include "Code/Opening.h"
+#include "Code/Fade.h"
+#include "Code/Weather.h"
