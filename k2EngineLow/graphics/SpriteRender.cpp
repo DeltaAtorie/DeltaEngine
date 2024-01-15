@@ -55,6 +55,8 @@ namespace nsK2EngineLow
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
 
+		M_InitFlag = true;
+
 		InitData.m_alphaBlendMode = alphaBlendMode;
 
 		m_sprite.Init(InitData);
@@ -83,6 +85,8 @@ namespace nsK2EngineLow
 
 		InitData.m_expandConstantBuffer = Alpha;
 		InitData.m_expandConstantBufferSize = sizeof(Alpha);
+
+		M_InitFlag = true;
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 
