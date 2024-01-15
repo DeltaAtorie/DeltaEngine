@@ -31,6 +31,7 @@ bool Opening::Start()
 {
 	S_Operation.P_Mouse = FindGO<Mouse>("mouse");
 	S_Effect.P_Sound = FindGO<Sound>("sound");
+	S_Effect.P_Fade = FindGO<Fade>("fade");
 	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
 	S_Element.P_Collision->DecisionDataSet(75, 75, M_ButtonPosition.x, M_ButtonPosition.y, COLLISION_BUTTON, TAG_NON);
 	return true;
@@ -63,8 +64,17 @@ void Opening::Update()
 		if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && !M_Flag)
 		{
 			M_Flag = true;
+			S_Effect.P_Fade->StartFadeIn();
 		}
 	}
+
+	/*if (M_Flag)
+	{
+		if (M_Alfha.x == 0.0f && M_Alfha.y == 1.0f)
+		{
+			S_Effect.P_Fade->StartFadeOut();
+		}
+	}*/
 }
 void Opening::Render(RenderContext& rc)
 {

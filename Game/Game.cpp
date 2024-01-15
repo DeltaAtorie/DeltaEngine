@@ -15,9 +15,9 @@ Game::Game()
 	
 	/*S_Effect.P_Animation = NewGO<DimensionalAnimation>(2, "animation");
 	S_Effect.P_Animation->SetAnimationFrame(ANIMATION_OPENING);*/
-	S_Effect.P_Opening = NewGO<Opening>(1, "opening");
+	S_Effect.P_Opening = NewGO<Opening>(2, "opening");
 	S_Effect.P_Weather = NewGO<Weather>(1, "weather");
-	S_Effect.P_Fade = NewGO<Fade>(1, "fade");
+	S_Effect.P_Fade = NewGO<Fade>(2, "fade");
 	S_Effect.P_Sound = NewGO<Sound>(1, "sound");
 }
 Game::~Game()

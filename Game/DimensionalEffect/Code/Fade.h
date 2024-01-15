@@ -22,7 +22,7 @@ private:
 		ENSTATE_IDLE = 3,
 	};
 	SpriteRender M_FadeTexture;
-	int M_State = ENSTATE_FADEIN;
+	int M_State = ENSTATE_IDLE;
 	Vector4 M_ButtonCollar = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	bool M_AlphaResetDecision = true;
