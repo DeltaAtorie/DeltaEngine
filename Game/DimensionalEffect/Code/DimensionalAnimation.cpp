@@ -2,21 +2,69 @@
 #include "DimensionalAnimation.h"
 DimensionalAnimation::DimensionalAnimation()
 {
-	M_TextureFileValuePath = "Assets/Sprite/Animation/";
+	M_TextureFilePath = "Assets/Sprite/Animation/Animation1.DDS";
+	M_AnimationTexture.Init(M_TextureFilePath, 1920.0f, 1080.0f, true);
 }
 void DimensionalAnimation::Update()
 {
-	M_Frame++;
-	if (M_Frame > M_FrameLimit)
+	if (M_Animation != ANIMATION_NON)
 	{
-		M_Frame = 0;
-		M_AnimationTexture.TextureSet(M_TextureFilePath);
-		M_TextureFilePath = M_TextureFileValuePath;
-	}
+		M_Frame++;
+		if (M_Frame > M_FrameLimit)
+		{
+			M_Frame = 0;
+			M_AnimationFrame++;
 
-	M_AnimationTexture.Update();
+			if (M_AnimationFrame > M_AnimationFrameLimit)
+			{M_AnimationFrame = 1;}
+
+			GetFilePath();
+			M_AnimationTexture.TextureSet(M_TextureFilePath);
+		}
+		M_AnimationTexture.Update();
+	}
 }
 void DimensionalAnimation::Render(RenderContext& rc)
 {
-	M_AnimationTexture.Draw(rc);
+	if (M_Animation != ANIMATION_NON)
+	{M_AnimationTexture.Draw(rc);}
+}
+
+void DimensionalAnimation::SetAnimationFrame(int Animation)
+{
+	switch (Animation)
+	{
+	case ANIMATION_OPENING:
+		M_Animation = ANIMATION_OPENING;
+		M_AnimationFrameLimit = 3;
+		break;
+
+	}
+}
+
+void DimensionalAnimation::GetFilePath()
+{
+	switch (M_Animation)
+	{
+	case ANIMATION_OPENING:
+		GetOpening();
+		break;
+
+	}
+}
+void DimensionalAnimation::GetOpening()
+{
+	switch (M_AnimationFrame)
+	{
+	case 1:
+		M_TextureFileMemoryPath = "Assets/Sprite/Animation/Animation1.DDS";
+		break;
+	case 2:
+		M_TextureFileMemoryPath = "Assets/Sprite/Animation/Animation2.DDS";
+		break;
+	case 3:
+		M_TextureFileMemoryPath = "Assets/Sprite/Animation/Animation3.DDS";
+		break;
+	}
+	M_TextureFilePath = M_TextureFileMemoryPath;
 }

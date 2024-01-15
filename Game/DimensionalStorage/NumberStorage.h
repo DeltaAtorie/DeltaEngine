@@ -13,6 +13,11 @@ enum MapStorage
 {
 	MAP_NON
 };
+enum SoundNumberStorage
+{
+	SE_START,
+};
+
 enum MouseFlagStorage
 {
 	MOUSE_LEFTBUTTON = 0,

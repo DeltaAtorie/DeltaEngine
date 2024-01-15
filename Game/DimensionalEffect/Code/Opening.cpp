@@ -2,6 +2,7 @@
 #include "Opening.h"
 
 #include "DimensionalElement/DimensionalElement.h"
+#include "DimensionalEffect/DimensionalEffect.h"
 #include "DimensionalStorage/NumberStorage.h"
 #include "Operation/Operation.h"
 Opening::Opening()
@@ -28,24 +29,40 @@ Opening::Opening()
 }
 bool Opening::Start()
 {
+	S_Operation.P_Mouse = FindGO<Mouse>("mouse");
+	S_Effect.P_Sound = FindGO<Sound>("sound");
 	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
 	S_Element.P_Collision->DecisionDataSet(75, 75, M_ButtonPosition.x, M_ButtonPosition.y, COLLISION_BUTTON, TAG_NON);
 	return true;
 }
 void Opening::Update()
 {
-	if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
+	if (!M_Flag)
 	{
-		if (M_Alfha.y > 0.0f && M_Alfha.x < 1.0f)
+		if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
 		{
-			M_Alfha.x += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-			M_Alfha.y -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			if (M_Alfha.y > 0.0f && M_Alfha.x < 1.0f)
+			{
+				M_Alfha.x += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+				M_Alfha.y -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			}
 		}
 	}else {
-		if (M_Alfha.x > 0.0f && M_Alfha.y < 1.0f)
+		if (M_Flag)
 		{
-			M_Alfha.x -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-			M_Alfha.y += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			if (M_Alfha.x > 0.0f && M_Alfha.y < 1.0f)
+			{
+				M_Alfha.x -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+				M_Alfha.y += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
+			}
+		}
+	}
+
+	if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_BUTTON))
+	{
+		if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && !M_Flag)
+		{
+			M_Flag = true;
 		}
 	}
 }
