@@ -40,12 +40,23 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
 	float2 alfha = Alfha;
-	float4 TexColor1 = Texture1.Sample(Sampler,In.uv);
-	float4 TexColor2 = Texture2.Sample(Sampler,In.uv);
+	float4 TexColor1;
+	float4 TexColor2;
+	float4 TexFinal;
+
+	TexColor1 = Texture1.Sample(Sampler,In.uv);
+	if(TexColor1.a>0.0)
+	{TexColor2 = Texture2.Sample(Sampler,In.uv);}
 
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
 	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
-
-	float4 TexFinal = TexColor1 * alfha.x + TexColor2 * alfha.y;
+	
+	if(TexColor1.a>0.0)
+	{
+		TexFinal = TexColor1 * alfha.x + TexColor2 * alfha.y;
+		return TexFinal;
+	}
+	TexFinal = TexColor1;
 	return TexFinal;
+
 }

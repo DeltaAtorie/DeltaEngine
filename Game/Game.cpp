@@ -10,15 +10,17 @@ Game::Game()
 	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
 
-	S_Operation.P_Mouse = NewGO<Mouse>(2, "mouse");
-	S_Operation.P_Controller = NewGO<Controller>(1, "controller");
+	
 	
 	/*S_Effect.P_Animation = NewGO<DimensionalAnimation>(2, "animation");
 	S_Effect.P_Animation->SetAnimationFrame(ANIMATION_OPENING);*/
 	S_Effect.P_Opening = NewGO<Opening>(2, "opening");
 	S_Effect.P_Weather = NewGO<Weather>(1, "weather");
-	S_Effect.P_Fade = NewGO<Fade>(2, "fade");
+	S_Effect.P_Fade = NewGO<Fade>(3, "fade");
 	S_Effect.P_Sound = NewGO<Sound>(1, "sound");
+	
+	S_Operation.P_Mouse = NewGO<Mouse>(3, "mouse");
+	S_Operation.P_Controller = NewGO<Controller>(3, "controller");
 }
 Game::~Game()
 {

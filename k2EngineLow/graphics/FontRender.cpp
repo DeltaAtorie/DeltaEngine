@@ -11,7 +11,7 @@ namespace nsK2EngineLow
 
 		g_renderingEngine->InRenderObject(this);
 	}
-
+	
 	void FontRender::OnRender2D(RenderContext& rc)
 	{
 		m_font.Begin(rc);

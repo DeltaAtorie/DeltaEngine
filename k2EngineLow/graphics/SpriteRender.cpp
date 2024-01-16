@@ -29,8 +29,6 @@ namespace nsK2EngineLow
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 
-		M_InitFlag = true;
-
 		M_WideAndHeight.x = w;
 		M_WideAndHeight.y = h;
 
@@ -54,8 +52,6 @@ namespace nsK2EngineLow
 
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
-
-		M_InitFlag = true;
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 
@@ -86,7 +82,40 @@ namespace nsK2EngineLow
 		InitData.m_expandConstantBuffer = Alpha;
 		InitData.m_expandConstantBufferSize = sizeof(Alpha);
 
-		M_InitFlag = true;
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
+	void SpriteRender::CurrentTimeInit
+	(
+		int* Time,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Time.fx";
+
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = "Assets/Sprite/Count/0.DDS";
+		InitData.m_ddsFilePath[1] = "Assets/Sprite/Count/1.DDS";
+		InitData.m_ddsFilePath[2] = "Assets/Sprite/Count/2.DDS";
+		InitData.m_ddsFilePath[3] = "Assets/Sprite/Count/3.DDS";
+		InitData.m_ddsFilePath[4] = "Assets/Sprite/Count/4.DDS";
+		InitData.m_ddsFilePath[5] = "Assets/Sprite/Count/5.DDS";
+		InitData.m_ddsFilePath[6] = "Assets/Sprite/Count/6.DDS";
+		InitData.m_ddsFilePath[7] = "Assets/Sprite/Count/7.DDS";
+		InitData.m_ddsFilePath[8] = "Assets/Sprite/Count/8.DDS";
+		InitData.m_ddsFilePath[9] = "Assets/Sprite/Count/9.DDS";
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_expandConstantBuffer = Time;
+		InitData.m_expandConstantBufferSize = sizeof(Time);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

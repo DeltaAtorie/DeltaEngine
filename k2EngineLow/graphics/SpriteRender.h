@@ -2,7 +2,6 @@
 namespace nsK2EngineLow
 {
 	class RenderingEngine;
-
 	class SpriteRender : public IRender
 	{
 	public:
@@ -31,6 +30,14 @@ namespace nsK2EngineLow
 			const char* Sprite1,
 			const char* Sprite2,
 			Vector2* Alpha,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
+		void CurrentTimeInit
+		(
+			int* Time,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -103,10 +110,6 @@ namespace nsK2EngineLow
 		{return m_sprite.GetMulColor();}
 
 		void OnRender2D(RenderContext& rc) override;
-
-		bool GetInitFlag()
-		{return M_InitFlag;}
-
 	//画像変換
 
 		void TextureSet(const char* Sprite);
@@ -128,8 +131,6 @@ namespace nsK2EngineLow
 
 		//ピボット
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT;
-
-		bool M_InitFlag = false;
 
 		Vector2 M_WideAndHeight;
 	};
