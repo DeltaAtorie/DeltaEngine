@@ -16,14 +16,14 @@ bool Opening::Start()
 	{
 		if (objData.EqualObjectName("WallPaper") == true)
 		{
-			M_WallTexture.FadeInit("Assets/Sprite/Opening/WallPaperOff.DDS", "Assets/Sprite/Opening/WallPaperOn.DDS", &M_Alfha, 1920.0f, 1080.0f);
+			M_WallTexture.FadeInit("Assets/Sprite/Opening/WallPaperOff.DDS", "Assets/Sprite/Opening/WallPaperOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
 			M_WallTexture.SetPosition(objData.position);
 			M_WallTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("PowerButton") == true)
 		{
-			M_PowerButtonTexture.FadeInit("Assets/Sprite/Opening/PowerButtonOff.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alfha, 100.0f, 100.0f);
+			M_PowerButtonTexture.FadeInit("Assets/Sprite/Opening/PowerButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
 			S_Element.P_Collision->DecisionDataSet(100, 100, objData.position.x, objData.position.y, COLLISION_POWERBUTTON, TAG_NON);
 			M_PowerButtonTexture.SetPosition(objData.position);
 			M_PowerButtonTexture.Update();
@@ -31,50 +31,55 @@ bool Opening::Start()
 		}
 		if (objData.EqualObjectName("MusicButton") == true)
 		{
-			M_MusicButtonTexture.FadeInit("Assets/Sprite/Opening/MusicButtonOff.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alfha, 100.0f, 100.0f);
+			M_SoundButtonTexture.FadeInit("Assets/Sprite/Opening/SoundButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
+			M_SoundButtonTexture.SetPosition(objData.position);
+			M_SoundButtonTexture.Update();
+
+			M_MuteButtonTexture.FadeInit("Assets/Sprite/Opening/MuteButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
+			M_MuteButtonTexture.SetPosition(objData.position);
+			M_MuteButtonTexture.Update();
+			
 			S_Element.P_Collision->DecisionDataSet(100, 100, objData.position.x, objData.position.y, COLLISION_MUSICBUTTON, TAG_NON);
-			M_MusicButtonTexture.SetPosition(objData.position);
-			M_MusicButtonTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Frame") == true)
 		{
-			M_UiFrameTexture.FadeInit("Assets/Sprite/Opening/FrameOff.DDS", "Assets/Sprite/Opening/FrameOn.DDS", &M_Alfha, 1920.0f, 1080.0f);
+			M_UiFrameTexture.FadeInit("Assets/Sprite/Opening/FrameOff.DDS", "Assets/Sprite/Opening/FrameOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
 			M_UiFrameTexture.SetPosition(objData.position);
 			M_UiFrameTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Colon") == true)
 		{
-			M_ColonTexture.FadeInit("Assets/Sprite/Count/Colon.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alfha, 80.0f, 80.0f);
+			M_ColonTexture.FadeInit("Assets/Sprite/Count/Colon.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 80.0f, 80.0f);
 			M_ColonTexture.SetPosition(objData.position);
 			M_ColonTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Hour10") == true)
 		{
-			M_HourTexture[1].CurrentTimeInit(&M_Hour[1], 80.0f, 80.0f);
+			M_HourTexture[1].CurrentTimeInit(M_Hour[1],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS", 80.0f, 80.0f);
 			M_HourTexture[1].SetPosition(objData.position);
 			M_HourTexture[1].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Hour1") == true)
 		{
-			M_HourTexture[2].CurrentTimeInit(&M_Hour[2],80.0f, 80.0f);
+			M_HourTexture[2].CurrentTimeInit(M_Hour[2],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_HourTexture[2].SetPosition(objData.position);
 			M_HourTexture[2].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Minute10") == true)
 		{
-			M_MinuteTexture[1].CurrentTimeInit(&M_Minute[1],80.0f, 80.0f);
+			M_MinuteTexture[1].CurrentTimeInit(M_Minute[1],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_MinuteTexture[1].SetPosition(objData.position);
 			M_MinuteTexture[1].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Minute1") == true)
 		{
-			M_MinuteTexture[2].CurrentTimeInit(&M_Minute[2],80.0f, 80.0f);
+			M_MinuteTexture[2].CurrentTimeInit(M_Minute[2],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_MinuteTexture[2].SetPosition(objData.position);
 			M_MinuteTexture[2].Update();
 			return true;
@@ -84,7 +89,10 @@ bool Opening::Start()
 }
 void Opening::Update()
 {
+	Cool();
+	Alpha();
 	PowerButton();
+	SoundButton();
 	CurrentTime();
 }
 void Opening::Render(RenderContext& rc)
@@ -93,7 +101,15 @@ void Opening::Render(RenderContext& rc)
 	M_UiFrameTexture.Draw(rc);
 	
 	M_PowerButtonTexture.Draw(rc);
-	M_MusicButtonTexture.Draw(rc);
+	if (!M_MuteFlag)
+	{
+		M_SoundButtonTexture.Draw(rc);
+	}else {
+		if (M_MuteFlag)
+		{
+			M_MuteButtonTexture.Draw(rc);
+		}
+	}
 
 	M_ColonTexture.Draw(rc);
 	M_HourTexture[1].Draw(rc);
@@ -102,38 +118,43 @@ void Opening::Render(RenderContext& rc)
 	M_MinuteTexture[2].Draw(rc);
 }
 
-void Opening::PowerButton()
+void Opening::Cool()
+{
+	if (!M_ClickFlag)
+	{
+		M_CoolTime+= M_CoolSpeed * g_gameTime->GetFrameDeltaTime();
+		if (M_CoolTime > 1.0f)
+		{
+			M_CoolTime = 0.0f;
+			M_ClickFlag = true;
+		}
+	}
+}
+void Opening::Alpha()
 {
 	if (!M_ClickFlag)
 	{
 		if (!M_PowerFlag)
 		{
-			if (M_Alfha.x < 1.0f && M_Alfha.y > 0.0f)
+			if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
 			{
-				M_Alfha.x += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-				M_Alfha.y -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-			}else {
-			if (M_Alfha.x >= 1.0f && M_Alfha.y <= 0.0f)
-			{
-					M_ClickFlag = true;
-			}
+				M_Alpha.x += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+				M_Alpha.y -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
 			}
 		}else {
-		if (M_PowerFlag)
-		{
-			if (M_Alfha.x > 0.0f && M_Alfha.y < 1.0f)
+			if (M_PowerFlag)
 			{
-				M_Alfha.x -= M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-				M_Alfha.y += M_AlfhaSpeed * g_gameTime->GetFrameDeltaTime();
-			}else {
-			if (M_Alfha.x <= 0.0f && M_Alfha.y >= 1.0f)
-			{
-				M_ClickFlag = true;
-			}
-			}
+				if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
+				{
+					M_Alpha.x -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+					M_Alpha.y += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+				}
 			}
 		}
-	}else {
+	}
+}
+void Opening::PowerButton()
+{
 	if (M_ClickFlag)
 	{
 		if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_POWERBUTTON))
@@ -143,12 +164,31 @@ void Opening::PowerButton()
 				M_PowerFlag = true;
 				M_ClickFlag = false;
 			}else {
-			if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_PowerFlag)
+				if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_PowerFlag)
+				{
+					M_PowerFlag = false;
+					M_ClickFlag = false;
+				}
+			}
+		}
+	}
+}
+void Opening::SoundButton()
+{
+	if (M_ClickFlag)
+	{
+		if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_MOUSE, COLLISION_MUSICBUTTON))
+		{
+			if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && !M_MuteFlag)
 			{
-				M_PowerFlag = false;
+				M_MuteFlag = true;
 				M_ClickFlag = false;
-			}
-			}
+			}else {
+				if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_MuteFlag)
+				{
+					M_MuteFlag = false;
+					M_ClickFlag = false;
+				}
 			}
 		}
 	}
@@ -168,4 +208,8 @@ void Opening::CurrentTime()
 		M_Minute[1] = M_Minute[0] / 10;
 		M_Minute[2] = M_Minute[0] % 10;
 	}
+	M_HourTexture[1].CurrentTimeSet(M_Hour[1], M_Alpha);
+	M_HourTexture[2].CurrentTimeSet(M_Hour[2], M_Alpha);
+	M_MinuteTexture[1].CurrentTimeSet(M_Minute[1], M_Alpha);
+	M_MinuteTexture[2].CurrentTimeSet(M_Minute[2], M_Alpha);
 }

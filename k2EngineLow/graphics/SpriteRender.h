@@ -35,9 +35,16 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
+		struct CurrentTime
+		{
+			int Time =0;
+			Vector2 Alpha = { 0.0f,0.0f };
+		};
 		void CurrentTimeInit
 		(
-			int* Time,
+			int Time,
+			Vector2 Alpha,
+			const char* Sprite,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -109,11 +116,13 @@ namespace nsK2EngineLow
 		const Vector4& GetMulColor() const
 		{return m_sprite.GetMulColor();}
 
+		void CurrentTimeSet(int Time, Vector2 Alpha)
+		{
+			S_CurrentTime.Time = Time;
+			S_CurrentTime.Alpha = Alpha;
+		}
+
 		void OnRender2D(RenderContext& rc) override;
-	//画像変換
-
-		void TextureSet(const char* Sprite);
-
 	private:
 		//スプライト
 		Texture M_Texture;
@@ -133,6 +142,8 @@ namespace nsK2EngineLow
 		Vector2 m_pivot = Sprite::DEFAULT_PIVOT;
 
 		Vector2 M_WideAndHeight;
+
+		CurrentTime S_CurrentTime;
 	};
 }
 

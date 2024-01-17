@@ -22,7 +22,7 @@ struct PSInput
 
 cbuffer AlfhaCb : register(b1)
 {
-    float2 Alfha;  
+    float2 Alpha;  
 };
 
 Texture2D<float4> Texture1 : register(t0);
@@ -39,21 +39,21 @@ PSInput VSMain(VSInput In)
 }
 float4 PSMain( PSInput In ) : SV_Target0
 {
-	float2 alfha = Alfha;
+	float2 alpha = Alpha;
 	float4 TexColor1;
 	float4 TexColor2;
 	float4 TexFinal;
 
 	TexColor1 = Texture1.Sample(Sampler,In.uv);
-	if(TexColor1.a>0.0)
+	if(TexColor1.a>0.1)
 	{TexColor2 = Texture2.Sample(Sampler,In.uv);}
 
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
 	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
 	
-	if(TexColor1.a>0.0)
+	if(TexColor1.a>0.1)
 	{
-		TexFinal = TexColor1 * alfha.x + TexColor2 * alfha.y;
+		TexFinal = TexColor1 * alpha.x + TexColor2 * alpha.y;
 		return TexFinal;
 	}
 	TexFinal = TexColor1;

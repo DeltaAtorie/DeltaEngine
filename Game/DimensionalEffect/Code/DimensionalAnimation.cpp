@@ -19,7 +19,6 @@ void DimensionalAnimation::Update()
 			{M_AnimationFrame = 1;}
 
 			GetFilePath();
-			M_AnimationTexture.TextureSet(M_TextureFilePath);
 		}
 		M_AnimationTexture.Update();
 	}

@@ -89,7 +89,9 @@ namespace nsK2EngineLow
 
 	void SpriteRender::CurrentTimeInit
 	(
-		int* Time,
+		int Time,
+		Vector2 Alpha,
+		const char* Sprite,
 		const float w,
 		const float h,
 		AlphaBlendMode alphaBlendMode
@@ -110,21 +112,19 @@ namespace nsK2EngineLow
 		InitData.m_ddsFilePath[7] = "Assets/Sprite/Count/7.DDS";
 		InitData.m_ddsFilePath[8] = "Assets/Sprite/Count/8.DDS";
 		InitData.m_ddsFilePath[9] = "Assets/Sprite/Count/9.DDS";
+		InitData.m_ddsFilePath[10] = Sprite;
 
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
 
-		InitData.m_expandConstantBuffer = Time;
-		InitData.m_expandConstantBufferSize = sizeof(Time);
+		S_CurrentTime.Time = Time;
+		S_CurrentTime.Alpha = Alpha;
+
+		InitData.m_expandConstantBuffer = &S_CurrentTime;
+		InitData.m_expandConstantBufferSize = sizeof(S_CurrentTime);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 
-		m_sprite.Init(InitData);
-	}
-
-	void SpriteRender::TextureSet(const char* Sprite)
-	{
-		InitData.m_ddsFilePath[0] = Sprite;
 		m_sprite.Init(InitData);
 	}
 
