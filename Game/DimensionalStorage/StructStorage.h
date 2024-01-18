@@ -30,11 +30,13 @@ class Opening;
 class Weather;
 class Fade;
 class Sound;
+class MessageDialog;
 struct ClassDimensionalEffect
 {
 	DimensionalAnimation* P_Animation = nullptr;
-	Opening* P_Opening = nullptr;
-	Weather* P_Weather = nullptr;
-	Fade* P_Fade       = nullptr;
-	Sound* P_Sound     = nullptr;
+	Opening* P_Opening                = nullptr;
+	Weather* P_Weather                = nullptr;
+	Fade* P_Fade                      = nullptr;
+	Sound* P_Sound                    = nullptr;
+	MessageDialog* P_Message          = nullptr;
 };

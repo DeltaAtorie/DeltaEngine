@@ -98,10 +98,10 @@ void Opening::Update()
 void Opening::Render(RenderContext& rc)
 {
 	M_WallTexture.Draw(rc);
-	M_UiFrameTexture.Draw(rc);
+	//M_UiFrameTexture.Draw(rc);
 	
 	M_PowerButtonTexture.Draw(rc);
-	if (!M_MuteFlag)
+	/*if (!M_MuteFlag)
 	{
 		M_SoundButtonTexture.Draw(rc);
 	}else {
@@ -109,13 +109,13 @@ void Opening::Render(RenderContext& rc)
 		{
 			M_MuteButtonTexture.Draw(rc);
 		}
-	}
+	}*/
 
-	M_ColonTexture.Draw(rc);
-	M_HourTexture[1].Draw(rc);
-	M_HourTexture[2].Draw(rc);
-	M_MinuteTexture[1].Draw(rc);
-	M_MinuteTexture[2].Draw(rc);
+	//M_ColonTexture.Draw(rc);
+	//M_HourTexture[1].Draw(rc);
+	//M_HourTexture[2].Draw(rc);
+	//M_MinuteTexture[1].Draw(rc);
+	//M_MinuteTexture[2].Draw(rc);
 }
 
 void Opening::Cool()
@@ -166,6 +166,8 @@ void Opening::PowerButton()
 			}else {
 				if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_PowerFlag)
 				{
+					//S_Effect.P_Message = NewGO<MessageDialog>(2,"message");
+					//S_Effect.P_Message->Init(0);
 					M_PowerFlag = false;
 					M_ClickFlag = false;
 				}

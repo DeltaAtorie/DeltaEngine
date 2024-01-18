@@ -21,7 +21,7 @@ private:
 	SpriteRender M_UiFrameTexture;
 	Level2DRender M_Level2D;
 
-	Vector2 M_Alpha = { 0.0f,1.0f };
+	Vector2 M_Alpha = { 1.0f,0.0f };
 	float M_AlphaSpeed = 3.5f;
 
 	float M_CoolTime  = 0.0f;

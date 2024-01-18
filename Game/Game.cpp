@@ -21,6 +21,8 @@ Game::Game()
 	
 	S_Operation.P_Mouse = NewGO<Mouse>(3, "mouse");
 	S_Operation.P_Controller = NewGO<Controller>(3, "controller");
+
+	S_Effect.P_Fade->StartFadeIn();
 }
 Game::~Game()
 {
