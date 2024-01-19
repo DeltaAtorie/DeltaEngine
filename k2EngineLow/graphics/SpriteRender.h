@@ -12,8 +12,6 @@ namespace nsK2EngineLow
 			const char* Sprite,
 			const float w,
 			const float h,
-			bool ColorOut = false,
-			bool ColorChange = false,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 

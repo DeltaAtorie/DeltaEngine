@@ -3,7 +3,7 @@
 DimensionalAnimation::DimensionalAnimation()
 {
 	M_TextureFilePath = "Assets/Sprite/Animation/Animation1.DDS";
-	M_AnimationTexture.Init(M_TextureFilePath, 1920.0f, 1080.0f, true);
+	M_AnimationTexture.Init(M_TextureFilePath, 1920.0f, 1080.0f);
 }
 void DimensionalAnimation::Update()
 {

@@ -8,17 +8,10 @@ namespace nsK2EngineLow
 		const char* Sprite,
 		const float w,
 		const float h,
-		bool ColorOut,
-		bool ColorChange,
 		AlphaBlendMode alphaBlendMode
 	)
 	{
-		if (ColorOut)
-		{
-			InitData.m_fxFilePath = "Assets/shader/ColorOut.fx";
-		}else {
-			InitData.m_fxFilePath = "Assets/shader/sprite.fx";
-		}
+		InitData.m_fxFilePath = "Assets/shader/ColorOut.fx";
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 		

@@ -166,8 +166,6 @@ void Opening::PowerButton()
 			}else {
 				if (S_Operation.P_Mouse->GetMouseFlag(MOUSE_LEFTBUTTON) && M_PowerFlag)
 				{
-					//S_Effect.P_Message = NewGO<MessageDialog>(2,"message");
-					//S_Effect.P_Message->Init(0);
 					M_PowerFlag = false;
 					M_ClickFlag = false;
 				}
