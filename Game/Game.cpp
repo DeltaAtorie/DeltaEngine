@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
-
-#include "Operation/Operation.h"
-#include "DimensionalEffect/DimensionalEffect.h"
-#include "DimensionalElement/DimensionalElement.h"
+#include "DimensionalStorage/HeaderStorage.h"
 Game::Game()
 {
 	S_Element.P_Camera = NewGO<DimensionalCamera>(1, "camera");

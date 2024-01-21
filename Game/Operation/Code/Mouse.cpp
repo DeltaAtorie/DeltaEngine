@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Mouse.h"
-#include "DimensionalElement/DimensionalElement.h"
-#include "DimensionalStorage/NumberStorage.h"
+#include "DimensionalStorage/HeaderStorage.h"
 bool Mouse::Start()
 {
 	HCURSOR hCursor = LoadCursorFromFile(L"Assets/Sprite/Tool/Cursor.ani");

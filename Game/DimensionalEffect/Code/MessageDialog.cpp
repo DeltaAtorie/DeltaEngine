@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "MessageDialog.h"
-
-#include "DimensionalEffect/DimensionalEffect.h"
-#include "Operation/Operation.h"
+#include "DimensionalStorage/HeaderStorage.h"
 bool MessageDialog::Start()
 {
 	//S_Element.P_Collision = FindGO<DimensionalCollision>("collision");

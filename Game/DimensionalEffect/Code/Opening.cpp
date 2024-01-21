@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "Opening.h"
-
-#include "DimensionalElement/DimensionalElement.h"
-#include "DimensionalEffect/DimensionalEffect.h"
-#include "DimensionalStorage/NumberStorage.h"
-#include "Operation/Operation.h"
+#include "DimensionalStorage/HeaderStorage.h"
 bool Opening::Start()
 {
 	S_Operation.P_Mouse = FindGO<Mouse>("mouse");
