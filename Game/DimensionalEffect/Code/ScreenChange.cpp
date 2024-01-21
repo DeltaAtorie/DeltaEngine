@@ -9,7 +9,7 @@ bool ScreenChange::Start()
 		if (objData.EqualObjectName("Right") == true)
 		{
 			objData.position.x += 1120.0f;
-			M_Texture[0].Init("Assets/Sprite/ScreenChange/Right.DDS", 1120.0f, 1080.0f);
+			M_Texture[0].Init("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS", 1120.0f, 1080.0f);
 			M_Texture[0].SetPosition(objData.position);
 			M_Texture[0].Update();
 
@@ -20,7 +20,7 @@ bool ScreenChange::Start()
 		if (objData.EqualObjectName("Left") == true)
 		{
 			objData.position.x -= 1120.0f;
-			M_Texture[1].Init("Assets/Sprite/ScreenChange/Left.DDS", 1120.0f, 1080.0f);
+			M_Texture[1].Init("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS", 1120.0f, 1080.0f);
 			M_Texture[1].SetPosition(objData.position);
 			M_Texture[1].Update();
 
