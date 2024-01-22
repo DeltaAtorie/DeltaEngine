@@ -8,15 +8,21 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 
-	void Move();
+	void MoveIn();
+	void MoveOut();
 private:
 	SpriteRender M_Texture[2];
 
 	Vector3 M_Position[2];
+	Vector3 M_PositionIn[2];
+	Vector3 M_PositionOut[2];
 
 	Level2DRender M_Level2D;
 
 	float M_Speed = 2000.0f;
+	bool M_MoveFlag    = false;
+	bool M_MoveInFlag  = false;
+	bool M_MoveOutFlag = true;
 
 	ClassDimensionalElement S_Element;
 };
