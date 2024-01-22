@@ -48,14 +48,14 @@ namespace nsK2EngineLow
 
 		struct ScreenChange
 		{
-			bool Flag = false;
-			bool Load = false;
+			int State = 0;
 			Vector2 Alpha = { 0.0f,0.0f };
 		};
 		void ScreenChangeInit
 		(
 			const char* Sprite1,
 			const char* Sprite2,
+			const char* Sprite3,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -132,10 +132,10 @@ namespace nsK2EngineLow
 			S_CurrentTime.Time  = Time;
 			S_CurrentTime.Alpha = Alpha;
 		}
-		void ScreenChangeSet(bool Flag, Vector2 Alpha)
+		void ScreenChangeSet(int State, Vector2 Alpha)
 		{
-			S_ScreenChange.Flag  = Flag;
-			S_ScreenChange.Alpha = Alpha;
+			S_ScreenChange.State  = State;
+			S_ScreenChange.Alpha  = Alpha;
 		}
 
 		void OnRender2D(RenderContext& rc) override;

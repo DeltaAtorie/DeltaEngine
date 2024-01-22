@@ -120,6 +120,7 @@ namespace nsK2EngineLow
 	(
 		const char* Sprite1,
 		const char* Sprite2,
+		const char* Sprite3,
 		const float w,
 		const float h,
 		AlphaBlendMode alphaBlendMode
@@ -132,6 +133,7 @@ namespace nsK2EngineLow
 
 		InitData.m_ddsFilePath[0] = Sprite1;
 		InitData.m_ddsFilePath[1] = Sprite2;
+		InitData.m_ddsFilePath[2] = Sprite3;
 
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
