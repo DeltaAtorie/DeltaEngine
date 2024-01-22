@@ -32,7 +32,7 @@ bool ScreenChange::Start()
 	{
 		if (objData.EqualObjectName("Right") == true)
 		{
-			M_Texture[0].Init("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS", 1120.0f, 1080.0f);
+			M_Texture[0].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS", "Assets/Sprite/ScreenChange/ScreenChangeRightOn.DDS", 1120.0f, 1080.0f);
 			if (M_MoveInFlag)
 			{
 				M_Position[0] = M_PositionOut[0];
@@ -52,7 +52,7 @@ bool ScreenChange::Start()
 
 		if (objData.EqualObjectName("Left") == true)
 		{
-			M_Texture[1].Init("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS", 1120.0f, 1080.0f);
+			M_Texture[1].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS", "Assets/Sprite/ScreenChange/ScreenChangeLeftOn.DDS", 1120.0f, 1080.0f);
 			if (M_MoveInFlag)
 			{
 				M_Position[1] = M_PositionOut[1];
@@ -74,6 +74,9 @@ bool ScreenChange::Start()
 }
 void ScreenChange::Update()
 {
+	if (M_AlphaFlag)
+	{Alpha();}
+
 	if (M_MoveInFlag)
 	{
 		MoveIn();
@@ -86,10 +89,12 @@ void ScreenChange::Update()
 	
 	M_Texture[0].Update();
 	M_Texture[0].SetPositionX(M_Position[0]);
+	M_Texture[0].ScreenChangeSet(M_AlphaFlag, M_Alpha);
 	S_Element.P_Collision->DecisionSetPosition(M_Position[0].x,M_Position[0].y, COLLISION_SCREENRIGHT);
 
 	M_Texture[1].Update();
 	M_Texture[1].SetPositionX(M_Position[1]);
+	M_Texture[1].ScreenChangeSet(M_AlphaFlag, M_Alpha);
 	S_Element.P_Collision->DecisionSetPosition(M_Position[1].x, M_Position[1].y, COLLISION_SCREENLEFT);
 }
 void ScreenChange::Render(RenderContext& rc)
@@ -102,6 +107,7 @@ void ScreenChange::MoveIn()
 {
 	if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_SCREENRIGHT, COLLISION_SCREENLEFT))
 	{
+		M_MoveState = SCREENCHANGE_IN;
 		M_Position[0].x -= M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_Position[1].x += M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_MoveFlag = true;
@@ -112,6 +118,7 @@ void ScreenChange::MoveIn()
 			M_Position[1] = M_PositionIn[1];
 			M_MoveFlag   = false;
 			M_MoveInFlag = false;
+			M_AlphaFlag = true;
 		}
 	}
 }
@@ -119,6 +126,7 @@ void ScreenChange::MoveOut()
 {
 	if (!S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENLEFTVALUE,DIRECTION_LEFT,COLLISION_SCREENLEFT) && !S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENRIGHTVALUE, DIRECTION_RIGHT, COLLISION_SCREENRIGHT))
 	{
+		M_MoveState = SCREENCHANGE_OUT;
 		M_Position[0].x += M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_Position[1].x -= M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_MoveFlag = true;
@@ -129,6 +137,37 @@ void ScreenChange::MoveOut()
 			M_Position[1] = M_PositionOut[1];
 			M_MoveFlag    = false;
 			M_MoveOutFlag = false;
+			M_AlphaFlag = true;
+		}
+	}
+}
+void ScreenChange::Alpha()
+{
+	if (M_MoveState == SCREENCHANGE_OUT)
+	{
+		if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
+		{
+			M_Alpha.x += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+			M_Alpha.y -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+		}else {
+			if (M_Alpha.x > 1.0f && M_Alpha.y < 0.0f)
+			{
+				M_MoveState = SCREENCHANGE_IN;
+			}
+		}
+	}else {
+		if (M_MoveState == SCREENCHANGE_IN)
+		{
+			if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
+			{
+				M_Alpha.x -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+				M_Alpha.y += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+			}else{
+				if (M_Alpha.x < 0.0f && M_Alpha.y > 1.0f)
+				{
+					M_MoveState = SCREENCHANGE_OUT;
+				}
+			}
 		}
 	}
 }

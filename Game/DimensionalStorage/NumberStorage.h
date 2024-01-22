@@ -32,3 +32,9 @@ enum MouseFlagStorage
 	MOUSE_FLICK = 2,
 	MOUSE_WHEEL = 3
 };
+enum ScreenChangeStorage
+{
+	SCREENCHANGE_NON,
+	SCREENCHANGE_IN,
+	SCREENCHANGE_OUT,
+};

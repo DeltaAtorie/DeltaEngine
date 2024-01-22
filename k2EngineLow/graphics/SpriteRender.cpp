@@ -82,8 +82,6 @@ namespace nsK2EngineLow
 
 	void SpriteRender::CurrentTimeInit
 	(
-		int Time,
-		Vector2 Alpha,
 		const char* Sprite,
 		const float w,
 		const float h,
@@ -110,11 +108,36 @@ namespace nsK2EngineLow
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
 
-		S_CurrentTime.Time = Time;
-		S_CurrentTime.Alpha = Alpha;
-
 		InitData.m_expandConstantBuffer = &S_CurrentTime;
 		InitData.m_expandConstantBufferSize = sizeof(S_CurrentTime);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
+	void SpriteRender::ScreenChangeInit
+	(
+		const char* Sprite1,
+		const char* Sprite2,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/ScreenChange.fx";
+
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = Sprite1;
+		InitData.m_ddsFilePath[1] = Sprite2;
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_expandConstantBuffer = &S_ScreenChange;
+		InitData.m_expandConstantBufferSize = sizeof(S_ScreenChange);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

@@ -40,9 +40,22 @@ namespace nsK2EngineLow
 		};
 		void CurrentTimeInit
 		(
-			int Time,
-			Vector2 Alpha,
 			const char* Sprite,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
+		struct ScreenChange
+		{
+			bool Flag = false;
+			bool Load = false;
+			Vector2 Alpha = { 0.0f,0.0f };
+		};
+		void ScreenChangeInit
+		(
+			const char* Sprite1,
+			const char* Sprite2,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -116,8 +129,13 @@ namespace nsK2EngineLow
 
 		void CurrentTimeSet(int Time, Vector2 Alpha)
 		{
-			S_CurrentTime.Time = Time;
+			S_CurrentTime.Time  = Time;
 			S_CurrentTime.Alpha = Alpha;
+		}
+		void ScreenChangeSet(bool Flag, Vector2 Alpha)
+		{
+			S_ScreenChange.Flag  = Flag;
+			S_ScreenChange.Alpha = Alpha;
 		}
 
 		void OnRender2D(RenderContext& rc) override;
@@ -142,6 +160,7 @@ namespace nsK2EngineLow
 		Vector2 M_WideAndHeight;
 
 		CurrentTime S_CurrentTime;
+		ScreenChange S_ScreenChange;
 	};
 }
 

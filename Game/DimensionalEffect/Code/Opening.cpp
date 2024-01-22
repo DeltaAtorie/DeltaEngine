@@ -54,28 +54,28 @@ bool Opening::Start()
 		}
 		if (objData.EqualObjectName("Hour10") == true)
 		{
-			M_HourTexture[1].CurrentTimeInit(M_Hour[1],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS", 80.0f, 80.0f);
+			M_HourTexture[1].CurrentTimeInit("Assets/Sprite/Opening/WallPaper.DDS", 80.0f, 80.0f);
 			M_HourTexture[1].SetPosition(objData.position);
 			M_HourTexture[1].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Hour1") == true)
 		{
-			M_HourTexture[2].CurrentTimeInit(M_Hour[2],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
+			M_HourTexture[2].CurrentTimeInit("Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_HourTexture[2].SetPosition(objData.position);
 			M_HourTexture[2].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Minute10") == true)
 		{
-			M_MinuteTexture[1].CurrentTimeInit(M_Minute[1],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
+			M_MinuteTexture[1].CurrentTimeInit("Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_MinuteTexture[1].SetPosition(objData.position);
 			M_MinuteTexture[1].Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Minute1") == true)
 		{
-			M_MinuteTexture[2].CurrentTimeInit(M_Minute[2],M_Alpha, "Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
+			M_MinuteTexture[2].CurrentTimeInit("Assets/Sprite/Opening/WallPaper.DDS",80.0f, 80.0f);
 			M_MinuteTexture[2].SetPosition(objData.position);
 			M_MinuteTexture[2].Update();
 			return true;
