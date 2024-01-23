@@ -1,65 +1,62 @@
 #include <string>
+#include <iostream>
 #include "stdafx.h"
 #include "DimensionalAnimation.h"
 DimensionalAnimation::DimensionalAnimation()
 {
-	M_FilePath = "Assets/Sprite/Animation/Animation0.DDS";
+	SetAnimation();
+}
+DimensionalAnimation::~DimensionalAnimation()
+{
+	for (int i = 0; i < M_AnimationFrameLimit; i++)
+	{
+		free((void*)M_TextureFilePath[i]);
+	}
 }
 void DimensionalAnimation::Update()
 {
-	/*for (int i = 0; i < 1; i++)
-	{
-		for (int j = 0; 1; j++)
-		{
-			Word = M_FilePath[j];
-		}
-	}*/
 	if (M_Animation != ANIMATION_NON)
 	{
-		if (!Flag)
-		{
-			SetFilePath(ANIMATION_OPENING);
-		}
-		
-		M_Frame++;
+		M_Frame ++;
 		if (M_Frame > M_FrameLimit)
 		{
-			M_Frame = 0;
 			M_AnimationFrame++;
-
-			if (M_AnimationFrame > M_AnimationFrameLimit[M_Animation])
-			{M_AnimationFrame = 1;}
+			if (M_AnimationFrame > M_AnimationFrameLimit)
+			{
+				M_AnimationFrame = 0;
+			}
+			M_Frame = 0;
 		}
-		M_AnimationTexture.Update();
 	}
+	M_AnimationTexture.Update();
 }
 void DimensionalAnimation::Render(RenderContext& rc)
 {
 	if (M_Animation != ANIMATION_NON)
-	{M_AnimationTexture.Draw(rc);}
+	{
+		M_AnimationTexture.Draw(rc);
+	}
 }
 
-void DimensionalAnimation::SetAnimation(int Animation)
+void DimensionalAnimation::SetAnimation()
 {
-	switch (Animation)
+	switch (M_Animation)
 	{
 	case ANIMATION_OPENING:
-		M_FilePath = "Assets/Sprite/Animation/Animation0.DDS";
-		M_Animation = ANIMATION_OPENING;
-		M_AnimationFrameLimit[M_Animation] = 3;
-		SetFilePath(M_Animation);
+		M_AnimationFrameLimit = 3;
+		SetFilePath();
 		break;
 
 	}
+	M_AnimationTexture.AnimationInit(M_TextureFilePath, M_AnimationFrameLimit, 1920.0f, 1080.0);
 }
-void DimensionalAnimation::SetFilePath(int Animation)
+void DimensionalAnimation::SetFilePath()
 {
-	for (int i = 0 ; i < M_AnimationFrameLimit[Animation] ; i++)
+	for (int i = 0 ; i < M_AnimationFrameLimit ; i++)
 	{
-		for (int j = 0 ; 1 ; j++)
-		{
-			char Word = M_FilePath[j];
-		}
+		GetFilePath(M_FilePath, M_Animation);
+		GetFileNumber(M_FilePath, i);
+		M_TextureFilePath[i] = _strdup(M_FilePath);
 	}
 }
 void DimensionalAnimation::GetFilePath(char* Word, int Animation)
@@ -73,8 +70,7 @@ void DimensionalAnimation::GetFilePath(char* Word, int Animation)
 }
 void DimensionalAnimation::GetFileNumber(char* Word, int AnimationFrame)
 {
-	int AnimationNumber = 65;
-	std::string SrtNumber = std::to_string(AnimationNumber);
+	std::string SrtNumber = std::to_string(AnimationFrame);
 	const char* FileNumber = SrtNumber.c_str();
 	const char* Extension = ".DDS";
 	char Text[15];
