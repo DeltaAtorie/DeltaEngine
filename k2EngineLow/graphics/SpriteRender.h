@@ -61,6 +61,19 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
+		struct DimensionalAnimation
+		{
+			int AnimationFrame = 0;
+		};
+		void AnimationInit
+		(
+			const char* Sprite[],
+			int FrameLimit,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
 		//更新
 		void Update()
 		{
@@ -137,7 +150,6 @@ namespace nsK2EngineLow
 			S_ScreenChange.State  = State;
 			S_ScreenChange.Alpha  = Alpha;
 		}
-
 		void OnRender2D(RenderContext& rc) override;
 	private:
 		//スプライト
@@ -161,6 +173,7 @@ namespace nsK2EngineLow
 
 		CurrentTime S_CurrentTime;
 		ScreenChange S_ScreenChange;
+		DimensionalAnimation S_Animation;
 	};
 }
 

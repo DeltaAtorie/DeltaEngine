@@ -1,6 +1,17 @@
 #pragma once
 #include "DimensionalStorage/HeaderStorage.h"
 #include "level2D/Level2DRender.h"
+enum ScreenChangeStorage
+{
+	SCREENCHANGE_NON,
+	SCREENCHANGE_IN,
+	SCREENCHANGE_OUT,
+
+	SCREENCHANGE_ALPHA,
+	SCREENCHANGE_LOAD,
+	SCREENCHANGE_X,
+	SCREENCHANGE_Y,
+};
 class ScreenChange : public IGameObject
 {
 public:
@@ -19,18 +30,6 @@ public:
 	{M_MoveState = SCREENCHANGE_IN;}
 	void ScreenCgangeOut()
 	{M_MoveState = SCREENCHANGE_OUT;}
-
-	enum ScreenChangeStorage
-	{
-		SCREENCHANGE_NON,
-		SCREENCHANGE_IN,
-		SCREENCHANGE_OUT,
-
-		SCREENCHANGE_ALPHA,
-		SCREENCHANGE_LOAD,
-		SCREENCHANGE_X,
-		SCREENCHANGE_Y,
-	};
 private:
 	SpriteRender M_Texture[2];
 

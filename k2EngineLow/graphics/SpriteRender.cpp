@@ -146,6 +146,34 @@ namespace nsK2EngineLow
 		m_sprite.Init(InitData);
 	}
 
+	void SpriteRender::AnimationInit
+	(
+		const char* Sprite[],
+		int FrameLimit,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Animation.fx";
+
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		for (int i = 0 ; i < FrameLimit ; i++)
+		{InitData.m_ddsFilePath[i] = Sprite[i];}
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_expandConstantBuffer = &S_Animation;
+		InitData.m_expandConstantBufferSize = sizeof(S_Animation);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
 	void SpriteRender::Draw(RenderContext& rc)
 	{
 		g_renderingEngine->InRenderObject(this);
