@@ -33,11 +33,11 @@ bool ScreenChange::Start()
 		if (objData.EqualObjectName("Right") == true)
 		{
 			M_Texture[0].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS", "Assets/Sprite/ScreenChange/ScreenChangeRightOn.DDS", "Assets/Sprite/ScreenChange/ScreenChangeRightLoad.DDS", 1120.0f, 1080.0f);
-			if (M_MoveInFlag)
+			if (M_MoveState == SCREENCHANGE_IN)
 			{
 				M_Position[0] = M_PositionOut[0];
 			}else {
-				if (M_MoveOutFlag)
+				if (M_MoveState == SCREENCHANGE_OUT)
 				{
 					M_Position[0] = M_PositionIn[0];
 				}
@@ -53,11 +53,11 @@ bool ScreenChange::Start()
 		if (objData.EqualObjectName("Left") == true)
 		{
 			M_Texture[1].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS", "Assets/Sprite/ScreenChange/ScreenChangeLeftOn.DDS","Assets/Sprite/ScreenChange/ScreenChangeLeftLoad.DDS" ,1120.0f, 1080.0f);
-			if (M_MoveInFlag)
+			if (M_MoveState == SCREENCHANGE_IN)
 			{
 				M_Position[1] = M_PositionOut[1];
 			}else {
-				if (M_MoveOutFlag)
+				if (M_MoveState == SCREENCHANGE_OUT)
 				{
 					M_Position[1] = M_PositionIn[1];
 				}
@@ -74,14 +74,21 @@ bool ScreenChange::Start()
 }
 void ScreenChange::Update()
 {
-	if (M_ChangeState == SCREENCHANGE_ALPHA || M_ChangeState == SCREENCHANGE_LOAD)
-	{Alpha();}
+	if (M_ChangeState == SCREENCHANGE_ALPHA)
+	{
+		Alpha();
+	}else {
+		if (M_ChangeState == SCREENCHANGE_LOAD)
+		{
+			Load();
+		}
+	}
 
-	if (M_MoveInFlag)
+	if (M_MoveState == SCREENCHANGE_IN)
 	{
 		MoveIn();
 	}else {
-		if (M_MoveOutFlag)
+		if (M_MoveState == SCREENCHANGE_OUT)
 		{
 			MoveOut();
 		}
@@ -107,19 +114,16 @@ void ScreenChange::MoveIn()
 {
 	if (!S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_SCREENRIGHT, COLLISION_SCREENLEFT))
 	{
-		M_MoveState = SCREENCHANGE_IN;
+		M_ChangeState = SCREENCHANGE_ALPHA;
 		M_Position[0].x -= M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_Position[1].x += M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_MoveFlag = true;
 	}else {
 		if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_SCREENRIGHT, COLLISION_SCREENLEFT))
 		{
-			M_ChangeState = SCREENCHANGE_ALPHA;
 			M_Position[0] = M_PositionIn[0];
 			M_Position[1] = M_PositionIn[1];
 			M_MoveFlag   = false;
-			M_MoveInFlag = false;
-			
 		}
 	}
 }
@@ -127,18 +131,16 @@ void ScreenChange::MoveOut()
 {
 	if (!S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENLEFTVALUE,DIRECTION_LEFT,COLLISION_SCREENLEFT) && !S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENRIGHTVALUE, DIRECTION_RIGHT, COLLISION_SCREENRIGHT))
 	{
-		M_MoveState = SCREENCHANGE_OUT;
+		M_ChangeState = SCREENCHANGE_ALPHA;
 		M_Position[0].x += M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_Position[1].x -= M_Speed * g_gameTime->GetFrameDeltaTime();
 		M_MoveFlag = true;
 	}else {
 		if (S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENLEFTVALUE,DIRECTION_LEFT,COLLISION_SCREENLEFT) && S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENRIGHTVALUE, DIRECTION_RIGHT, COLLISION_SCREENRIGHT))
 		{
-			M_ChangeState = SCREENCHANGE_ALPHA;
 			M_Position[0] = M_PositionOut[0];
 			M_Position[1] = M_PositionOut[1];
 			M_MoveFlag    = false;
-			M_MoveOutFlag = false;
 		}
 	}
 }
@@ -148,28 +150,53 @@ void ScreenChange::Alpha()
 	{
 		if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
 		{
-			M_Alpha.x += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-			M_Alpha.y -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+			AlphaX();
 		}else {
-			if (M_Alpha.x > 1.0f && M_Alpha.y < 0.0f)
-			{
-				M_MoveState = SCREENCHANGE_IN;
-				M_ChangeState = SCREENCHANGE_LOAD;
-			}
+			M_MoveState = SCREENCHANGE_NON;
+			M_AlphaState = SCREENCHANGE_Y;
 		}
 	}else {
 		if (M_MoveState == SCREENCHANGE_IN)
 		{
 			if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
 			{
-				M_Alpha.x -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-				M_Alpha.y += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-			}else{
-				if (M_Alpha.x < 0.0f && M_Alpha.y > 1.0f)
-				{
-					M_MoveState = SCREENCHANGE_OUT;
-					M_ChangeState = SCREENCHANGE_LOAD;
-				}
+				AlphaY();
+			}else {
+				M_MoveState = SCREENCHANGE_NON;
+				M_ChangeState = SCREENCHANGE_LOAD;
+				M_AlphaState = SCREENCHANGE_X;
+			}
+		}
+	}
+}
+void ScreenChange::AlphaX()
+{
+	M_Alpha.x += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+	M_Alpha.y -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+}
+void ScreenChange::AlphaY()
+{
+	M_Alpha.x -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+	M_Alpha.y += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
+}
+void ScreenChange::Load()
+{
+	if (M_AlphaState == SCREENCHANGE_X)
+	{
+		if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
+		{
+			AlphaX();
+		}else {
+			M_AlphaState = SCREENCHANGE_Y;
+		}
+	}else {
+		if (M_AlphaState == SCREENCHANGE_Y)
+		{
+			if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
+			{
+				AlphaY();
+			}else {
+				M_AlphaState = SCREENCHANGE_X;
 			}
 		}
 	}
