@@ -15,18 +15,17 @@ public:
 
 	void InitAnimation(const char* Sprite , int AnimationFrameLimit , int FrameLimit)
 	{
-
 		M_AnimationFrameLimit = AnimationFrameLimit;
 		M_FrameLimit          = FrameLimit;
 		M_AnimationPower      = ANIMATION_ON;
 		M_AnimationState      = ANIMATION_PLAY;
-
 		SetFilePath(Sprite);
 	}
-	void SetPosition(Vector3 Position)
-	{M_AnimationPosition = Position;}
 	void SetFilePath(const char* Sprite);
 	void GetFileNumber(char* Word,int AnimationFrame);
+
+	void SetPosition(Vector3 Position)
+	{M_AnimationPosition = Position;}
 
 	void PowerOn()
 	{M_AnimationPower = ANIMATION_ON;}

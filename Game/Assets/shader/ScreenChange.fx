@@ -54,13 +54,13 @@ float4 PSMain( PSInput In ) : SV_Target0
 	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
 	TexColor3.rgb = pow(TexColor3.rgb, 1.0 / 2.2);
 		
-	if(State == 4)
+	if(State == 3)
 	{
 		TexFinal = TexColor2 * Alpha.y + TexColor3 * Alpha.x;
 		return TexFinal;
 	}
 
-	if(State == 3)
+	if(State == 2)
 	{
 		TexFinal = TexColor1 * Alpha.x + TexColor2 * Alpha.y;
 		return TexFinal;

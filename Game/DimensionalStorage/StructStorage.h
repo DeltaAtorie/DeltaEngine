@@ -17,12 +17,14 @@ struct ClassOperation
 class DimensionalAnimation;
 class DimensionalCamera;
 class DimensionalCollision;
+class Helper;
 class MapCreate;
 struct ClassDimensionalElement
 {
 	DimensionalAnimation* P_Animation = nullptr;
 	DimensionalCamera* P_Camera       = nullptr;
 	DimensionalCollision* P_Collision = nullptr;
+	Helper* P_Helper                  = nullptr;
 	MapCreate* P_MapCreate            = nullptr;
 };
 

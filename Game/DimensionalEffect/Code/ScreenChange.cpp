@@ -4,6 +4,7 @@
 bool ScreenChange::Start()
 {
 	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
+	S_Element.P_Helper    = FindGO<Helper>("helper");
 	M_Level2D.Init("Assets/Sprite/ScreenChange/ScreenChange.casl", [&](Level2DRenderObjectData& objData)
 	{
 		if (objData.EqualObjectName("RightIn") == true)
@@ -74,15 +75,7 @@ bool ScreenChange::Start()
 }
 void ScreenChange::Update()
 {
-	if (M_ChangeState == SCREENCHANGE_ALPHA)
-	{
-		Alpha();
-	}else {
-		if (M_ChangeState == SCREENCHANGE_LOAD)
-		{
-			Load();
-		}
-	}
+	AlphaUpdate();
 
 	if (M_MoveState == SCREENCHANGE_IN)
 	{
@@ -121,6 +114,8 @@ void ScreenChange::MoveIn()
 	}else {
 		if (S_Element.P_Collision->DecisionAndDecisionCollision(COLLISION_SCREENRIGHT, COLLISION_SCREENLEFT))
 		{
+			M_MoveState = SCREENCHANGE_NON;
+			M_AlphaState = SCREENCHANGE_REVERSE;
 			M_Position[0] = M_PositionIn[0];
 			M_Position[1] = M_PositionIn[1];
 			M_MoveFlag   = false;
@@ -138,65 +133,33 @@ void ScreenChange::MoveOut()
 	}else {
 		if (S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENLEFTVALUE,DIRECTION_LEFT,COLLISION_SCREENLEFT) && S_Element.P_Collision->EmptyAndDecisionCollision(COLLISION_SCREENRIGHTVALUE, DIRECTION_RIGHT, COLLISION_SCREENRIGHT))
 		{
+			M_MoveState = SCREENCHANGE_NON;
+			M_AlphaState = SCREENCHANGE_FORWARD;
 			M_Position[0] = M_PositionOut[0];
 			M_Position[1] = M_PositionOut[1];
 			M_MoveFlag    = false;
 		}
 	}
 }
-void ScreenChange::Alpha()
+void ScreenChange::AlphaUpdate()
 {
-	if (M_MoveState == SCREENCHANGE_OUT)
+	if (M_AlphaState == SCREENCHANGE_FORWARD)
 	{
 		if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
 		{
-			AlphaX();
+			S_Element.P_Helper->ForwardAlphaUpdate(M_Alpha, 1.0f);
 		}else {
-			M_MoveState = SCREENCHANGE_NON;
-			M_AlphaState = SCREENCHANGE_Y;
+			M_AlphaState = SCREENCHANGE_REVERSE;
 		}
 	}else {
-		if (M_MoveState == SCREENCHANGE_IN)
+		if (M_AlphaState == SCREENCHANGE_REVERSE)
 		{
 			if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
 			{
-				AlphaY();
+				S_Element.P_Helper->ReverseAlphaUpdate(M_Alpha, 1.0f);
 			}else {
-				M_MoveState = SCREENCHANGE_NON;
 				M_ChangeState = SCREENCHANGE_LOAD;
-				M_AlphaState = SCREENCHANGE_X;
-			}
-		}
-	}
-}
-void ScreenChange::AlphaX()
-{
-	M_Alpha.x += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-	M_Alpha.y -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-}
-void ScreenChange::AlphaY()
-{
-	M_Alpha.x -= M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-	M_Alpha.y += M_AlphaSpeed * g_gameTime->GetFrameDeltaTime();
-}
-void ScreenChange::Load()
-{
-	if (M_AlphaState == SCREENCHANGE_X)
-	{
-		if (M_Alpha.x < 1.0f && M_Alpha.y > 0.0f)
-		{
-			AlphaX();
-		}else {
-			M_AlphaState = SCREENCHANGE_Y;
-		}
-	}else {
-		if (M_AlphaState == SCREENCHANGE_Y)
-		{
-			if (M_Alpha.x > 0.0f && M_Alpha.y < 1.0f)
-			{
-				AlphaY();
-			}else {
-				M_AlphaState = SCREENCHANGE_X;
+				M_AlphaState = SCREENCHANGE_FORWARD;
 			}
 		}
 	}
