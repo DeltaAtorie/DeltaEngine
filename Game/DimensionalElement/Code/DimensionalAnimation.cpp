@@ -2,10 +2,6 @@
 #include <iostream>
 #include "stdafx.h"
 #include "DimensionalAnimation.h"
-DimensionalAnimation::DimensionalAnimation()
-{
-	SetAnimation();
-}
 DimensionalAnimation::~DimensionalAnimation()
 {
 	for (int i = 0; i < M_AnimationFrameLimit; i++)
@@ -13,59 +9,36 @@ DimensionalAnimation::~DimensionalAnimation()
 }
 void DimensionalAnimation::Update()
 {
-	if (M_Animation != ANIMATION_NON)
+	if (M_AnimationState == ANIMATION_PLAY)
 	{
-		M_Frame ++;
+		M_Frame++;
 		if (M_Frame > M_FrameLimit)
 		{
 			M_AnimationFrame++;
 			if (M_AnimationFrame >= M_AnimationFrameLimit)
-			{
-				M_AnimationFrame = 0;
-			}
+			{M_AnimationFrame = 0;}
 			M_Frame = 0;
 		}
+		M_AnimationTexture.AnimationSet(M_AnimationFrame);
+		M_AnimationTexture.SetPosition(M_AnimationPosition);
+		M_AnimationTexture.Update();
 	}
-	M_AnimationTexture.Update();
-	M_AnimationTexture.AnimationSet(M_AnimationFrame);
 }
 void DimensionalAnimation::Render(RenderContext& rc)
 {
-	if (M_Animation != ANIMATION_NON)
-	{
-		M_AnimationTexture.Draw(rc);
-	}
+	if (M_AnimationPower == ANIMATION_ON)
+	{M_AnimationTexture.Draw(rc);}
 }
 
-void DimensionalAnimation::SetAnimation()
-{
-	switch (M_Animation)
-	{
-	case ANIMATION_OPENING:
-		M_AnimationFrameLimit = 3;
-		SetFilePath();
-		break;
-
-	}
-	M_AnimationTexture.AnimationInit(M_TextureFilePath, M_AnimationFrameLimit, 1920.0f, 1080.0);
-}
-void DimensionalAnimation::SetFilePath()
+void DimensionalAnimation::SetFilePath(const char* Sprite)
 {
 	for (int i = 0 ; i < M_AnimationFrameLimit ; i++)
 	{
-		GetFilePath(M_FilePath, M_Animation);
+		strcpy(M_FilePath, Sprite);
 		GetFileNumber(M_FilePath, i);
 		M_TextureFilePath[i] = _strdup(M_FilePath);
 	}
-}
-void DimensionalAnimation::GetFilePath(char* Word, int Animation)
-{
-	switch (Animation)
-	{
-	case ANIMATION_OPENING:
-		strcpy(Word, "Assets/Sprite/Animation/Animation");
-		break;
-	}
+	M_AnimationTexture.AnimationInit(M_TextureFilePath, M_AnimationFrameLimit, 1920.0f, 1080.0);
 }
 void DimensionalAnimation::GetFileNumber(char* Word, int AnimationFrame)
 {

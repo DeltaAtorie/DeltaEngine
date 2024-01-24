@@ -7,7 +7,7 @@ Game::Game()
 	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
 	S_Element.P_Animation = NewGO<DimensionalAnimation>(2, "animation");
-	
+	S_Element.P_Animation->InitAnimation("Assets/Sprite/Animation/Animation", 3, 15);
 	
 	
 	//S_Effect.P_Opening = NewGO<Opening>(2, "opening");
