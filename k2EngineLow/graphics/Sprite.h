@@ -23,6 +23,7 @@ namespace nsK2EngineLow {
 		std::array<const char*, MAX_TEXTURE> m_pngFilePath = { nullptr };	//PNGファイルのファイルパス。
 		std::array<const char*, MAX_TEXTURE> m_jpgFilePath = { nullptr };	//JPGファイルのファイルパス。
 		std::array<Texture*, MAX_TEXTURE> m_textures = { nullptr };		//使用するテクスチャ。DDSファイルのパスが指定されている場合は、このパラメータは無視されます。
+		std::array<Texture*, MAX_TEXTURE> m_animationtextures = { nullptr };		//使用するテクスチャ。DDSファイルのパスが指定されている場合は、このパラメータは無視されます。
 		const char* m_vsEntryPointFunc = "VSMain";						//頂点シェーダーのエントリーポイント。
 		const char* m_psEntryPoinFunc = "PSMain";						//ピクセルシェーダーのエントリーポイント。
 		const char* m_fxFilePath = nullptr;								//.fxファイルのファイルパス。

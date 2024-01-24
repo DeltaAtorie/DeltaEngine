@@ -166,8 +166,9 @@ namespace nsK2EngineLow
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
 
-	/*	InitData.m_expandConstantBuffer = &S_Animation;
-		InitData.m_expandConstantBufferSize = sizeof(S_Animation);*/
+		S_Animation.AnimationFrameLimit = FrameLimit;
+		InitData.m_expandConstantBuffer = &S_Animation;
+		InitData.m_expandConstantBufferSize = sizeof(S_Animation);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

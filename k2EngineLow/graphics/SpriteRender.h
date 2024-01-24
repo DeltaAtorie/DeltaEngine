@@ -63,7 +63,8 @@ namespace nsK2EngineLow
 
 		struct DimensionalAnimation
 		{
-			int AnimationFrame = 0;
+			int AnimationFrame      = 0;
+			int AnimationFrameLimit = 0;
 		};
 		void AnimationInit
 		(
@@ -150,6 +151,8 @@ namespace nsK2EngineLow
 			S_ScreenChange.State  = State;
 			S_ScreenChange.Alpha  = Alpha;
 		}
+		void AnimationSet(int Frame)
+		{S_Animation.AnimationFrame = Frame;}
 		void OnRender2D(RenderContext& rc) override;
 	private:
 		//スプライト

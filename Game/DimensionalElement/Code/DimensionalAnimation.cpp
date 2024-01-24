@@ -9,9 +9,7 @@ DimensionalAnimation::DimensionalAnimation()
 DimensionalAnimation::~DimensionalAnimation()
 {
 	for (int i = 0; i < M_AnimationFrameLimit; i++)
-	{
-		free((void*)M_TextureFilePath[i]);
-	}
+	{free((void*)M_TextureFilePath[i]);}
 }
 void DimensionalAnimation::Update()
 {
@@ -21,7 +19,7 @@ void DimensionalAnimation::Update()
 		if (M_Frame > M_FrameLimit)
 		{
 			M_AnimationFrame++;
-			if (M_AnimationFrame > M_AnimationFrameLimit)
+			if (M_AnimationFrame >= M_AnimationFrameLimit)
 			{
 				M_AnimationFrame = 0;
 			}
@@ -29,6 +27,7 @@ void DimensionalAnimation::Update()
 		}
 	}
 	M_AnimationTexture.Update();
+	M_AnimationTexture.AnimationSet(M_AnimationFrame);
 }
 void DimensionalAnimation::Render(RenderContext& rc)
 {
@@ -80,20 +79,3 @@ void DimensionalAnimation::GetFileNumber(char* Word, int AnimationFrame)
 	strcat(Word, Text);
 	return;
 }
-
-
-//const char* a[150];
-//char c[256];
-//strcpy(c, "Assets/Sprite/Animation/Animation");
-//char d[256];
-//strcpy(d, "0.DDS");
-//
-//int totalSize = strlen(c) + strlen(d) + 1;  // 1‚Í null •¶Žš‚Ì•ª
-//a[0] = new char[totalSize];
-//
-//strcpy(const_cast<char*>(a[0]), c);
-//strcat(const_cast<char*>(a[0]), d);
-//
-//printf("%s", a[0]);
-//
-//delete[] const_cast<char*>(a[0]);

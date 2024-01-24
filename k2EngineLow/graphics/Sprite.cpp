@@ -1,4 +1,5 @@
 #include "k2EngineLowPreCompile.h"
+#include "k2EngineLowPreCompile.h"
 #include "Sprite.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
@@ -20,7 +21,8 @@ namespace nsK2EngineLow {
         if (initData.m_ddsFilePath[0] != nullptr) {
             //ddsファイルのパスが指定されてるのなら、ddsファイルからテクスチャを作成する。
             int texNo = 0;
-            while (initData.m_ddsFilePath[texNo] && texNo < MAX_TEXTURE) {
+            while (initData.m_ddsFilePath[texNo] && texNo < MAX_TEXTURE) 
+            {
                 wchar_t wddsFilePath[1024];
                 mbstowcs(wddsFilePath, initData.m_ddsFilePath[texNo], 1023);
                 m_textures[texNo].InitFromDDSFile(wddsFilePath);
@@ -56,14 +58,17 @@ namespace nsK2EngineLow {
     }
     void Sprite::InitDescriptorHeap(const SpriteInitData& initData)
     {
-        if (m_textureExternal[0] != nullptr) {
+        if (m_textureExternal[0] != nullptr)
+        {
             //外部のテクスチャが指定されている。
-            for (int texNo = 0; texNo < m_numTexture; texNo++) {
+            for (int texNo = 0; texNo < m_numTexture; texNo++)
+            {
                 m_descriptorHeap.RegistShaderResource(texNo, *m_textureExternal[texNo]);
             }
         }
         else {
-            for (int texNo = 0; texNo < m_numTexture; texNo++) {
+            for (int texNo = 0; texNo < m_numTexture; texNo++) 
+            {
                 m_descriptorHeap.RegistShaderResource(texNo, m_textures[texNo]);
             }
         }
