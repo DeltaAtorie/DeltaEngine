@@ -204,8 +204,8 @@ void Opening::CurrentTime()
 		M_Minute[1] = M_Minute[0] / 10;
 		M_Minute[2] = M_Minute[0] % 10;
 	}
-	M_HourTexture[1].CurrentTimeSet(M_Hour[1], M_Alpha);
-	M_HourTexture[2].CurrentTimeSet(M_Hour[2], M_Alpha);
-	M_MinuteTexture[1].CurrentTimeSet(M_Minute[1], M_Alpha);
-	M_MinuteTexture[2].CurrentTimeSet(M_Minute[2], M_Alpha);
+	M_HourTexture[1].CurrentTimeSet(M_Hour[1]);
+	M_HourTexture[2].CurrentTimeSet(M_Hour[2]);
+	M_MinuteTexture[1].CurrentTimeSet(M_Minute[1]);
+	M_MinuteTexture[2].CurrentTimeSet(M_Minute[2]);
 }

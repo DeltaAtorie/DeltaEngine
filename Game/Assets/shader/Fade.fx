@@ -57,6 +57,6 @@ float4 PSMain( PSInput In ) : SV_Target0
 		return TexFinal;
 	}
 	TexFinal = TexColor1;
-	return TexFinal;
+	return TexFinal * mulColor;
 
 }

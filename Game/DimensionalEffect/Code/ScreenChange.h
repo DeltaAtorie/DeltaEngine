@@ -3,11 +3,9 @@
 #include "level2D/Level2DRender.h"
 enum ScreenChangeStorage
 {
-	
 	SCREENCHANGE_IN,
 	SCREENCHANGE_OUT,
 
-	SCREENCHANGE_ALPHA,
 	SCREENCHANGE_LOAD,
 
 	SCREENCHANGE_FORWARD,
@@ -47,5 +45,6 @@ private:
 
 	Vector2 M_Alpha = { 1.0f,0.0f };
 	ClassDimensionalElement S_Element;
+	ClassDimensionalEffect S_Effect;
 };
 

@@ -37,7 +37,6 @@ namespace nsK2EngineLow
 	)
 	{
 		InitData.m_fxFilePath = "Assets/shader/Weather.fx";
-
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
@@ -62,7 +61,6 @@ namespace nsK2EngineLow
 	)
 	{
 		InitData.m_fxFilePath = "Assets/shader/Fade.fx";
-
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
@@ -120,20 +118,17 @@ namespace nsK2EngineLow
 	(
 		const char* Sprite1,
 		const char* Sprite2,
-		const char* Sprite3,
 		const float w,
 		const float h,
 		AlphaBlendMode alphaBlendMode
 	)
 	{
 		InitData.m_fxFilePath = "Assets/shader/ScreenChange.fx";
-
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
 		InitData.m_ddsFilePath[0] = Sprite1;
 		InitData.m_ddsFilePath[1] = Sprite2;
-		InitData.m_ddsFilePath[2] = Sprite3;
 
 		InitData.m_width = static_cast<UINT>(w);
 		InitData.m_height = static_cast<UINT>(h);
@@ -156,7 +151,6 @@ namespace nsK2EngineLow
 	)
 	{
 		InitData.m_fxFilePath = "Assets/shader/Animation.fx";
-
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
@@ -169,6 +163,35 @@ namespace nsK2EngineLow
 		S_Animation.AnimationFrameLimit = FrameLimit;
 		InitData.m_expandConstantBuffer = &S_Animation;
 		InitData.m_expandConstantBufferSize = sizeof(S_Animation);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
+	void SpriteRender::PercentInit
+	(
+		const char* Sprite1,
+		const char* Sprite2,
+		int State,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Percent.fx";
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = Sprite1;
+		InitData.m_ddsFilePath[1] = Sprite2;
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		S_Percent.State = State;
+		InitData.m_expandConstantBuffer = &S_Percent;
+		InitData.m_expandConstantBufferSize = sizeof(S_Percent);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

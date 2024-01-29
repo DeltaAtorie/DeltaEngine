@@ -41,7 +41,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 	float4 TexColor;
 	TexColor = SetTexture(AnimationFrame,In);
 	TexColor.rgb = pow(TexColor.rgb, 1.0 / 2.2);
-	return TexColor;
+	return TexColor * mulColor;
 }
 float4 SetTexture(int Frame,PSInput In)
 {

@@ -36,9 +36,20 @@ namespace nsK2EngineLow
 		struct CurrentTime
 		{
 			int Time =0;
-			Vector2 Alpha = { 0.0f,0.0f };
 		};
 		void CurrentTimeInit
+		(
+			const char* Sprite,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
+		struct Symbol
+		{
+			int State = 0;
+		};
+		void SymbolInit
 		(
 			const char* Sprite,
 			const float w = 1920.0f,
@@ -55,7 +66,6 @@ namespace nsK2EngineLow
 		(
 			const char* Sprite1,
 			const char* Sprite2,
-			const char* Sprite3,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -70,6 +80,21 @@ namespace nsK2EngineLow
 		(
 			const char* Sprite[],
 			int FrameLimit,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
+		struct DimensionalPercent
+		{
+			int State = 0;
+			Vector2 Percent = { 0.0f,0.0f };
+		};
+		void PercentInit
+		(
+			const char* Sprite1,
+			const char* Sprite2,
+			int State,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -141,10 +166,9 @@ namespace nsK2EngineLow
 		const Vector4& GetMulColor() const
 		{return m_sprite.GetMulColor();}
 
-		void CurrentTimeSet(int Time, Vector2 Alpha)
+		void CurrentTimeSet(int Time)
 		{
 			S_CurrentTime.Time  = Time;
-			S_CurrentTime.Alpha = Alpha;
 		}
 		void ScreenChangeSet(int State, Vector2 Alpha)
 		{
@@ -152,7 +176,13 @@ namespace nsK2EngineLow
 			S_ScreenChange.Alpha  = Alpha;
 		}
 		void AnimationSet(int Frame)
-		{S_Animation.AnimationFrame = Frame;}
+		{
+			S_Animation.AnimationFrame = Frame;
+		}
+		void PercentSet(Vector2 Percent)
+		{
+			S_Percent.Percent = Percent;
+		}
 		void OnRender2D(RenderContext& rc) override;
 	private:
 		//スプライト
@@ -177,6 +207,7 @@ namespace nsK2EngineLow
 		CurrentTime S_CurrentTime;
 		ScreenChange S_ScreenChange;
 		DimensionalAnimation S_Animation;
+		DimensionalPercent S_Percent;
 	};
 }
 

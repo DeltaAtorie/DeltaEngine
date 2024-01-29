@@ -23,7 +23,6 @@ struct PSInput
 cbuffer TimeCb : register(b1)
 {
     int Time;  
-	float2 Alpha;
 };
 
 Texture2D<float4> Count0 : register(t0);
@@ -51,9 +50,7 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
 	int M_Time = Time;
-	float2 alpha = Alpha;
 	float4 TexColor1;
-	float4 TexColor2;
 	float4 TexFinal;
 
 	switch(M_Time)
@@ -99,17 +96,9 @@ float4 PSMain( PSInput In ) : SV_Target0
 		break;
 	}
 
-	if(TexColor1.a>0.1)
-	{TexColor2 = Color.Sample(Sampler,In.uv);}
-
+	if(TexColor1.a>0.0)
+	{TexColor1 = Color.Sample(Sampler,In.uv);}
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
-	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
-
-	if(TexColor1.a>0.1)
-	{
-		TexFinal = TexColor1 * alpha.x + TexColor2 * alpha.y;
-		return TexFinal;
-	}
 	TexFinal = TexColor1;
 	return TexFinal;
 }

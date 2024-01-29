@@ -28,18 +28,22 @@ struct ClassDimensionalElement
 	MapCreate* P_MapCreate            = nullptr;
 };
 
+class Credit;
 class Opening;
 class Weather;
 class Fade;
 class Sound;
 class MessageDialog;
 class ScreenChange;
+class Load;
 struct ClassDimensionalEffect
 {
+	Credit* P_Credit                  = nullptr;
 	Opening* P_Opening                = nullptr;
 	Weather* P_Weather                = nullptr;
 	Fade* P_Fade                      = nullptr;
 	Sound* P_Sound                    = nullptr;
 	MessageDialog* P_Message          = nullptr;
 	ScreenChange* P_Screen            = nullptr;
+	Load* P_Load                      = nullptr;
 };
