@@ -25,16 +25,7 @@ cbuffer TimeCb : register(b1)
     int Time;  
 };
 
-Texture2D<float4> Count0 : register(t0);
-Texture2D<float4> Count1 : register(t1);
-Texture2D<float4> Count2 : register(t2);
-Texture2D<float4> Count3 : register(t3);
-Texture2D<float4> Count4 : register(t4);
-Texture2D<float4> Count5 : register(t5);
-Texture2D<float4> Count6 : register(t6);
-Texture2D<float4> Count7 : register(t7);
-Texture2D<float4> Count8 : register(t8);
-Texture2D<float4> Count9 : register(t9);
+Texture2D<float4> Count[10] : register(t0);
 Texture2D<float4> Color : register(t10);
 
 
@@ -56,49 +47,49 @@ float4 PSMain( PSInput In ) : SV_Target0
 	switch(M_Time)
 	{
 		case 0:
-		TexColor1 = Count0.Sample(Sampler,In.uv);
+		TexColor1 = Count[0].Sample(Sampler,In.uv);
 		break;
 
 		case 1:
-		TexColor1 = Count1.Sample(Sampler,In.uv);
+		TexColor1 = Count[1].Sample(Sampler,In.uv);
 		break;
 
 		case 2:
-		TexColor1 = Count2.Sample(Sampler,In.uv);
+		TexColor1 = Count[2].Sample(Sampler,In.uv);
 		break;
 
 		case 3:
-		TexColor1 = Count3.Sample(Sampler,In.uv);
+		TexColor1 = Count[3].Sample(Sampler,In.uv);
 		break;
 
 		case 4:
-		TexColor1 = Count4.Sample(Sampler,In.uv);
+		TexColor1 = Count[4].Sample(Sampler,In.uv);
 		break;
 
 		case 5:
-		TexColor1 = Count5.Sample(Sampler,In.uv);
+		TexColor1 = Count[5].Sample(Sampler,In.uv);
 		break;
 
 		case 6:
-		TexColor1 = Count6.Sample(Sampler,In.uv);
+		TexColor1 = Count[6].Sample(Sampler,In.uv);
 		break;
 
 		case 7:
-		TexColor1 = Count7.Sample(Sampler,In.uv);
+		TexColor1 = Count[7].Sample(Sampler,In.uv);
 		break;
 
 		case 8:
-		TexColor1 = Count8.Sample(Sampler,In.uv);
+		TexColor1 = Count[8].Sample(Sampler,In.uv);
 		break;
 
 		case 9:
-		TexColor1 = Count9.Sample(Sampler,In.uv);
+		TexColor1 = Count[9].Sample(Sampler,In.uv);
 		break;
 	}
 
 	if(TexColor1.a>0.0)
 	{TexColor1 = Color.Sample(Sampler,In.uv);}
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
-	TexFinal = TexColor1;
+	TexFinal = TexColor1 * mulColor;
 	return TexFinal;
 }

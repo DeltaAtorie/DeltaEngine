@@ -4,6 +4,7 @@ struct ObjectData
 	int ObjectName = 0;//オブジェクトの名前
 	int Tag = 0;//オブジェクトのタグ
 	int Direction = 0;//オブジェクトの空方向
+	int Number = 0;//オブジェクトの番号
 	float UpperLeftVertexPositionX = 0;//矩形の左上X
 	float UpperLeftVertexPositionY = 0;//矩形の左上Y
 	float LowerRightVertexPositionX = 0;//矩形の右下X
@@ -27,8 +28,7 @@ public:
 	void Reset();
 
 	//当たり判定の生成
-	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag);
-	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag, int& Number);
+	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag, int Number);
 
 	//当たり判定の削除
 	void DecisionDataDelete(int ObjectName);

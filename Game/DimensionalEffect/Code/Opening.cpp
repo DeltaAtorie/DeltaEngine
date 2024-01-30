@@ -47,9 +47,6 @@ bool Opening::Start()
 		}
 		if (objData.EqualObjectName("Colon") == true)
 		{
-			M_ColonTexture.FadeInit("Assets/Sprite/Count/Colon.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 80.0f, 80.0f);
-			M_ColonTexture.SetPosition(objData.position);
-			M_ColonTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("Hour10") == true)

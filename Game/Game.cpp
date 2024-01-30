@@ -16,6 +16,7 @@ Game::Game()
 	S_Effect.P_Fade = NewGO<Fade>(4, "fade");
 	S_Effect.P_Sound = NewGO<Sound>(1, "sound");
 	S_Effect.P_Screen = NewGO<ScreenChange>(3,"screen");
+	//S_Effect.P_Load = NewGO<Load>(5, "load");
 	
 	S_Operation.P_Mouse = NewGO<Mouse>(3, "mouse");
 	S_Operation.P_Controller = NewGO<Controller>(3, "controller");

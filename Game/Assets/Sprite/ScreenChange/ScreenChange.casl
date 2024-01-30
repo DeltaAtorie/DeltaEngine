@@ -1,7 +1,11 @@
-6
+10
 7,RightIn,34,../../Level/ScreenChange/Right.png,400.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,9,Right.dds
 7,LeftOut,33,../../Level/ScreenChange/Left.png,-1520.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,8,Left.dds
 8,RightOut,34,../../Level/ScreenChange/Right.png,1520.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,9,Right.dds
 6,LeftIn,33,../../Level/ScreenChange/Left.png,-400.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,8,Left.dds
 5,Right,34,../../Level/ScreenChange/Right.png,400.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,9,Right.dds
 4,Left,33,../../Level/ScreenChange/Left.png,-400.0,1.1368683772161603e-13,1120,1080,10,1.0,1.0,0.5,0.5,8,Left.dds
+16,RightCollisionIn,39,../../Sprite/ScreenChange/Collision.png,480.0,1.1368683772161603e-13,960,1080,10,1.0,1.0,0.5,0.5,13,Collision.dds
+15,LeftCollisionIn,39,../../Sprite/ScreenChange/Collision.png,-480.0,1.1368683772161603e-13,960,1080,10,1.0,1.0,0.5,0.5,13,Collision.dds
+17,RightCollisionOut,39,../../Sprite/ScreenChange/Collision.png,1600.0,1.1368683772161603e-13,960,1080,10,1.0,1.0,0.5,0.5,13,Collision.dds
+16,LeftCollisionOut,39,../../Sprite/ScreenChange/Collision.png,-1600.0,1.1368683772161603e-13,960,1080,10,1.0,1.0,0.5,0.5,13,Collision.dds

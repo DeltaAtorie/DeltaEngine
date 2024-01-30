@@ -31,9 +31,21 @@ public:
 private:
 	SpriteRender M_Texture[2];
 
+	FontRender PositionX;
+	wchar_t M_PX[256];
+	FontRender PositionY;
+	wchar_t M_PY[256];
+	FontRender CollisionX;
+	wchar_t M_CX[256];
+	FontRender CollisionY;
+	wchar_t M_CY[256];
+
 	Vector3 M_Position[2];
 	Vector3 M_PositionIn[2];
 	Vector3 M_PositionOut[2];
+	Vector3 M_PositionCollision[2];
+	Vector3 M_PositionCollisionIn[2];
+	Vector3 M_PositionCollisionOut[2];
 
 	Level2DRender M_Level2D;
 

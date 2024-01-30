@@ -52,6 +52,7 @@ namespace nsK2EngineLow
 		void SymbolInit
 		(
 			const char* Sprite,
+			int State,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -208,6 +209,7 @@ namespace nsK2EngineLow
 		ScreenChange S_ScreenChange;
 		DimensionalAnimation S_Animation;
 		DimensionalPercent S_Percent;
+		Symbol S_Symbol;
 	};
 }
 

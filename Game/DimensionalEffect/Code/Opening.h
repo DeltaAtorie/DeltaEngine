@@ -34,7 +34,6 @@ private:
 	SYSTEMTIME M_CurrentTime;
 	SpriteRender M_HourTexture[3];
 	SpriteRender M_MinuteTexture[3];
-	SpriteRender M_ColonTexture;
 	int M_Hour[3];
 	int M_Minute[3];
 

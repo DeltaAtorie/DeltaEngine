@@ -114,6 +114,36 @@ namespace nsK2EngineLow
 		m_sprite.Init(InitData);
 	}
 
+	void SpriteRender::SymbolInit
+	(
+		const char* Sprite,
+		int State,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Symbol.fx";
+
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = "Assets/Sprite/Symbol/Colon.DDS";
+		InitData.m_ddsFilePath[1] = "Assets/Sprite/Symbol/PerCent.DDS";
+		InitData.m_ddsFilePath[2] = Sprite;
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		S_Symbol.State = State;
+		InitData.m_expandConstantBuffer = &S_Symbol;
+		InitData.m_expandConstantBufferSize = sizeof(S_Symbol);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
 	void SpriteRender::ScreenChangeInit
 	(
 		const char* Sprite1,
