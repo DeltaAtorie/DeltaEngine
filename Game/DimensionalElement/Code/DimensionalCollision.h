@@ -28,7 +28,7 @@ public:
 	void Reset();
 
 	//“–‚½‚è”»’è‚Ì¶¬
-	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag, int Number);
+	void DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag);
 
 	//“–‚½‚è”»’è‚Ìíœ
 	void DecisionDataDelete(int ObjectName);

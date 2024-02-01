@@ -37,7 +37,7 @@ void DimensionalCollision::Reset()
 }
 
 //ìñÇΩÇËîªíËÇÃê∂ê¨
-void DimensionalCollision::DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag, int Number)
+void DimensionalCollision::DecisionDataSet(float  Wide, float Height, float PositionX, float PositionY, int ObjectName, int Tag)
 {
 	for (int Count = 0; Count < 256; Count++)
 	{
@@ -46,8 +46,6 @@ void DimensionalCollision::DecisionDataSet(float  Wide, float Height, float Posi
 			DecisionData[Count][DIRECTION_NON].ObjectName = ObjectName;
 
 			DecisionData[Count][DIRECTION_NON].Tag = Tag;
-
-			DecisionData[Count][DIRECTION_NON].Number = Number;
 
 			DecisionData[Count][DIRECTION_NON].UpperLeftVertexPositionX = (PositionX - (Wide / 2));
 

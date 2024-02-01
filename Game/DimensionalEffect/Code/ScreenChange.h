@@ -31,15 +31,6 @@ public:
 private:
 	SpriteRender M_Texture[2];
 
-	FontRender PositionX;
-	wchar_t M_PX[256];
-	FontRender PositionY;
-	wchar_t M_PY[256];
-	FontRender CollisionX;
-	wchar_t M_CX[256];
-	FontRender CollisionY;
-	wchar_t M_CY[256];
-
 	Vector3 M_Position[2];
 	Vector3 M_PositionIn[2];
 	Vector3 M_PositionOut[2];
@@ -54,6 +45,8 @@ private:
 	int M_AlphaState  = SCREENCHANGE_NON;
 	float M_Speed     = 2000.0f;
 	bool M_MoveFlag   = false;
+
+	bool Flag = false;
 
 	Vector2 M_Alpha = { 1.0f,0.0f };
 	ClassDimensionalElement S_Element;
