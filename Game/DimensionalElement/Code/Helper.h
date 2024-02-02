@@ -150,6 +150,7 @@ public:
 			}
 		}
 	}
+
 //////座標の設定//////
 	//上限値
 	void PositionOverflowUp(float& Position, float LimitPosition)
@@ -195,6 +196,7 @@ public:
 			Position = LimitPosition;
 		}
 	}
+
 //////画像値の設定//////
 	//α値
 	void CurrentTimeUpdate(SpriteRender* Sprite , int* Time , int Size = 1 , bool Common = false)
@@ -276,6 +278,25 @@ public:
 				}
 			}
 		}
+	}
+
+//////当たり判定の設定//////
+	void CollisionSet(DimensionalCollision* Collision , Vector2* Aspect, Vector2* Position , int* ObjectName , int* Tag , int Size = 1)
+	{
+		if (Size == 1)
+		{
+			Collision->DecisionDataSet(Aspect->x , Aspect->y , Position->x , Position->y , *ObjectName , *Tag);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				Collision->DecisionDataSet(Aspect[i].x, Aspect[i].y, Position[i].x, Position[i].y, *ObjectName, *Tag);
+			}
+		}
+	}
+	void CollisionUpdate(DimensionalCollision* Collision , Vector2* Position , int* ObjectName ,int Size = 1)
+	{
+		Collision->
+
 	}
 };
 

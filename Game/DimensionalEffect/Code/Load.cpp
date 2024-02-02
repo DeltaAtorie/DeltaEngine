@@ -62,7 +62,8 @@ void Load::Update()
 		M_LoadCountTexture[2].CurrentTimeSet((int)(Percent % 100) % 10);
 		M_LoadTexture.PercentSet(M_LoadPercent);
 	}
-	M_Color = { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() };
+
+	Vector4 M_Color = { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() };
 	S_Element.P_Helper->SpriteUpdate(&M_LoadTexture , &M_Color);
 	S_Element.P_Helper->SpriteUpdate(M_LoadCountTexture , &M_Color , sizeof(M_LoadCountTexture)/sizeof(M_LoadCountTexture[0]) , true);
 	S_Element.P_Helper->SpriteUpdate(&M_LoadSymbolTexture , &M_Color);

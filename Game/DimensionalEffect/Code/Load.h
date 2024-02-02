@@ -32,7 +32,6 @@ private:
 	SpriteRender M_LoadCountTexture[3];
 	SpriteRender M_LoadSymbolTexture;
 	Vector2 M_LoadPercent = { 1.0f,0.0f };
-	Vector4 M_Color;
 
 	int M_LoadState    = LOADSTATE_NON;
 	int M_LoadFile = LOADFILE_GAME;
