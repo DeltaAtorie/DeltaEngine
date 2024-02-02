@@ -9,7 +9,7 @@ Game::Game()
 	S_Element.P_Helper    = NewGO<Helper>(1, "helper");
 	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
 	
-	//S_Effect.P_Credit = NewGO<Credit>(6, "credit");
+	S_Effect.P_Credit = NewGO<Credit>(6, "credit");
 	
 	//S_Effect.P_Opening = NewGO<Opening>(2, "opening");
 	//S_Effect.P_Weather = NewGO<Weather>(1, "weather");

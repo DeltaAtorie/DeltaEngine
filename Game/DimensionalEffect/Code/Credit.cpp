@@ -2,26 +2,20 @@
 #include "Credit.h"
 Credit::Credit()
 {
-	//M_Texture.PercentInit("Assets/Sprite/Percent/Player.DDS", "Assets/Sprite/Percent/Enemy.DDS", 0, 800.0f, 150.0f);
-	//M_Texture.PercentInit("Assets/Sprite/Percent/a.DDS", "Assets/Sprite/Percent/b.DDS", 1, 1080.0f, 1080.0f);
-	//M_Texture.PercentInit("Assets/Sprite/Percent/a.DDS", "Assets/Sprite/Percent/b.DDS", 2, 1920.0f, 1080.0f);
+	
+}
+bool Credit::Start()
+{
+	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
+	S_Element.P_Collision->DecisionDataSet(960.0f, 1080.0f, -480.0f, 0.0f, 10, 0);
+	S_Element.P_Collision->DecisionDataSet(960.0f, 1080.0f, 480.0f, 0.0f, 11, 0);
+	return true;
 }
 void Credit::Update()
 {
-	if (g_pad[0]->IsPress(enButtonRight))
-	{
-		M_Percent.x += 1.5 * g_gameTime->GetFrameDeltaTime();
-		M_Percent.y -= 1.5 * g_gameTime->GetFrameDeltaTime();
-	}
-	if (g_pad[0]->IsPress(enButtonLeft))
-	{
-		M_Percent.x -= 1.5 * g_gameTime->GetFrameDeltaTime();
-		M_Percent.y += 1.5 * g_gameTime->GetFrameDeltaTime();
-	}
-	M_Texture.Update();
-	M_Texture.PercentSet(M_Percent);
+	Flag = S_Element.P_Collision->DecisionAndDecisionCollision(10, 11);
 }
 void Credit::Render(RenderContext& rc)
 {
-	M_Texture.Draw(rc);
+	
 }

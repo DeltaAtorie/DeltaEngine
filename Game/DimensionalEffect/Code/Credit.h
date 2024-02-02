@@ -1,12 +1,14 @@
 #pragma once
+#include "DimensionalStorage/HeaderStorage.h"
 class Credit : public IGameObject
 {
 public:
 	Credit();
+	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
 private:
-	SpriteRender M_Texture;
-	Vector2 M_Percent = { 0.2f,0.8f };
+	ClassDimensionalElement S_Element;
+	bool Flag = false;
 };
 

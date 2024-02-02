@@ -23,107 +23,133 @@ public:
 		{
 			Alpha -= Speed * g_gameTime->GetFrameDeltaTime();
 		}
+
 //////画像の更新・描画一括処理//////
 	//全処理
-	void SpriteAllUpdate(SpriteRender* Sprite, Vector4 Color, Vector3 Position, Vector3 Scale, Vector2 Pivot, int Size = 0)
+	void SpriteUpdate(SpriteRender* Sprite , Vector4* Color, Vector3* Position, Vector3* Scale, Vector2* Pivot , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
 		{
-			if (Size == 0)
+			Sprite->SetMulColor(*Color);
+			Sprite->SetPosition(*Position);
+			Sprite->SetScale(*Scale);
+			Sprite->SetPivot(*Pivot);
+			Sprite->Update();
+		}else {
+			for (int i = 0; i < Size; i++)
 			{
-				Sprite->SetMulColor(Color);
-				Sprite->SetPosition(Position);
-				Sprite->SetScale(Scale);
-				Sprite->SetPivot(Pivot);
-				Sprite->Update();
-			}
-			else {
-				for (int i = 0; i < Size; i++)
+				if (!Common)
 				{
-					Sprite[i].SetMulColor(Color);
-					Sprite[i].SetPosition(Position);
-					Sprite[i].SetScale(Scale);
-					Sprite[i].SetPivot(Pivot);
+					Sprite[i].SetMulColor(Color[i]);
+					Sprite[i].SetPosition(Position[i]);
+					Sprite[i].SetScale(Scale[i]);
+					Sprite[i].SetPivot(Pivot[i]);
 					Sprite[i].Update();
+				}else {
+					if (Common)
+					{
+						Sprite[i].SetMulColor(*Color);
+						Sprite[i].SetPosition(*Position);
+						Sprite[i].SetScale(*Scale);
+						Sprite[i].SetPivot(*Pivot);
+						Sprite[i].Update();
+					}
 				}
 			}
 		}
+	}
 	//色処理
-	void SpriteColorUpdate(SpriteRender* Sprite, Vector4 Color, int Size = 0)
+	void SpriteUpdate(SpriteRender* Sprite , Vector4* Color , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
 		{
-			if (Size == 0)
+			Sprite->SetMulColor(*Color);
+			Sprite->Update();
+		}else {
+			for (int i = 0; i < Size; i++)
 			{
-				Sprite->SetMulColor(Color);
-				Sprite->Update();
-			}
-			else {
-				for (int i = 0; i < Size; i++)
+				if (!Common)
 				{
-					Sprite[i].SetMulColor(Color);
+					Sprite[i].SetMulColor(Color[i]);
 					Sprite[i].Update();
+				}else {
+					if (Common)
+					{
+						Sprite[i].SetMulColor(*Color);
+						Sprite[i].Update();
+					}
 				}
 			}
 		}
-	//座標処理
-	void SpritePositionUpdate(SpriteRender* Sprite, Vector3 Position, int Size = 0)
+	}
+	//座標・比率処理
+	void SpriteUpdate(SpriteRender* Sprite , Vector3* Position , Vector3* Scale = nullptr , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
 		{
-			if (Size == 0)
+			Sprite->SetPosition(*Position);
+			if (Scale != nullptr)
+			{Sprite->SetScale(*Scale);}
+			Sprite->Update();
+		}else {
+			for (int i = 0; i < Size; i++)
 			{
-				Sprite->SetPosition(Position);
-				Sprite->Update();
-			}
-			else {
-				for (int i = 0; i < Size; i++)
+				if (!Common)
 				{
-					Sprite[i].SetPosition(Position);
+					Sprite[i].SetPosition(Position[i]);
+					if (Scale != nullptr)
+					{Sprite->SetScale(*Scale); }
 					Sprite[i].Update();
+				}else {
+					if (Common)
+					{
+						Sprite[i].SetPosition(*Position);
+						if (Scale != nullptr)
+						{Sprite->SetScale(*Scale);}
+						Sprite[i].Update();
+					}
 				}
 			}
 		}
-	//比率処理
-	void SpriteScaleUpdate(SpriteRender* Sprite, Vector3 Scale, int Size = 0)
-		{
-			if (Size == 0)
-			{
-				Sprite->SetScale(Scale);
-				Sprite->Update();
-			}
-			else {
-				for (int i = 0; i < Size; i++)
-				{
-					Sprite[i].SetScale(Scale);
-					Sprite[i].Update();
-				}
-			}
-		}
+	}
 	//軸処理
-	void SpritePivotUpdate(SpriteRender* Sprite, Vector2 Pivot, int Size = 0)
+	void SpriteUpdate(SpriteRender* Sprite  , Vector2* Pivot , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
 		{
-			if (Size == 0)
+			Sprite->SetPivot(*Pivot);
+			Sprite->Update();
+		}else {
+			for (int i = 0; i < Size; i++)
 			{
-				Sprite->SetPivot(Pivot);
-				Sprite->Update();
-			}
-			else {
-				for (int i = 0; i < Size; i++)
+				if (!Common)
 				{
-					Sprite[i].SetPivot(Pivot);
+					Sprite[i].SetPivot(Pivot[i]);
 					Sprite[i].Update();
+				}else {
+					if (Common)
+					{
+						Sprite[i].SetPivot(*Pivot);
+						Sprite[i].Update();
+					}
 				}
+				
 			}
 		}
+	}
 	//描画処理
-	void SpriteRender(SpriteRender* Sprite, RenderContext& rc, int Size = 0)
+	void SpriteDraw(SpriteRender* Sprite , RenderContext& rc , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
 		{
-			if (Size == 0)
+			Sprite->Draw(rc);
+		}else {
+			for (int i = 0; i < Size; i++)
 			{
-				Sprite->Draw(rc);
-			}
-			else {
-				for (int i = 0; i < Size; i++)
-				{
-					Sprite[i].Draw(rc);
-				}
+				Sprite[i].Draw(rc);
 			}
 		}
+	}
 //////座標の設定//////
 	//上限値
 	void PositionOverflowUp(float& Position, float LimitPosition)
@@ -169,6 +195,87 @@ public:
 			Position = LimitPosition;
 		}
 	}
-public:
+//////画像値の設定//////
+	//α値
+	void CurrentTimeUpdate(SpriteRender* Sprite , int* Time , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
+		{
+			Sprite->CurrentTimeSet(*Time);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				if (!Common)
+				{
+					Sprite[i].CurrentTimeSet(Time[i]);
+				}else {
+					if (Common)
+					{
+						Sprite[i].CurrentTimeSet(*Time);
+					}
+				}
+			}
+		}
+	}
+	void ScreenChangeUpdate(SpriteRender* Sprite , int* State, Vector2* Alpha , int Size = 1 , bool Common = false)
+	{
+		if (Size == 1)
+		{
+			Sprite->ScreenChangeSet(*State , *Alpha);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				if (!Common)
+				{
+					Sprite[i].ScreenChangeSet(State[i], Alpha[i]);
+				}else {
+					if (Common)
+					{
+						Sprite[i].ScreenChangeSet(*State, *Alpha);
+					}
+				}
+			}
+		}
+	}
+	void AnimationUpdate(SpriteRender* Sprite , int* Frame , int Size = 1, bool Common = false)
+	{
+		if (Size == 1)
+		{
+			Sprite->AnimationSet(*Frame);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				if (!Common)
+				{
+					Sprite[i].AnimationSet(*Frame);
+				}else {
+					if (Common)
+					{
+						Sprite[i].AnimationSet(*Frame);
+					}
+				}
+			}
+		}
+	}
+	void PercentUpdate(SpriteRender* Sprite , Vector2* Percent, int Size = 1, bool Common = false)
+	{
+		if (Size == 1)
+		{
+			Sprite->PercentSet(*Percent);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				if (!Common)
+				{
+					Sprite[i].PercentSet(Percent[i]);
+				}else {
+					if (Common)
+					{
+						Sprite[i].PercentSet(**Percent);
+					}
+				}
+			}
+		}
+	}
 };
 

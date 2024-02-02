@@ -15,19 +15,19 @@ bool Load::Start()
 		if (objData.EqualObjectName("100") == true)
 		{
 			M_LoadCountTexture[0].CurrentTimeInit("Assets/Sprite/Count/WallPaper.DDS", 80.0f, 80.0f);
-			S_Element.P_Helper->S_SpriteUpdate.SpritePositionUpdate(&M_LoadCountTexture[0], objData.position);
+			S_Element.P_Helper->SpriteUpdate(&M_LoadCountTexture[0] , &objData.position);
 			return true;
 		}
 		if (objData.EqualObjectName("10") == true)
 		{
 			M_LoadCountTexture[1].CurrentTimeInit("Assets/Sprite/Count/WallPaper.DDS", 80.0f, 80.0f);
-			S_Element.P_Helper->S_SpriteUpdate.SpritePositionUpdate(&M_LoadCountTexture[1], objData.position);
+			S_Element.P_Helper->SpriteUpdate(&M_LoadCountTexture[1] , &objData.position);
 			return true;
 		}
 		if (objData.EqualObjectName("1") == true)
 		{
 			M_LoadCountTexture[2].CurrentTimeInit("Assets/Sprite/Count/WallPaper.DDS", 80.0f, 80.0f);
-			S_Element.P_Helper->S_SpriteUpdate.SpritePositionUpdate(&M_LoadCountTexture[2], objData.position);
+			S_Element.P_Helper->SpriteUpdate(&M_LoadCountTexture[2] , &objData.position);
 			return true;
 		}
 		if (objData.EqualObjectName("%") == true)
@@ -62,22 +62,23 @@ void Load::Update()
 		M_LoadCountTexture[2].CurrentTimeSet((int)(Percent % 100) % 10);
 		M_LoadTexture.PercentSet(M_LoadPercent);
 	}
-	S_Element.P_Helper->S_SpriteUpdate.SpriteColorUpdate(&M_LoadTexture, { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() });
-	S_Element.P_Helper->S_SpriteUpdate.SpriteColorUpdate(M_LoadCountTexture, { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() }, sizeof(M_LoadCountTexture) / sizeof(M_LoadCountTexture[0]));
-	S_Element.P_Helper->S_SpriteUpdate.SpriteColorUpdate(&M_LoadSymbolTexture, { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() });
+	M_Color = { 1.0f, 1.0f, 1.0f, S_Effect.P_Fade->GetCurrentAlpha() };
+	S_Element.P_Helper->SpriteUpdate(&M_LoadTexture , &M_Color);
+	S_Element.P_Helper->SpriteUpdate(M_LoadCountTexture , &M_Color , sizeof(M_LoadCountTexture)/sizeof(M_LoadCountTexture[0]) , true);
+	S_Element.P_Helper->SpriteUpdate(&M_LoadSymbolTexture , &M_Color);
 }
 void Load::Render(RenderContext& rc)
 {
-	S_Element.P_Helper->S_SpriteUpdate.SpriteRender(&M_LoadTexture       , rc);
-	S_Element.P_Helper->S_SpriteUpdate.SpriteRender(M_LoadCountTexture   , rc , sizeof(M_LoadCountTexture) / sizeof(M_LoadCountTexture[0]));
-	S_Element.P_Helper->S_SpriteUpdate.SpriteRender(&M_LoadSymbolTexture , rc);
+	S_Element.P_Helper->SpriteDraw(&M_LoadTexture , rc);
+	S_Element.P_Helper->SpriteDraw(M_LoadCountTexture , rc , sizeof(M_LoadCountTexture)/sizeof(M_LoadCountTexture[0]));
+	S_Element.P_Helper->SpriteDraw(&M_LoadSymbolTexture , rc);
 }
 
 void Load::Loading()
 {
 	if (M_LoadPercent.x > 0.0f && M_LoadPercent.y < 1.0f)
 	{
-		S_Element.P_Helper->S_AlphaUpdate.ReverseAlphaUpdate(M_LoadPercent, 0.8);
+		S_Element.P_Helper->ReverseAlphaUpdate(M_LoadPercent, 0.8);
 	}else {
 		M_LoadPercent = { 0.0f,1.0f };
 		M_LoadState = LOADSTATE_LOADCOMPLETE;

@@ -20,8 +20,10 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 
+	void Move();
 	void MoveIn();
 	void MoveOut();
+
 	void AlphaUpdate();
 
 	void ScreenCgangeIn()
@@ -44,12 +46,12 @@ private:
 	int M_ChangeState = SCREENCHANGE_NON;
 	int M_AlphaState  = SCREENCHANGE_NON;
 	float M_Speed     = 2000.0f;
-	bool M_MoveFlag   = false;
-
-	bool Flag = false;
 
 	Vector2 M_Alpha = { 1.0f,0.0f };
 	ClassDimensionalElement S_Element;
 	ClassDimensionalEffect S_Effect;
+
+	int a;
+	int b;
 };
 
