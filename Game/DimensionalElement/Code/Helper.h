@@ -1,4 +1,5 @@
 #pragma once
+#include "DimensionalStorage/HeaderStorage.h"
 class Helper : public IGameObject
 {
 public:
@@ -273,7 +274,7 @@ public:
 				}else {
 					if (Common)
 					{
-						Sprite[i].PercentSet(**Percent);
+						Sprite[i].PercentSet(*Percent);
 					}
 				}
 			}
@@ -289,14 +290,21 @@ public:
 		}else {
 			for (int i = 0; i < Size; i++)
 			{
-				Collision->DecisionDataSet(Aspect[i].x, Aspect[i].y, Position[i].x, Position[i].y, *ObjectName, *Tag);
+				Collision->DecisionDataSet(Aspect[i].x, Aspect[i].y, Position[i].x, Position[i].y, ObjectName[i], Tag[i]);
 			}
 		}
 	}
 	void CollisionUpdate(DimensionalCollision* Collision , Vector2* Position , int* ObjectName ,int Size = 1)
 	{
-		Collision->
-
+		if (Size == 1)
+		{
+			Collision->DecisionSetPosition(Position->x , Position->y , *ObjectName);
+		}else {
+			for (int i = 0; i < Size; i++)
+			{
+				Collision->DecisionSetPosition(Position[i].x , Position[i].y , ObjectName[i]);
+			}
+		}
 	}
 };
 

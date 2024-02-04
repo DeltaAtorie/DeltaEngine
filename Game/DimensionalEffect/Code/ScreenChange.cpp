@@ -53,7 +53,7 @@ bool ScreenChange::Start()
 	{
 		if (objData.EqualObjectName("Right") == true)
 		{
-			M_Texture[0].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS","Assets/Sprite/ScreenChange/ScreenChangeRightLoad.DDS", 1120.0f, 1080.0f);
+			M_Texture[0].PercentInit("Assets/Sprite/ScreenChange/ScreenChangeRight.DDS","Assets/Sprite/ScreenChange/ScreenChangeRightLoad.DDS",0, 1120.0f, 1080.0f);
 			if (M_MoveState == SCREENCHANGE_IN)
 			{
 				M_Position[0] = M_PositionOut[0];
@@ -75,7 +75,7 @@ bool ScreenChange::Start()
 
 		if (objData.EqualObjectName("Left") == true)
 		{
-			M_Texture[1].ScreenChangeInit("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS","Assets/Sprite/ScreenChange/ScreenChangeLeftLoad.DDS" ,1120.0f, 1080.0f);
+			M_Texture[1].PercentInit("Assets/Sprite/ScreenChange/ScreenChangeLeft.DDS","Assets/Sprite/ScreenChange/ScreenChangeLeftLoad.DDS",0 ,1120.0f, 1080.0f);
 			if (M_MoveState == SCREENCHANGE_IN)
 			{
 				M_Position[1] = M_PositionOut[1];
@@ -148,7 +148,6 @@ void ScreenChange::MoveIn()
 			M_MoveState = SCREENCHANGE_NON;
 			M_AlphaState = SCREENCHANGE_REVERSE;
 			M_ChangeState = SCREENCHANGE_LOAD;
-			S_Effect.P_Load = NewGO<Load>(5, "load");
 		}
 	}
 }

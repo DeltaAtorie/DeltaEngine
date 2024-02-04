@@ -26,6 +26,11 @@ public:
 	}
 	void Loading();
 	void LoadComplete();
+
+	Vector2 GetLoadPercent()
+	{
+		return M_LoadPercent;
+	}
 private:
 	Level2DRender M_Level2D;
 	SpriteRender M_LoadTexture;
@@ -38,7 +43,5 @@ private:
 
 	ClassDimensionalElement S_Element;
 	ClassDimensionalEffect S_Effect;
-
-	Texture
 };
 
