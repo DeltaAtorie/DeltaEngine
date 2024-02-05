@@ -12,14 +12,14 @@ bool Opening::Start()
 	{
 		if (objData.EqualObjectName("WallPaper") == true)
 		{
-			M_WallTexture.FadeInit("Assets/Sprite/Opening/WallPaperOff.DDS", "Assets/Sprite/Opening/WallPaperOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
+			//M_WallTexture.FadeInit("Assets/Sprite/Opening/WallPaperOff.DDS", "Assets/Sprite/Opening/WallPaperOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
 			M_WallTexture.SetPosition(objData.position);
 			M_WallTexture.Update();
 			return true;
 		}
 		if (objData.EqualObjectName("PowerButton") == true)
 		{
-			M_PowerButtonTexture.FadeInit("Assets/Sprite/Opening/PowerButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
+			//M_PowerButtonTexture.FadeInit("Assets/Sprite/Opening/PowerButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
 			S_Element.P_Collision->DecisionDataSet(100, 100, objData.position.x, objData.position.y, COLLISION_POWERBUTTON, TAG_NON);
 			M_PowerButtonTexture.SetPosition(objData.position);
 			M_PowerButtonTexture.Update();
@@ -27,11 +27,11 @@ bool Opening::Start()
 		}
 		if (objData.EqualObjectName("MusicButton") == true)
 		{
-			M_SoundButtonTexture.FadeInit("Assets/Sprite/Opening/SoundButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
+			//M_SoundButtonTexture.FadeInit("Assets/Sprite/Opening/SoundButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
 			M_SoundButtonTexture.SetPosition(objData.position);
 			M_SoundButtonTexture.Update();
 
-			M_MuteButtonTexture.FadeInit("Assets/Sprite/Opening/MuteButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
+			//M_MuteButtonTexture.FadeInit("Assets/Sprite/Opening/MuteButton.DDS", "Assets/Sprite/Opening/WallPaper.DDS", &M_Alpha, 100.0f, 100.0f);
 			M_MuteButtonTexture.SetPosition(objData.position);
 			M_MuteButtonTexture.Update();
 			
@@ -40,7 +40,7 @@ bool Opening::Start()
 		}
 		if (objData.EqualObjectName("Frame") == true)
 		{
-			M_UiFrameTexture.FadeInit("Assets/Sprite/Opening/FrameOff.DDS", "Assets/Sprite/Opening/FrameOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
+			//M_UiFrameTexture.FadeInit("Assets/Sprite/Opening/FrameOff.DDS", "Assets/Sprite/Opening/FrameOn.DDS", &M_Alpha, 1920.0f, 1080.0f);
 			M_UiFrameTexture.SetPosition(objData.position);
 			M_UiFrameTexture.Update();
 			return true;

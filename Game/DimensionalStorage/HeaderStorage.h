@@ -5,3 +5,4 @@
 
 #include "NumberStorage.h"
 #include "StructStorage.h"
+#include "FileStorage.h"

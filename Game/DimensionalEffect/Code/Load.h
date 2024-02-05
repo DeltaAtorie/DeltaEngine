@@ -17,25 +17,39 @@ class Load : public IGameObject
 public:
 	bool Start();
 	void Update();
-	void Render(RenderContext& rc);
 
+	void LoadFileInit();
 	void SetLoadFile(int LoadFile)
 	{
 		M_LoadState = LOADSTATE_LOADING;
 		M_LoadFile = LoadFile;
+		LoadFileInit();
 	}
 	void Loading();
-	void LoadComplete();
 
+	bool GetLoading()
+	{
+		if (M_LoadState == LOADSTATE_LOADING)
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
+	bool GetLoadComplete()
+	{
+		if (M_LoadState == LOADSTATE_LOADCOMPLETE)
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
 	Vector2 GetLoadPercent()
 	{
 		return M_LoadPercent;
 	}
 private:
-	Level2DRender M_Level2D;
-	SpriteRender M_LoadTexture;
-	SpriteRender M_LoadCountTexture[3];
-	SpriteRender M_LoadSymbolTexture;
 	Vector2 M_LoadPercent = { 1.0f,0.0f };
 
 	int M_LoadState    = LOADSTATE_NON;
@@ -43,5 +57,9 @@ private:
 
 	ClassDimensionalElement S_Element;
 	ClassDimensionalEffect S_Effect;
+
+	LPCWSTR FilePath;
+	HANDLE HandleFile;
+	DWORD FileSize;
 };
 

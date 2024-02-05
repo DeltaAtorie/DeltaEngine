@@ -220,26 +220,6 @@ public:
 			}
 		}
 	}
-	void ScreenChangeUpdate(SpriteRender* Sprite , int* State, Vector2* Alpha , int Size = 1 , bool Common = false)
-	{
-		if (Size == 1)
-		{
-			Sprite->ScreenChangeSet(*State , *Alpha);
-		}else {
-			for (int i = 0; i < Size; i++)
-			{
-				if (!Common)
-				{
-					Sprite[i].ScreenChangeSet(State[i], Alpha[i]);
-				}else {
-					if (Common)
-					{
-						Sprite[i].ScreenChangeSet(*State, *Alpha);
-					}
-				}
-			}
-		}
-	}
 	void AnimationUpdate(SpriteRender* Sprite , int* Frame , int Size = 1, bool Common = false)
 	{
 		if (Size == 1)

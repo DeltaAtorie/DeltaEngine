@@ -50,34 +50,6 @@ namespace nsK2EngineLow
 		m_sprite.Init(InitData);
 	}
 
-	void SpriteRender::FadeInit
-	(
-		const char* Sprite1,
-		const char* Sprite2,
-		Vector2* Alpha,
-		const float w,
-		const float h,
-		AlphaBlendMode alphaBlendMode
-	)
-	{
-		InitData.m_fxFilePath = "Assets/shader/Fade.fx";
-		InitData.m_vsEntryPointFunc = "VSMain";
-		InitData.m_psEntryPoinFunc = "PSMain";
-
-		InitData.m_ddsFilePath[0] = Sprite1;
-		InitData.m_ddsFilePath[1] = Sprite2;
-
-		InitData.m_width = static_cast<UINT>(w);
-		InitData.m_height = static_cast<UINT>(h);
-
-		InitData.m_expandConstantBuffer = Alpha;
-		InitData.m_expandConstantBufferSize = sizeof(Alpha);
-
-		InitData.m_alphaBlendMode = alphaBlendMode;
-
-		m_sprite.Init(InitData);
-	}
-
 	void SpriteRender::CurrentTimeInit
 	(
 		const char* Sprite,
@@ -144,33 +116,6 @@ namespace nsK2EngineLow
 		m_sprite.Init(InitData);
 	}
 
-	void SpriteRender::ScreenChangeInit
-	(
-		const char* Sprite1,
-		const char* Sprite2,
-		const float w,
-		const float h,
-		AlphaBlendMode alphaBlendMode
-	)
-	{
-		InitData.m_fxFilePath = "Assets/shader/ScreenChange.fx";
-		InitData.m_vsEntryPointFunc = "VSMain";
-		InitData.m_psEntryPoinFunc = "PSMain";
-
-		InitData.m_ddsFilePath[0] = Sprite1;
-		InitData.m_ddsFilePath[1] = Sprite2;
-
-		InitData.m_width = static_cast<UINT>(w);
-		InitData.m_height = static_cast<UINT>(h);
-
-		InitData.m_expandConstantBuffer = &S_ScreenChange;
-		InitData.m_expandConstantBufferSize = sizeof(S_ScreenChange);
-
-		InitData.m_alphaBlendMode = alphaBlendMode;
-
-		m_sprite.Init(InitData);
-	}
-
 	void SpriteRender::AnimationInit
 	(
 		const char* Sprite[],
@@ -222,6 +167,31 @@ namespace nsK2EngineLow
 		S_Percent.State = State;
 		InitData.m_expandConstantBuffer = &S_Percent;
 		InitData.m_expandConstantBufferSize = sizeof(S_Percent);
+
+		InitData.m_alphaBlendMode = alphaBlendMode;
+
+		m_sprite.Init(InitData);
+	}
+
+	void SpriteRender::TestInit
+	(
+		const char* Sprite,
+		const float w,
+		const float h,
+		AlphaBlendMode alphaBlendMode
+	)
+	{
+		InitData.m_fxFilePath = "Assets/shader/Test.fx";
+		InitData.m_vsEntryPointFunc = "VSMain";
+		InitData.m_psEntryPoinFunc = "PSMain";
+
+		InitData.m_ddsFilePath[0] = Sprite;
+
+		InitData.m_width = static_cast<UINT>(w);
+		InitData.m_height = static_cast<UINT>(h);
+
+		InitData.m_expandConstantBuffer = &S_Test;
+		InitData.m_expandConstantBufferSize = sizeof(S_Test);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

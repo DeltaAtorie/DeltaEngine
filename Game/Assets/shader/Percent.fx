@@ -53,7 +53,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
 	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
-		
+
 	if(State == 0)
 	{
 		if(In.uv.x <= Percent.x)
@@ -63,8 +63,18 @@ float4 PSMain( PSInput In ) : SV_Target0
 			TexFinal = TexColor2;
 		}
 	}
-	
+
 	if(State == 1)
+	{
+		if(In.uv.x >= Percent.y)
+		{
+			TexFinal = TexColor1;
+		}else{
+			TexFinal = TexColor2;
+		}
+	}
+	
+	if(State == 2)
 	{
 		UpperLeftX  = 0.5 - Percent.x;
 		UpperLeftY  = 0.5 - Percent.x;
@@ -78,7 +88,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 		}
 	}
 
-	if(State == 2)
+	if(State == 3)
 	{
 		UpperLeftX  = 0.5 - Percent.x;
 		LowerRightX = 0.5 + Percent.x;
@@ -90,7 +100,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 		}
 	}
 
-	if(State == 3)
+	if(State == 4)
 	{
 		UpperLeftY  = 1.0 - Percent.y;
 		LowerRightY = 1.0;

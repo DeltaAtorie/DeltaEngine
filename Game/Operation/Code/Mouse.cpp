@@ -3,9 +3,6 @@
 #include "DimensionalStorage/HeaderStorage.h"
 bool Mouse::Start()
 {
-	HCURSOR hCursor = LoadCursorFromFile(L"Assets/Sprite/Tool/Cursor.ani");
-	SetCursor(hCursor);
-
 	HWND hwnd = GetForegroundWindow();
 	RECT rect;
 	GetWindowRect(hwnd, &rect); 

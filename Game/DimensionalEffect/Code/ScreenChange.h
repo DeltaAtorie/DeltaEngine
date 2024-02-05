@@ -3,14 +3,12 @@
 #include "level2D/Level2DRender.h"
 enum ScreenChangeStorage
 {
+	SCREENCHANGE_RIGHT,
+	SCREENCHANGE_LEFT,
+
 	SCREENCHANGE_IN,
 	SCREENCHANGE_OUT,
 
-	SCREENCHANGE_LOAD,
-
-	SCREENCHANGE_FORWARD,
-	SCREENCHANGE_REVERSE,
-	
 	SCREENCHANGE_NON,
 };
 class ScreenChange : public IGameObject
@@ -24,8 +22,6 @@ public:
 	void MoveIn();
 	void MoveOut();
 
-	void AlphaUpdate();
-
 	void ScreenCgangeIn()
 	{M_MoveState = SCREENCHANGE_IN;}
 	void ScreenCgangeOut()
@@ -36,22 +32,12 @@ private:
 	Vector3 M_Position[2];
 	Vector3 M_PositionIn[2];
 	Vector3 M_PositionOut[2];
-	Vector3 M_PositionCollision[2];
-	Vector3 M_PositionCollisionIn[2];
-	Vector3 M_PositionCollisionOut[2];
-
 	Level2DRender M_Level2D;
 
 	int M_MoveState   = SCREENCHANGE_IN;
-	int M_ChangeState = SCREENCHANGE_NON;
-	int M_AlphaState  = SCREENCHANGE_NON;
 	float M_Speed     = 2000.0f;
 
-	Vector2 M_Alpha = { 1.0f,0.0f };
 	ClassDimensionalElement S_Element;
 	ClassDimensionalEffect S_Effect;
-
-	int a;
-	int b;
 };
 

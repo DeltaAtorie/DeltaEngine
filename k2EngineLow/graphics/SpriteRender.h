@@ -23,16 +23,6 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
-		void FadeInit
-		(
-			const char* Sprite1,
-			const char* Sprite2,
-			Vector2* Alpha,
-			const float w = 1920.0f,
-			const float h = 1080.0f,
-			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
-		);
-
 		struct CurrentTime
 		{
 			int Time =0;
@@ -53,20 +43,6 @@ namespace nsK2EngineLow
 		(
 			const char* Sprite,
 			int State,
-			const float w = 1920.0f,
-			const float h = 1080.0f,
-			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
-		);
-
-		struct ScreenChange
-		{
-			int State = 0;
-			Vector2 Alpha = { 0.0f,0.0f };
-		};
-		void ScreenChangeInit
-		(
-			const char* Sprite1,
-			const char* Sprite2,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -96,6 +72,18 @@ namespace nsK2EngineLow
 			const char* Sprite1,
 			const char* Sprite2,
 			int State,
+			const float w = 1920.0f,
+			const float h = 1080.0f,
+			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
+		);
+
+		struct Test
+		{
+			float Percent = 0;
+		};
+		void TestInit
+		(
+			const char* Sprite,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -171,11 +159,6 @@ namespace nsK2EngineLow
 		{
 			S_CurrentTime.Time  = Time;
 		}
-		void ScreenChangeSet(int State, Vector2 Alpha)
-		{
-			S_ScreenChange.State  = State;
-			S_ScreenChange.Alpha  = Alpha;
-		}
 		void AnimationSet(int Frame)
 		{
 			S_Animation.AnimationFrame = Frame;
@@ -184,6 +167,12 @@ namespace nsK2EngineLow
 		{
 			S_Percent.Percent = Percent;
 		}
+
+		void TestSet(float Percent)
+		{
+			S_Test.Percent = Percent;
+		}
+
 		void OnRender2D(RenderContext& rc) override;
 	private:
 		//スプライト
@@ -206,10 +195,11 @@ namespace nsK2EngineLow
 		Vector2 M_WideAndHeight;
 
 		CurrentTime S_CurrentTime;
-		ScreenChange S_ScreenChange;
 		DimensionalAnimation S_Animation;
 		DimensionalPercent S_Percent;
 		Symbol S_Symbol;
+
+		Test S_Test;
 	};
 }
 

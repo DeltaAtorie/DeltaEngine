@@ -8,7 +8,8 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 private:
-	ClassDimensionalElement S_Element;
-	bool Flag = false;
+	SpriteRender Texture[15];
+	Vector3 Position[15];
+	float Percent;
 };
 
