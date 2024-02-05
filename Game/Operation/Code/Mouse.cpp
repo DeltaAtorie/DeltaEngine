@@ -42,22 +42,16 @@ void Mouse::MouseCurSorSetPosition(Vector3& Position)
 
 void Mouse::MouseMove()
 {
-	M_MouseCousorMoveSpeed.x = 0.0f;
-	M_MouseCousorMoveSpeed.y = 0.0f;
+	//‰Šú‰»
+	M_MouseCursorMoveSpeed.x = 0.0f;
+	M_MouseCursorMoveSpeed.y = 0.0f;
 
 	M_Delta.x = M_Converted.x - M_PrevMouse.x;
 	M_Delta.y = M_Converted.y - M_PrevMouse.y;
 
 	M_DeltaTime = g_gameTime->GetFrameDeltaTime();
-
 	M_DeltaSpeed.x = M_Delta.x / M_DeltaTime;
 	M_DeltaSpeed.y = M_Delta.y / M_DeltaTime;
-
-	if (S_Flag.M_LeftButtonFlag)
-	{
-		M_MouseCousorMoveSpeed.x = M_Delta.x;
-		M_MouseCousorMoveSpeed.y = M_Delta.y * -1.0f;
-	}
 	
 	M_PrevMouse.x = M_Converted.x;
 	M_PrevMouse.y = M_Converted.y;

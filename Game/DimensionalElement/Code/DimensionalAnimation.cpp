@@ -16,7 +16,14 @@ void DimensionalAnimation::Update()
 		{
 			M_AnimationFrame++;
 			if (M_AnimationFrame >= M_AnimationFrameLimit)
-			{M_AnimationFrame = 0;}
+			{
+				if (!M_LoopFlag)
+				{
+					DeleteGO(this);
+				}else {
+					M_AnimationFrame = 0;
+				}
+			}
 			M_Frame = 0;
 		}
 		M_AnimationTexture.AnimationSet(M_AnimationFrame);
@@ -38,7 +45,7 @@ void DimensionalAnimation::SetFilePath(const char* Sprite)
 		GetFileNumber(M_FilePath, i);
 		M_TextureFilePath[i] = _strdup(M_FilePath);
 	}
-	M_AnimationTexture.AnimationInit(M_TextureFilePath, M_AnimationFrameLimit, 1920.0f, 1080.0);
+	M_AnimationTexture.AnimationInit(M_TextureFilePath, M_AnimationFrameLimit, M_Wide, M_Height);
 }
 void DimensionalAnimation::GetFileNumber(char* Word, int AnimationFrame)
 {
