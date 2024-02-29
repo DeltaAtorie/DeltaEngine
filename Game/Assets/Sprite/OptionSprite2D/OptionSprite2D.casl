@@ -1,0 +1,15 @@
+14
+11,GameTitleOn,25,../../Kit/GameTitleOn.png,0.0,1.1368683772161603e-13,1920,1080,2,1.0,1.0,0.5,0.5,15,GameTitleOn.dds
+11,OptionFrame,35,../../Sprite/Option/OptionFrame.png,-580.0,0.0,400,800,3,1.0,1.0,0.5,0.5,15,OptionFrame.dds
+4,Bgm-,35,../../Sprite/Option/MinusButton.png,-710.0,200.0,60,60,10,1.0,1.0,0.5,0.5,15,MinusButton.dds
+4,Bgm+,34,../../Sprite/Option/PlusButton.png,-450.00000000000006,200.0,60,60,10,1.0,1.0,0.5,0.5,14,PlusButton.dds
+3,Se+,34,../../Sprite/Option/PlusButton.png,-450.00000000000006,0.0,60,60,10,1.0,1.0,0.5,0.5,14,PlusButton.dds
+6,Alpha+,34,../../Sprite/Option/PlusButton.png,-450.00000000000006,-200.0,60,60,10,1.0,1.0,0.5,0.5,14,PlusButton.dds
+6,Alpha-,35,../../Sprite/Option/MinusButton.png,-710.0,-200.0,60,60,10,1.0,1.0,0.5,0.5,15,MinusButton.dds
+3,Se-,35,../../Sprite/Option/MinusButton.png,-710.0,0.0,60,60,10,1.0,1.0,0.5,0.5,15,MinusButton.dds
+9,BgmMemory,30,../../Sprite/Option/Memory.png,-580.0,200.0,172,50,10,1.0,1.0,0.5,0.5,10,Memory.dds
+8,SeMemory,30,../../Sprite/Option/Memory.png,-580.0,0.0,172,50,10,1.0,1.0,0.5,0.5,10,Memory.dds
+11,AlphaMemory,30,../../Sprite/Option/Memory.png,-580.0,-200.0,172,50,10,1.0,1.0,0.5,0.5,10,Memory.dds
+3,Bgm,27,../../Sprite/Option/Bgm.png,-580.0,260.0,100,40,10,1.0,1.0,0.5,0.5,7,Bgm.dds
+2,Se,26,../../Sprite/Option/Se.png,-580.0,60.0,100,40,10,1.0,1.0,0.5,0.5,6,Se.dds
+2,Ui,26,../../Sprite/Option/Ui.png,-580.0,-140.0,100,40,10,1.0,1.0,0.5,0.5,6,Ui.dds

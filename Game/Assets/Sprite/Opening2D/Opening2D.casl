@@ -1,0 +1,5 @@
+4
+9,GameTitle,19,../../GameTitle.png,0.0,1.1368683772161603e-13,1920,1080,10,1.0,1.0,0.5,0.5,13,GameTitle.dds
+11,StartButton,25,../../Kit/StartButton.png,-120.0,-280.0,100,100,10,1.0,1.0,0.5,0.5,15,StartButton.dds
+12,OptionButton,26,../../Kit/OptionButton.png,0.0,-280.0,100,100,10,1.0,1.0,0.5,0.5,16,OptionButton.dds
+11,PowerButton,25,../../Kit/PowerButton.png,120.0,-280.0,100,100,10,1.0,1.0,0.5,0.5,15,PowerButton.dds

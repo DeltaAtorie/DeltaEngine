@@ -1,11 +1,10 @@
 #pragma once
-#include "DimensionalStorage/StructStorage.h"
-struct MouseFlag
+class Data2D;
+enum MouseFlagStorage
 {
-	bool M_LeftButtonFlag = false;
-	bool M_RightButtonFlag = false;
-	bool M_FlickFlag = false;
-	bool M_WheelFlag = false;
+	MOUSE_LEFTCLICK,
+	MOUSE_RIGHTCLICK ,
+	MOUSE_FLICK
 };
 class Mouse : public IGameObject
 {
@@ -20,14 +19,11 @@ public:
 
 	void MouseFlagJudge();
 	bool GetMouseFlag(int Number);
-	void SetMouseFlag(int Number,bool Flag);
 	
 	Vector3 GetMousePosition()
 	{return M_MouseCursorPosition; }
-
 	Vector3 GetMouseMoveSpeed()
 	{return M_MouseCursorMoveSpeed;}
-
 	Vector2 GetDelta()
 	{return M_Delta;}
 private:
@@ -44,10 +40,12 @@ private:
 	Vector2 M_DeltaSpeed  = { 0.0f    , 0.0f };//Deltaをフレーム間で割った数値
 	Vector2 M_Converted   = { 0.0f    , 0.0f };//現在のマウス座標
 
-	MouseFlag S_Flag;
+	bool M_LeftClickFlag  = false;
+	bool M_RightClickFlag = false;
+	bool M_FlickFlag      = false;
 
 	float M_DeltaTime = 0.0f;
 	float FlickSpeedThreshold = 6000.0f;
 
-	ClassDimensionalElement S_Element;
+	Data2D* P_Data2D = nullptr;
 };

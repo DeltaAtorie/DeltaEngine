@@ -1,6 +1,10 @@
 #include "k2EngineLowPreCompile.h"
 #include "SpriteRender.h"
-
+enum SymbolStorage
+{
+	SYMBOL_COLON,
+	SYMBOL_PERCENT,
+};
 namespace nsK2EngineLow
 {
 	void SpriteRender::Init
@@ -167,31 +171,6 @@ namespace nsK2EngineLow
 		S_Percent.State = State;
 		InitData.m_expandConstantBuffer = &S_Percent;
 		InitData.m_expandConstantBufferSize = sizeof(S_Percent);
-
-		InitData.m_alphaBlendMode = alphaBlendMode;
-
-		m_sprite.Init(InitData);
-	}
-
-	void SpriteRender::TestInit
-	(
-		const char* Sprite,
-		const float w,
-		const float h,
-		AlphaBlendMode alphaBlendMode
-	)
-	{
-		InitData.m_fxFilePath = "Assets/shader/Test.fx";
-		InitData.m_vsEntryPointFunc = "VSMain";
-		InitData.m_psEntryPoinFunc = "PSMain";
-
-		InitData.m_ddsFilePath[0] = Sprite;
-
-		InitData.m_width = static_cast<UINT>(w);
-		InitData.m_height = static_cast<UINT>(h);
-
-		InitData.m_expandConstantBuffer = &S_Test;
-		InitData.m_expandConstantBufferSize = sizeof(S_Test);
 
 		InitData.m_alphaBlendMode = alphaBlendMode;
 

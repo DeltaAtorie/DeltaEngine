@@ -23,7 +23,9 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
-		struct CurrentTime
+		
+
+		struct SpriteCurrentTime
 		{
 			int Time =0;
 		};
@@ -35,7 +37,7 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
-		struct Symbol
+		struct SpriteSymbol
 		{
 			int State = 0;
 		};
@@ -48,7 +50,7 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
-		struct DimensionalAnimation
+		struct SpriteAnimation
 		{
 			int AnimationFrame      = 0;
 			int AnimationFrameLimit = 0;
@@ -62,28 +64,16 @@ namespace nsK2EngineLow
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
 		);
 
-		struct DimensionalPercent
+		struct SpritePercent
 		{
 			int State = 0;
-			Vector2 Percent = { 0.0f,0.0f };
+			float Percent = 0.0f;
 		};
 		void PercentInit
 		(
 			const char* Sprite1,
 			const char* Sprite2,
 			int State,
-			const float w = 1920.0f,
-			const float h = 1080.0f,
-			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
-		);
-
-		struct Test
-		{
-			float Percent = 0;
-		};
-		void TestInit
-		(
-			const char* Sprite,
 			const float w = 1920.0f,
 			const float h = 1080.0f,
 			AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans
@@ -163,14 +153,9 @@ namespace nsK2EngineLow
 		{
 			S_Animation.AnimationFrame = Frame;
 		}
-		void PercentSet(Vector2 Percent)
+		void PercentSet(float Percent)
 		{
 			S_Percent.Percent = Percent;
-		}
-
-		void TestSet(float Percent)
-		{
-			S_Test.Percent = Percent;
 		}
 
 		void OnRender2D(RenderContext& rc) override;
@@ -194,12 +179,10 @@ namespace nsK2EngineLow
 
 		Vector2 M_WideAndHeight;
 
-		CurrentTime S_CurrentTime;
-		DimensionalAnimation S_Animation;
-		DimensionalPercent S_Percent;
-		Symbol S_Symbol;
-
-		Test S_Test;
+		SpriteCurrentTime S_CurrentTime;
+		SpriteAnimation S_Animation;
+		SpritePercent S_Percent;
+		SpriteSymbol S_Symbol;
 	};
 }
 

@@ -1,29 +1,29 @@
 #include "stdafx.h"
 #include "Game.h"
-#include "DimensionalStorage/HeaderStorage.h"
+#include "Storage2D/Header2D.h"
 Game::Game()
 {
-	S_Element.P_Camera    = NewGO<DimensionalCamera>(1, "camera");
-	S_Element.P_Collision = NewGO<DimensionalCollision>(1, "collision");
-	S_Element.P_Helper    = NewGO<Helper>(1, "helper");
-	S_Element.P_MapCreate = NewGO<MapCreate>(1, "create");
-	
-	S_Effect.P_Sound = NewGO<Sound>(1, "sound");
-	S_Effect.P_Screen = NewGO<ScreenChange>(3,"screen");
-	S_Effect.P_Load = NewGO<Load>(1, "load");
-	
-	S_Operation.P_Mouse = NewGO<Mouse>(3, "mouse");
-	S_Operation.P_Controller = NewGO<Controller>(3, "controller");
+	P_Sprite2D  = NewGO<Sprite2D>(0 , "sprite2d");
+	P_Data2D    = NewGO<Data2D>(0 , "data2d");
+	P_Operation = NewGO<Operation>(0 , "operation");
+
+	P_Actor      = NewGO<GameActor>(0 , "actor");
+	P_BackGround = NewGO<GameBackGround>(0 , "background");
+	P_Other      = NewGO<GameOther>(0 , "other");
+	P_Sprite     = NewGO<GameSprite>(0 , "sprite");
+
+	P_Sprite2D->Sprite2DNewGO();
+	P_Data2D->Data2DNewGO();
+	P_Operation->OperationNewGO();
 }
 Game::~Game()
 {
-	DeleteGO(S_Operation.P_Mouse);
-	DeleteGO(S_Operation.P_Controller);
+	P_Sprite2D->Sprite2DDeleteGO();
+	P_Data2D->Data2DDeleteGO();
+	P_Operation->OperationDeleteGO();
 
-	DeleteGO(S_Element.P_Camera);
-	DeleteGO(S_Element.P_Collision);
-	DeleteGO(S_Element.P_MapCreate);
-
-	DeleteGO(S_Effect.P_Weather);
-	DeleteGO(S_Effect.P_Fade);
+	P_Actor->ActorDeleteGO();
+	P_BackGround->BackGroundDeleteGO();
+	P_Other->OtherDeleteGO();
+	P_Sprite->SpriteDeleteGO();
 }

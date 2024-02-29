@@ -23,7 +23,7 @@ struct PSInput
 cbuffer PercentCb : register(b1)
 {
     int State;
-	float2 Percent;
+	float Percent;
 };
 
 Texture2D<float4> PlayerTexture : register(t0);
@@ -39,6 +39,7 @@ PSInput VSMain(VSInput In)
 }
 float4 PSMain( PSInput In ) : SV_Target0
 {
+	float2 TexPercent = {1.0f - Percent , Percent};
 	float4 TexColor1;
 	float4 TexColor2;
 	float4 TexFinal;
@@ -56,7 +57,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	if(State == 0)
 	{
-		if(In.uv.x <= Percent.x)
+		if(In.uv.x <= TexPercent.x)
 		{
 			TexFinal = TexColor1;
 		}else{
@@ -66,7 +67,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	if(State == 1)
 	{
-		if(In.uv.x >= Percent.y)
+		if(In.uv.x >= TexPercent.y)
 		{
 			TexFinal = TexColor1;
 		}else{
@@ -76,10 +77,10 @@ float4 PSMain( PSInput In ) : SV_Target0
 	
 	if(State == 2)
 	{
-		UpperLeftX  = 0.5 - Percent.x;
-		UpperLeftY  = 0.5 - Percent.x;
-		LowerRightX = 0.5 + Percent.x;
-		LowerRightY = 0.5 + Percent.x;
+		UpperLeftX  = 0.5 - TexPercent.x;
+		UpperLeftY  = 0.5 - TexPercent.x;
+		LowerRightX = 0.5 + TexPercent.x;
+		LowerRightY = 0.5 + TexPercent.x;
 		if(In.uv.x >= UpperLeftX && In.uv.x <= LowerRightX && In.uv.y >= UpperLeftY && In.uv.y <= LowerRightY)
 		{
 			TexFinal = TexColor1;
@@ -90,8 +91,8 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	if(State == 3)
 	{
-		UpperLeftX  = 0.5 - Percent.x;
-		LowerRightX = 0.5 + Percent.x;
+		UpperLeftX  = 0.5 - TexPercent.x;
+		LowerRightX = 0.5 + TexPercent.x;
 		if(In.uv.x >= UpperLeftX && In.uv.x <= LowerRightX)
 		{
 			TexFinal = TexColor1;
@@ -102,7 +103,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	if(State == 4)
 	{
-		UpperLeftY  = 1.0 - Percent.y;
+		UpperLeftY  = 1.0 - TexPercent.y;
 		LowerRightY = 1.0;
 		if(In.uv.y >= UpperLeftY && In.uv.y <= LowerRightY)
 		{
@@ -110,6 +111,11 @@ float4 PSMain( PSInput In ) : SV_Target0
 		}else{
 			TexFinal = TexColor1;
 		}
+	}
+
+	if(State == 5)
+	{
+		TexFinal = TexColor1 * TexPercent.x + TexColor2 * TexPercent.y;
 	}
 	return TexFinal * mulColor;
 }

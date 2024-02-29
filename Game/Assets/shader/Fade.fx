@@ -45,18 +45,12 @@ float4 PSMain( PSInput In ) : SV_Target0
 	float4 TexFinal;
 
 	TexColor1 = Texture1.Sample(Sampler,In.uv);
-	if(TexColor1.a>0.1)
-	{TexColor2 = Texture2.Sample(Sampler,In.uv);}
+	TexColor2 = Texture2.Sample(Sampler,In.uv);
 
 	TexColor1.rgb = pow(TexColor1.rgb, 1.0 / 2.2);
 	TexColor2.rgb = pow(TexColor2.rgb, 1.0 / 2.2);
 	
-	if(TexColor1.a>0.1)
-	{
-		TexFinal = TexColor1 * alpha.x + TexColor2 * alpha.y;
-		return TexFinal;
-	}
-	TexFinal = TexColor1;
+	TexFinal = TexColor1 * alpha.x + TexColor2 * alpha.y;
 	return TexFinal * mulColor;
 
 }

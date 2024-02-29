@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Mouse.h"
-#include "DimensionalStorage/HeaderStorage.h"
+#include "Storage2D/Header2D.h"
 bool Mouse::Start()
 {
 	HWND hwnd = GetForegroundWindow();
@@ -11,8 +11,9 @@ bool Mouse::Start()
 	M_Client.x = width;
 	M_Client.y = height;
 
-	S_Element.P_Collision = FindGO<DimensionalCollision>("collision");
-	S_Element.P_Collision->DecisionDataSet(30, 30, M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE, TAG_NON);
+	P_Data2D = FindGO<Data2D>("data2d");
+	P_Data2D->Data2DFindGO();
+	P_Data2D->P_Collision2D->BodyDataSet(30, 30, M_MouseCursorPosition.x, M_MouseCursorPosition.y, "Mouse", "Non");
 	return true;
 }
 void Mouse::Update()
@@ -29,9 +30,9 @@ void Mouse::Update()
 
 	MouseFlagJudge();
 
-    MouseCurSorSetPosition(M_MouseCousorPosition);
+    MouseCurSorSetPosition(M_MouseCursorPosition);
 
-	S_Element.P_Collision->DecisionSetPosition(M_MouseCousorPosition.x, M_MouseCousorPosition.y, COLLISION_MOUSE);
+	P_Data2D->P_Collision2D->BodySetPosition(M_MouseCursorPosition.x, M_MouseCursorPosition.y, "Mouse");
 }
 
 void Mouse::MouseCurSorSetPosition(Vector3& Position)
@@ -65,48 +66,39 @@ void Mouse::MouseSet()
 void Mouse::MouseFlagJudge()
 {
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
-	{S_Flag.M_LeftButtonFlag = true;}
-	else
-	{S_Flag.M_LeftButtonFlag = false;}
+	{
+		M_LeftClickFlag = true;
+	}else{
+		M_LeftClickFlag = false;
+	}
 
 	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
-	{S_Flag.M_RightButtonFlag = true;}
-	else
-	{S_Flag.M_RightButtonFlag = false;}
+	{
+		M_RightClickFlag = true;
+	}else{
+		M_RightClickFlag = false;
+	}
 
 	if (abs(M_DeltaSpeed.x) > FlickSpeedThreshold || abs(M_DeltaSpeed.y) > FlickSpeedThreshold)
-	{S_Flag.M_FlickFlag = true;}
-	else 
-	{S_Flag.M_FlickFlag = false;}
-
-}
-void Mouse::SetMouseFlag(int Number,bool Flag)
-{
-	switch (Number)
 	{
-	case MOUSE_LEFTBUTTON:
-		S_Flag.M_LeftButtonFlag = Flag;
-		break;
-	case MOUSE_RIGHTBUTTON:
-		S_Flag.M_RightButtonFlag = Flag;
-		break;
-	case MOUSE_FLICK:
-		S_Flag.M_FlickFlag = Flag;
-		break;
+		M_FlickFlag = true;
+	}else{
+		M_FlickFlag = false;
 	}
+
 }
 bool Mouse::GetMouseFlag(int Number)
 {
 	switch (Number)
 	{
-	case MOUSE_LEFTBUTTON:
-		return S_Flag.M_LeftButtonFlag;
+	case MOUSE_LEFTCLICK:
+		return M_LeftClickFlag;
 		break;
-	case MOUSE_RIGHTBUTTON:
-		return S_Flag.M_RightButtonFlag;
+	case MOUSE_RIGHTCLICK:
+		return M_RightClickFlag;
 		break;
 	case MOUSE_FLICK:
-		return S_Flag.M_FlickFlag;
+		return M_FlickFlag;
 		break;
 	}
 }
