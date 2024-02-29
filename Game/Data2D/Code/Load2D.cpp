@@ -48,7 +48,6 @@ void Load2D::FileLoad()
 	switch (M_LoadFile)
 	{
 	case LoadFile::GAME:
-		P_Sprite->SpriteNewGO(SpriteClass::UI);
 		break;
 	}
 }
@@ -57,7 +56,6 @@ void Load2D::FileDelete()
 	switch (M_LoadFile)
 	{
 	case LoadFile::GAME:
-		P_Sprite2D->Sprite2DDeleteGO(Sprite2DClass::OPENING);
 		break;
 	}
 }

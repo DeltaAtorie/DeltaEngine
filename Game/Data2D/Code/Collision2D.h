@@ -62,7 +62,7 @@ private:
 	void BodyLeftSetPosition(int Count);
 private:
 	ObjectData BodyData[256][5];
+	Vector4 CollisionWidth;//X:ã‚Ìó“ËY:‰E‚ÌÕ“ËZ:‰º‚ÌÕ“ËW:¶‚ÌÕ“Ë
 	float EmptyWidth = 15.0f;
 	float InitValue  = 50000.0f;
-	Vector4 CollisionWidth;//X:ã‚Ìó“ËY:‰E‚ÌÕ“ËZ:‰º‚ÌÕ“ËW:¶‚ÌÕ“Ë
 };
