@@ -11,8 +11,8 @@ class GameSprite;
 
 enum class LoadState
 {
-	LOADING,//ロード中
-	LOADCOMPLETE,//ロード完成
+	LOADING,
+	LOADCOMPLETE,
 	NON
 };
 enum class LoadFile
