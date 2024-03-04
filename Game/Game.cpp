@@ -12,7 +12,6 @@ Game::Game()
 	P_Other      = NewGO<GameOther>(0 , "other");
 	P_Sprite     = NewGO<GameSprite>(0 , "sprite");
 
-	P_Sprite2D->Sprite2DNewGO();
 	P_Data2D->Data2DNewGO();
 	P_Operation->OperationNewGO();
 }

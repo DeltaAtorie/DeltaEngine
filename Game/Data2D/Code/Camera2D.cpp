@@ -4,7 +4,6 @@ void Camera2D::SetObjectData(Vector3 TagPos)
 {
 	M_Position = TagPos;
 }
-
 void Camera2D::CenterObjectMove(Vector3 CenterPos)
 {
 	M_Position = CenterPos;

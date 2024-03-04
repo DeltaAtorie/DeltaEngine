@@ -67,16 +67,16 @@ namespace nsK2EngineLow
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
-		InitData.m_ddsFilePath[0] = "Assets/Sprite/Count/0.DDS";
-		InitData.m_ddsFilePath[1] = "Assets/Sprite/Count/1.DDS";
-		InitData.m_ddsFilePath[2] = "Assets/Sprite/Count/2.DDS";
-		InitData.m_ddsFilePath[3] = "Assets/Sprite/Count/3.DDS";
-		InitData.m_ddsFilePath[4] = "Assets/Sprite/Count/4.DDS";
-		InitData.m_ddsFilePath[5] = "Assets/Sprite/Count/5.DDS";
-		InitData.m_ddsFilePath[6] = "Assets/Sprite/Count/6.DDS";
-		InitData.m_ddsFilePath[7] = "Assets/Sprite/Count/7.DDS";
-		InitData.m_ddsFilePath[8] = "Assets/Sprite/Count/8.DDS";
-		InitData.m_ddsFilePath[9] = "Assets/Sprite/Count/9.DDS";
+		InitData.m_ddsFilePath[0] = "Assets/Sprite/Count2D/0.DDS";
+		InitData.m_ddsFilePath[1] = "Assets/Sprite/Count2D/1.DDS";
+		InitData.m_ddsFilePath[2] = "Assets/Sprite/Count2D/2.DDS";
+		InitData.m_ddsFilePath[3] = "Assets/Sprite/Count2D/3.DDS";
+		InitData.m_ddsFilePath[4] = "Assets/Sprite/Count2D/4.DDS";
+		InitData.m_ddsFilePath[5] = "Assets/Sprite/Count2D/5.DDS";
+		InitData.m_ddsFilePath[6] = "Assets/Sprite/Count2D/6.DDS";
+		InitData.m_ddsFilePath[7] = "Assets/Sprite/Count2D/7.DDS";
+		InitData.m_ddsFilePath[8] = "Assets/Sprite/Count2D/8.DDS";
+		InitData.m_ddsFilePath[9] = "Assets/Sprite/Count2D/9.DDS";
 		InitData.m_ddsFilePath[10] = Sprite;
 
 		InitData.m_width = static_cast<UINT>(w);
@@ -104,8 +104,8 @@ namespace nsK2EngineLow
 		InitData.m_vsEntryPointFunc = "VSMain";
 		InitData.m_psEntryPoinFunc = "PSMain";
 
-		InitData.m_ddsFilePath[0] = "Assets/Sprite/Symbol/Colon.DDS";
-		InitData.m_ddsFilePath[1] = "Assets/Sprite/Symbol/PerCent.DDS";
+		InitData.m_ddsFilePath[0] = "Assets/Sprite/Symbol2D/Colon.DDS";
+		InitData.m_ddsFilePath[1] = "Assets/Sprite/Symbol2D/PerCent.DDS";
 		InitData.m_ddsFilePath[2] = Sprite;
 
 		InitData.m_width = static_cast<UINT>(w);

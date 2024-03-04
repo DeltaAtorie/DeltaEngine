@@ -9,10 +9,13 @@ bool Load2D::Start()
 {
 	P_Sprite2D = FindGO<Sprite2D>("sprite2d");
 	P_Sprite2D->Sprite2DFindGO();
+
 	P_Data2D = FindGO<Data2D>("data2d");
 	P_Data2D->Data2DFindGO();
+
 	P_Sprite = FindGO<GameSprite>("sprite");
 	P_Sprite->SpriteFindGO();
+
 	return true;
 }
 void Load2D::Update()
@@ -38,8 +41,6 @@ void Load2D::Loading()
 			FileLoad();
 			M_LoadFile  = LoadFile::NON;
 			M_LoadState = LoadState::LOADCOMPLETE;
-
-			P_Sprite2D->P_ScreenChange2D->ScreenCgangeOut();
 		}
 	}
 }

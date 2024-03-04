@@ -2,8 +2,8 @@
 class Helper2D : public IGameObject
 {
 public:
-	//////値の更新//////
-		//増加
+//////値の更新//////
+	//増加
 	void Increase(Vector2& Alpha , float Speed)
 	{
 		Alpha.x += Speed * g_gameTime->GetFrameDeltaTime();
@@ -24,7 +24,7 @@ public:
 		Alpha -= Speed * g_gameTime->GetFrameDeltaTime();
 	}
 
-	//////画像の更新・描画一括処理//////
+//////画像の更新・描画一括処理//////
 		//全処理
 	void SpriteUpdate(SpriteRender* Sprite , Vector4* Color , Vector3* Position  , Vector3* Scale, Vector2* Pivot, int Size = 1, bool Common = false)
 	{
@@ -58,7 +58,7 @@ public:
 			}
 		}
 	}
-	//色処理
+//色処理
 	void SpriteUpdate(SpriteRender* Sprite , Vector4* Color , int Size = 1  , bool Common = false)
 	{
 		if (Size == 1)
@@ -82,7 +82,7 @@ public:
 			}
 		}
 	}
-	//座標・比率処理
+//座標・比率処理
 	void SpriteUpdate(SpriteRender* Sprite , Vector3* Position , Vector3* Scale = nullptr , int Size = 1, bool Common = false)
 	{
 		if (Size == 1)
@@ -118,7 +118,7 @@ public:
 			}
 		}
 	}
-	//軸処理
+//軸処理
 	void SpriteUpdate(SpriteRender* Sprite , Vector2* Pivot , int Size = 1 , bool Common = false)
 	{
 		if (Size == 1)
@@ -143,7 +143,7 @@ public:
 			}
 		}
 	}
-	//描画処理
+//描画処理
 	void SpriteDraw(SpriteRender* Sprite , RenderContext& rc , int Size = 1 , bool Common = false)
 	{
 		if (Size == 1)
@@ -157,8 +157,8 @@ public:
 		}
 	}
 
-	//////座標の設定//////
-		//上限値
+//////座標の設定//////
+	//上限値
 	bool OverflowUp(int& Position     , int LimitPosition)
 	{
 		if (Position >= LimitPosition)
@@ -233,7 +233,7 @@ public:
 		return false;
 	}
 
-	//////簡易処理//////
+//////簡易処理//////
 	void FlagReverse(bool& Flag)
 	{
 		if (Flag == true)
