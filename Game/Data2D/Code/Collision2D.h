@@ -49,11 +49,6 @@ public:
 
 	bool BodyAndBodysCollision(const char* ObjectName1  , const char* Tag2);//【本体】と【タグが付いた複数の本体】の衝突
 	bool BodyAndEmptysCollision(const char* ObjectName1 , const char* Tag2 , int Direction2);//【本体】と【タグが付いた複数の空】の衝突
-
-	Vector4 GetWidth()
-	{
-		return CollisionWidth;
-	}
 private:
 	void BodyInSideDataSet(int Count);
 	void BodyUpSetPosition(int Count);
@@ -62,7 +57,6 @@ private:
 	void BodyLeftSetPosition(int Count);
 private:
 	ObjectData BodyData[256][5];
-	Vector4 CollisionWidth;//X:上の状突Y:右の衝突Z:下の衝突W:左の衝突
 	float EmptyWidth = 15.0f;
 	float InitValue  = 50000.0f;
 };

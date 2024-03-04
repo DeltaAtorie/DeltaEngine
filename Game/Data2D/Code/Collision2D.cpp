@@ -210,7 +210,6 @@ bool Collision2D::EmptyAndEmptyCollision(const char* ObjectName1 , int Direction
 			{
 				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 				{
-					CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 					return true;
 				}
 			}
@@ -230,7 +229,6 @@ bool Collision2D::EmptyAndBodyCollision(const char* ObjectName1 , int Direction1
 			{
 				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 				{
-					CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 					return true;
 				}
 			}
@@ -253,7 +251,6 @@ bool Collision2D::EmptyAndBodysCollision(const char* ObjectName1 , int Direction
 				{
 					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 					{
-						CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 						return true;
 					}
 				}
@@ -276,7 +273,6 @@ bool Collision2D::BodyAndBodysCollision(const char* ObjectName1 , const char* Ta
 				{
 					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 					{
-						CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 						return true;
 					}
 				}
@@ -298,7 +294,6 @@ bool Collision2D::BodyAndBodyCollision(const char* ObjectName1 , const char* Obj
 			{
 				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 				{
-					CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 					return true;
 				}
 			}
@@ -321,7 +316,6 @@ bool Collision2D::EmptyAndEmptysCollision(const char* ObjectName1 , int Directio
 				{
 					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 					{
-						CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 						return true;
 					}
 				}
@@ -344,7 +338,6 @@ bool Collision2D::BodyAndEmptysCollision(const char* ObjectName1 , const char* T
 				{
 					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
 					{
-						CollisionWidth.x = Body2.UpperLeftVertexPositionY;
 						return true;
 					}
 				}
