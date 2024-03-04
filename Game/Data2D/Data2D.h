@@ -3,14 +3,12 @@
 #include "Code/Collision2D.h"
 #include "Code/Helper2D.h"
 #include "Code/Load2D.h"
-#include "Code/OptionData2D.h"
 #include "Code/Sound2D.h"
 
 class Camera2D;
 class Collision2D;
 class Helper2D;
 class Load2D;
-class OptionData2D;
 class Sound2D;
 
 enum class Data2DClass
@@ -19,7 +17,6 @@ enum class Data2DClass
 	COLLISION,
 	HELPER,
 	LOAD,
-	OPTIONDATA,
 	SOUND,
 };
 
@@ -43,10 +40,6 @@ public:
 		P_Load2D =
 		NewGO<Load2D>
 		(0, "load2d");
-
-		P_OptionData2D =
-		NewGO<OptionData2D>
-		(0, "optiondata2d");
 
 		P_Sound2D =
 		NewGO<Sound2D>
@@ -76,11 +69,6 @@ public:
 			NewGO<Load2D>
 			(0, "load2d");
 			break;
-		case Data2DClass::OPTIONDATA:
-			P_OptionData2D =
-			NewGO<OptionData2D>
-			(0, "optiondata2d");
-			break;
 		case Data2DClass::SOUND:
 			P_Sound2D =
 			NewGO<Sound2D>
@@ -107,10 +95,6 @@ public:
 		FindGO<Load2D>
 		("load2d");
 
-		P_OptionData2D =
-		FindGO<OptionData2D>
-		("optiondata2d");
-
 		P_Sound2D =
 		FindGO<Sound2D>
 		("sound2d");
@@ -122,7 +106,6 @@ public:
 		DeleteGO(P_Collision2D);
 		DeleteGO(P_Helper2D);
 		DeleteGO(P_Load2D);
-		DeleteGO(P_OptionData2D);
 		DeleteGO(P_Sound2D);
 	}
 	void Data2DDeleteGO(Data2DClass Class)
@@ -141,9 +124,6 @@ public:
 		case Data2DClass::LOAD:
 			DeleteGO(P_Load2D);
 			break;
-		case Data2DClass::OPTIONDATA:
-			DeleteGO(P_OptionData2D);
-			break;
 		case Data2DClass::SOUND:
 			DeleteGO(P_Sound2D);
 			break;
@@ -157,8 +137,6 @@ public:
 	Helper2D* P_Helper2D = nullptr;
 
 	Load2D* P_Load2D = nullptr;
-
-	OptionData2D* P_OptionData2D = nullptr;
 
 	Sound2D* P_Sound2D = nullptr;
 };
