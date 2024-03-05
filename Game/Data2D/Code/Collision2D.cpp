@@ -1,147 +1,129 @@
 #include "stdafx.h"
 #include "Collision2D.h"
-Collision2D::Collision2D()
-{
-	for (int A = 0 ; A < 256 ; A++)
-	{
-		for (int B = DIRECTION_NON ; B <= DIRECTION_LEFT ; B++)
-		{
-			strcpy(BodyData[A][B].ObjectName , "nullptr");
-			strcpy(BodyData[A][B].Tag        , "nullptr");
-			BodyData[A][B].UpperLeftVertexPositionX  = (InitValue);
-			BodyData[A][B].UpperLeftVertexPositionY  = (InitValue);
-			BodyData[A][B].LowerRightVertexPositionX = (InitValue);
-			BodyData[A][B].LowerRightVertexPositionY = (InitValue);
-			BodyData[A][B].Wide                      = (int)(InitValue);
-			BodyData[A][B].Height                    = (int)(InitValue);
-		}
-	}
-}
-
-void Collision2D::Reset()
-{
-	for (int A = 0 ; A < 256 ; A++)
-	{
-		for (int B = DIRECTION_NON ; B <= DIRECTION_LEFT ; B++)
-		{
-			strcpy(BodyData[A][B].ObjectName , "nullptr");
-			strcpy(BodyData[A][B].Tag        , "nullptr");
-			BodyData[A][B].UpperLeftVertexPositionX  = (InitValue);
-			BodyData[A][B].UpperLeftVertexPositionY  = (InitValue);
-			BodyData[A][B].LowerRightVertexPositionX = (InitValue);
-			BodyData[A][B].LowerRightVertexPositionY = (InitValue);
-			BodyData[A][B].Wide                      = (int)(InitValue);
-			BodyData[A][B].Height                    = (int)(InitValue);
-		}
-	}
-}
-
 //ìñÇΩÇËîªíËÇÃê∂ê¨
-void Collision2D::BodyDataSet(float  Wide , float Height , float PositionX , float PositionY , const char* ObjectName , const char* Tag)
+void Collision2D::SquareDataSet(float  Wide , float Height , float PositionX , float PositionY , const char* ObjectName , const char* Tag)
 {
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
-		if (strcmp(BodyData[Count][DIRECTION_NON].ObjectName, "nullptr") == 0)
+		if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName, "nullptr") == 0)
 		{
-			strcpy(BodyData[Count][DIRECTION_NON].ObjectName , ObjectName);
-			strcpy(BodyData[Count][DIRECTION_NON].Tag        , Tag);
-			BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX  = (PositionX - (Wide / 2));
-			BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY  = (PositionY + (Height / 2));
-			BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX = (PositionX + (Wide / 2));
-			BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY = (PositionY - (Height / 2));
-			BodyData[Count][DIRECTION_NON].Wide                      = (Wide);
-			BodyData[Count][DIRECTION_NON].Height                    = (Height);
+			strcpy(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName , ObjectName);
+			strcpy(Square[Count][static_cast<int>(SquareDirection::NON)].Tag        , Tag);
+			Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX  = (PositionX - (Wide / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY  = (PositionY + (Height / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX = (PositionX + (Wide / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY = (PositionY - (Height / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].Wide                      = (Wide);
+			Square[Count][static_cast<int>(SquareDirection::NON)].Height                    = (Height);
 			BodyInSideDataSet(Count);
 			return;
 		}
 	}
 }
+void Collision2D::CircleDataSet(float Radius , float CenterX , float CenterY , const char* ObjectName , const char* Tag)
+{
+	for (int Count = 0; Count < 256; Count++)
+	{
+		if (strcmp(Circle[Count].ObjectName , "nullptr") == 0)
+		{
+			strcpy(Circle[Count].ObjectName , ObjectName);
+			strcpy(Circle[Count].Tag        , Tag);
+			Circle[Count].CenterX = CenterX;
+			Circle[Count].CenterY = CenterY;
+			Circle[Count].Radius  = Radius;
+			return;
+		}
+	}
+}
+
+
+
 void Collision2D::BodyInSideDataSet(int Count)
 {
-	for (int Direction = DIRECTION_UP ; Direction <= DIRECTION_LEFT ; Direction++)
+	for (int Direction = static_cast<int>(SquareDirection::UP) ; Direction <= static_cast<int>(SquareDirection::LEFT) ; Direction++)
 	{
-		strcpy(BodyData[Count][Direction].ObjectName , BodyData[Count][DIRECTION_NON].ObjectName);
-		strcpy(BodyData[Count][Direction].Tag        , BodyData[Count][DIRECTION_NON].Tag);
+		strcpy(Square[Count][static_cast<int>(Direction)].ObjectName , Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName);
+		strcpy(Square[Count][static_cast<int>(Direction)].Tag        , Square[Count][static_cast<int>(SquareDirection::NON)].Tag);
 	}
 
-	BodyData[Count][DIRECTION_UP].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_UP].UpperLeftVertexPositionY  = (BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY);
-	BodyData[Count][DIRECTION_UP].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_UP].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexY  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY);
+	Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
 
-	BodyData[Count][DIRECTION_RIGHT].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_RIGHT].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
-	BodyData[Count][DIRECTION_RIGHT].LowerRightVertexPositionX = (BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX);
-	BodyData[Count][DIRECTION_RIGHT].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexX = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
 
-	BodyData[Count][DIRECTION_DOWN].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].LowerRightVertexPositionY = (BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexY = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY);
 
-	BodyData[Count][DIRECTION_LEFT].UpperLeftVertexPositionX  = (BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX);
-	BodyData[Count][DIRECTION_LEFT].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
-	BodyData[Count][DIRECTION_LEFT].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_LEFT].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexX  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
 }
 
 //ÉRÉsÅ[
-bool Collision2D::CopyBodyData(ObjectData& Body , const char* ObjectName)
+bool Collision2D::CopyBodyData(SquareData& Body , const char* ObjectName)
 {
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
-		if (strcmp(BodyData[Count][DIRECTION_NON].ObjectName, ObjectName) == 0)
+		if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName, ObjectName) == 0)
 		{
-			strcpy(Body.ObjectName , BodyData[Count][DIRECTION_NON].ObjectName);
-			strcpy(Body.Tag        , BodyData[Count][DIRECTION_NON].Tag);
-			Body.UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX;
-			Body.UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY;
-			Body.LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX;
-			Body.LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY;
+			strcpy(Body.ObjectName , Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName);
+			strcpy(Body.Tag        , Square[Count][static_cast<int>(SquareDirection::NON)].Tag);
+			Body.UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX;
+			Body.UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY;
+			Body.LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX;
+			Body.LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY;
 			return true;
 		}
 	}
 	return false;
 }
-bool Collision2D::CopyBodysData(ObjectData& Body , const char* Tag , int Count)
+bool Collision2D::CopyBodysData(SquareData& Body , const char* Tag , int Count)
 {
-	if (strcmp(BodyData[Count][DIRECTION_NON].Tag, Tag) == 0)
+	if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].Tag, Tag) == 0)
 	{
-		strcpy(Body.ObjectName , BodyData[Count][DIRECTION_NON].ObjectName);
-		strcpy(Body.Tag        , BodyData[Count][DIRECTION_NON].Tag);
-		Body.UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX;
-		Body.UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY;
-		Body.LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX;
-		Body.LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY;
+		strcpy(Body.ObjectName , Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName);
+		strcpy(Body.Tag        , Square[Count][static_cast<int>(SquareDirection::NON)].Tag);
+		Body.UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX;
+		Body.UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY;
+		Body.LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX;
+		Body.LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY;
 		return true;
 	}
 	return false;
 }
-bool Collision2D::CopyEmptyData(ObjectData& Body , const char* ObjectName , int Direction)
+bool Collision2D::CopyEmptyData(SquareData& Body , const char* ObjectName , SquareDirection Direction)
 {
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
-		if (strcmp(BodyData[Count][DIRECTION_NON].ObjectName, ObjectName) == 0)
+		if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName, ObjectName) == 0)
 		{
-			Body.UpperLeftVertexPositionX  = BodyData[Count][Direction].UpperLeftVertexPositionX;
-			Body.UpperLeftVertexPositionY  = BodyData[Count][Direction].UpperLeftVertexPositionY;
-			Body.LowerRightVertexPositionX = BodyData[Count][Direction].LowerRightVertexPositionX;
-			Body.LowerRightVertexPositionY = BodyData[Count][Direction].LowerRightVertexPositionY;
+			Body.UpperLeftVertexX  = Square[Count][static_cast<int>(Direction)].UpperLeftVertexX;
+			Body.UpperLeftVertexY  = Square[Count][static_cast<int>(Direction)].UpperLeftVertexY;
+			Body.LowerRightVertexX = Square[Count][static_cast<int>(Direction)].LowerRightVertexX;
+			Body.LowerRightVertexY = Square[Count][static_cast<int>(Direction)].LowerRightVertexY;
 			return true;
 		}
 	}
 	return false;
 }
-bool Collision2D::CopyEmptysData(ObjectData& Body , const char* Tag , int Direction , int Count)
+bool Collision2D::CopyEmptysData(SquareData& Body , const char* Tag , SquareDirection Direction, int Count)
 {
-	if (strcmp(BodyData[Count][DIRECTION_NON].Tag, Tag) == 0)
+	if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].Tag, Tag) == 0)
 	{
-		strcpy(Body.ObjectName , BodyData[Count][Direction].ObjectName);
-		strcpy(Body.Tag        , BodyData[Count][Direction].Tag);
-		Body.UpperLeftVertexPositionX  = BodyData[Count][Direction].UpperLeftVertexPositionX;
-		Body.UpperLeftVertexPositionY  = BodyData[Count][Direction].UpperLeftVertexPositionY;
-		Body.LowerRightVertexPositionX = BodyData[Count][Direction].LowerRightVertexPositionX;
-		Body.LowerRightVertexPositionY = BodyData[Count][Direction].LowerRightVertexPositionY;
+		strcpy(Body.ObjectName , Square[Count][static_cast<int>(Direction)].ObjectName);
+		strcpy(Body.Tag        , Square[Count][static_cast<int>(Direction)].Tag);
+		Body.UpperLeftVertexX  = Square[Count][static_cast<int>(Direction)].UpperLeftVertexX;
+		Body.UpperLeftVertexY  = Square[Count][static_cast<int>(Direction)].UpperLeftVertexY;
+		Body.LowerRightVertexX = Square[Count][static_cast<int>(Direction)].LowerRightVertexX;
+		Body.LowerRightVertexY = Square[Count][static_cast<int>(Direction)].LowerRightVertexY;
 		return true;
 	}
 	return false;
@@ -152,12 +134,12 @@ void Collision2D::BodySetPosition(float PositionX , float PositionY , const char
 {
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
-		if (strcmp(BodyData[Count][DIRECTION_NON].ObjectName, ObjectName) == 0)
+		if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName, ObjectName) == 0)
 		{
-			BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX  = (PositionX - (BodyData[Count][DIRECTION_NON].Wide / 2));
-			BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY  = (PositionY + (BodyData[Count][DIRECTION_NON].Height / 2));
-			BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX = (PositionX + (BodyData[Count][DIRECTION_NON].Wide / 2));
-			BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY = (PositionY - (BodyData[Count][DIRECTION_NON].Height / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX  = (PositionX - (Square[Count][static_cast<int>(SquareDirection::NON)].Wide / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY  = (PositionY + (Square[Count][static_cast<int>(SquareDirection::NON)].Height / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX = (PositionX + (Square[Count][static_cast<int>(SquareDirection::NON)].Wide / 2));
+			Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY = (PositionY - (Square[Count][static_cast<int>(SquareDirection::NON)].Height / 2));
 
 			BodyUpSetPosition(Count);
 			BodyRightSetPosition(Count);
@@ -170,45 +152,45 @@ void Collision2D::BodySetPosition(float PositionX , float PositionY , const char
 
 void Collision2D::BodyUpSetPosition(int Count)
 {
-	BodyData[Count][DIRECTION_UP].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_UP].UpperLeftVertexPositionY  = (BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY);
-	BodyData[Count][DIRECTION_UP].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_UP].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexY  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY);
+	Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
 }
 void Collision2D::BodyRightSetPosition(int Count)
 {
-	BodyData[Count][DIRECTION_RIGHT].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_RIGHT].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
-	BodyData[Count][DIRECTION_RIGHT].LowerRightVertexPositionX = (BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX);
-	BodyData[Count][DIRECTION_RIGHT].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexX = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX);
+	Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
 }
 void Collision2D::BodyDownSetPosition(int Count)
 {
-	BodyData[Count][DIRECTION_DOWN].UpperLeftVertexPositionX  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionX + (-EmptyWidth);
-	BodyData[Count][DIRECTION_DOWN].LowerRightVertexPositionY = (BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexY = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY);
 }
 void Collision2D::BodyLeftSetPosition(int Count)
 {
-	BodyData[Count][DIRECTION_LEFT].UpperLeftVertexPositionX  = (BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX);
-	BodyData[Count][DIRECTION_LEFT].UpperLeftVertexPositionY  = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionY + (-EmptyWidth);
-	BodyData[Count][DIRECTION_LEFT].LowerRightVertexPositionX = BodyData[Count][DIRECTION_NON].UpperLeftVertexPositionX + (EmptyWidth);
-	BodyData[Count][DIRECTION_LEFT].LowerRightVertexPositionY = BodyData[Count][DIRECTION_NON].LowerRightVertexPositionY + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexX  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+	Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
 }
 
 //è’ìÀîªíË
-bool Collision2D::EmptyAndEmptyCollision(const char* ObjectName1 , int Direction1 , const char* ObjectName2 , int Direction2)
+bool Collision2D::EmptyAndEmptyCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* ObjectName2 , SquareDirection Direction2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	if (CopyEmptyData(Body1 , ObjectName1 , Direction1) && CopyEmptyData(Body2 , ObjectName2 , Direction2))
 	{
-		for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+		for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 		{
-			for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+			for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 			{
-				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+				if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 				{
 					return true;
 				}
@@ -217,17 +199,17 @@ bool Collision2D::EmptyAndEmptyCollision(const char* ObjectName1 , int Direction
 	}
 	return false;
 }
-bool Collision2D::EmptyAndBodyCollision(const char* ObjectName1 , int Direction1 , const char* ObjectName2)
+bool Collision2D::EmptyAndBodyCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* ObjectName2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	if (CopyEmptyData(Body1 , ObjectName1 , Direction1) && CopyBodyData(Body2 , ObjectName2))
 	{
-		for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+		for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 		{
-			for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+			for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 			{
-				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+				if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 				{
 					return true;
 				}
@@ -237,19 +219,19 @@ bool Collision2D::EmptyAndBodyCollision(const char* ObjectName1 , int Direction1
 	return false;
 }
 
-bool Collision2D::EmptyAndBodysCollision(const char* ObjectName1 , int Direction1 , const char* Tag2)
+bool Collision2D::EmptyAndBodysCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* Tag2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
 		if (CopyEmptyData(Body1 , ObjectName1 , Direction1) && CopyBodysData(Body2 , Tag2 , Count))
 		{
-			for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+			for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 			{
-				for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+				for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 				{
-					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+					if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 					{
 						return true;
 					}
@@ -261,17 +243,17 @@ bool Collision2D::EmptyAndBodysCollision(const char* ObjectName1 , int Direction
 }
 bool Collision2D::BodyAndBodysCollision(const char* ObjectName1 , const char* Tag2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
 		if (CopyBodyData(Body1 , ObjectName1) && CopyBodysData(Body2 , Tag2 , Count))
 		{
-			for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+			for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 			{
-				for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+				for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 				{
-					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+					if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 					{
 						return true;
 					}
@@ -284,15 +266,15 @@ bool Collision2D::BodyAndBodysCollision(const char* ObjectName1 , const char* Ta
 
 bool Collision2D::BodyAndBodyCollision(const char* ObjectName1 , const char* ObjectName2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	if (CopyBodyData(Body1 , ObjectName1) && CopyBodyData(Body2 , ObjectName2))
 	{
-		for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+		for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 		{
-			for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+			for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 			{
-				if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+				if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 				{
 					return true;
 				}
@@ -302,19 +284,19 @@ bool Collision2D::BodyAndBodyCollision(const char* ObjectName1 , const char* Obj
 	return false;
 }
 
-bool Collision2D::EmptyAndEmptysCollision(const char* ObjectName1 , int Direction1 , const char* Tag2 , int Direction2)
+bool Collision2D::EmptyAndEmptysCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* Tag2 , SquareDirection Direction2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	for (int Count = 0 ; Count < 256 ; Count++)
 	{
 		if (CopyEmptyData(Body1 , ObjectName1 , Direction1) && CopyEmptysData(Body2 , Tag2 , Direction2 , Count))
 		{
-			for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+			for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 			{
-				for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+				for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 				{
-					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+					if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 					{
 						return true;
 					}
@@ -324,19 +306,19 @@ bool Collision2D::EmptyAndEmptysCollision(const char* ObjectName1 , int Directio
 	}
 	return false;
 }
-bool Collision2D::BodyAndEmptysCollision(const char* ObjectName1 , const char* Tag2 , int Direction2)
+bool Collision2D::BodyAndEmptysCollision(const char* ObjectName1 , const char* Tag2 , SquareDirection Direction2)
 {
-	ObjectData Body1;
-	ObjectData Body2;
+	SquareData Body1;
+	SquareData Body2;
 	for (int Count = 0; Count < 256; Count++)
 	{
 		if (CopyBodyData(Body1 , ObjectName1) && CopyEmptysData(Body2 , Tag2 , Direction2 , Count))
 		{
-			for (int X = Body1.UpperLeftVertexPositionX ; X <= Body1.LowerRightVertexPositionX ; X++)
+			for (int X = Body1.UpperLeftVertexX ; X <= Body1.LowerRightVertexX ; X++)
 			{
-				for (int Y = Body1.LowerRightVertexPositionY ; Y <= Body1.UpperLeftVertexPositionY ; Y++)
+				for (int Y = Body1.LowerRightVertexY ; Y <= Body1.UpperLeftVertexY ; Y++)
 				{
-					if ((X >= Body2.UpperLeftVertexPositionX && X <= Body2.LowerRightVertexPositionX) && (Y <= Body2.UpperLeftVertexPositionY && Y >= Body2.LowerRightVertexPositionY))
+					if ((X >= Body2.UpperLeftVertexX && X <= Body2.LowerRightVertexX) && (Y <= Body2.UpperLeftVertexY && Y >= Body2.LowerRightVertexY))
 					{
 						return true;
 					}
