@@ -12,6 +12,7 @@ class Game : public IGameObject
 public:
 	Game();
 	~Game();
+	void Render(RenderContext& rc);
 private:
 	Sprite2D* P_Sprite2D   = nullptr;
 	Data2D* P_Data2D       = nullptr;
@@ -21,4 +22,6 @@ private:
 	GameBackGround* P_BackGround = nullptr;
 	GameOther* P_Other           = nullptr;
 	GameSprite* P_Sprite         =nullptr;
+
+	SpriteRender Test;
 };

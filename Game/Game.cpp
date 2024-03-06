@@ -14,6 +14,15 @@ Game::Game()
 
 	P_Data2D->Data2DNewGO();
 	P_Operation->OperationNewGO();
+
+	Test.Init("Assets/Sprite/Frame.DDS", 1920.0f, 1080.0f);
+	Test.Update();
+
+	P_Data2D->P_Collision2D->CircleDataSet(10.0f , 10.0f , 10.0f , "Test1" , "Non");
+	P_Data2D->P_Collision2D->CircleDataSet(10.0f , 20.0f , 20.0f , "Test2" , "Non");
+
+	P_Data2D->P_Collision2D->SquareDataSet(100.0f,100.0f, 0.0f, 0.0f, "Test1", "Non");
+	P_Data2D->P_Collision2D->SquareDataSet(100.0f,100.0f, 100.0f, 100.0f, "Test2", "Non");
 }
 Game::~Game()
 {
@@ -25,4 +34,12 @@ Game::~Game()
 	P_BackGround->BackGroundDeleteGO();
 	P_Other->OtherDeleteGO();
 	P_Sprite->SpriteDeleteGO();
+}
+void Game::Render(RenderContext& rc)
+{
+	if (P_Data2D->P_Collision2D->CircleAndCircle("Test1" , "Test2" , CrashType::BtoB))
+	{Test.Draw(rc);}
+
+	/*if (P_Data2D->P_Collision2D->SquareAndSquare("Test1", "Test2", CrashType::BtoB))
+	{Test.Draw(rc);}*/
 }

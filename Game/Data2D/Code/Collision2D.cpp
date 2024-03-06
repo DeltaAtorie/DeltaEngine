@@ -205,13 +205,44 @@ bool Collision2D::CircleAndCircle(const char* ObjectName1 , const char* ObjectNa
 	CircleData Body1;
 	CircleData Body2;
 
+	float Pi = 3.14159265358979323846f;
+
 	if (Type != CrashType::BtoB)
 	{return false;}
 
 	CopyBodyData(Body1 , ObjectName1);
 	CopyBodyData(Body2 , ObjectName2);
 
-	return false;
+	for (Body1.Angle = 0.0f ; Body1.Angle < 360.0f ; Body1.Angle += 1.0f)
+	{
+		Body1.Radian = Body1.Angle * Pi / 180.0f;
+
+		Body1.CircleX = cos(Body1.Radian) * Body1.Radius;
+		Body1.CircleY = sin(Body1.Radian) * Body1.Radius;
+
+		Body1.CircleX += Body1.CenterX;
+		Body1.CircleY += Body1.CenterY;
+
+		for (Body2.Angle = 0.0f ; Body2.Angle < 360.0f ; Body2.Angle += 1.0f)
+		{
+			Body2.Radian = Body2.Angle * Pi / 180.0f;
+
+			Body2.CircleX = cos(Body2.Radian) * Body2.Radius;
+			Body2.CircleY = sin(Body2.Radian) * Body2.Radius;
+
+			Body2.CircleX += Body2.CenterX;
+			Body2.CircleY += Body2.CenterY;
+
+			if (Body1.CircleX >= Body2.CenterX && Body1.CircleY >= Body2.CenterY)
+			{
+				if (Body1.CircleX <= Body2.CircleX && Body1.CircleY <= Body2.CircleY)
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return true;
 }
 bool Collision2D::SquareAndCircle(CrashType Type)
 {

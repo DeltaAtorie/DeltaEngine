@@ -14,9 +14,13 @@ struct CircleData
 {
 	char ObjectName[256] = "nullptr";//オブジェクトの名前
 	char Tag[256]        = "nullptr";//オブジェクトのタグ
-	float CenterX        = 0.0f;// 円の中心のX座標
-	float CenterY        = 0.0f;// 円の中心のY座標
-	float Radius         = 0.0f;// 円の半径
+	float CircleX        = 0.0f;//単位円のX座標
+	float CircleY        = 0.0f;//単位円のY座標
+	float CenterX        = 0.0f;//円の中心のX座標
+	float CenterY        = 0.0f;//円の中心のY座標
+	float Radius         = 0.0f;//円の半径
+	float Angle          = 0.0f;//角度
+	float Radian         = 0.0f;//ラジアン角度
 };
 enum class SquareDirection
 {
