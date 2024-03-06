@@ -18,12 +18,6 @@ struct CircleData
 	float CenterY        = 0.0f;// 円の中心のY座標
 	float Radius         = 0.0f;// 円の半径
 };
-enum class CollisionType
-{
-	NON    = 0,
-	SQUARE = 1,
-	CIRCLE = 2,
-};
 enum class SquareDirection
 {
 	NON   = 0,
@@ -32,39 +26,104 @@ enum class SquareDirection
 	DOWN  = 3,
 	LEFT  = 4
 };
+enum class CrashType
+{
+	EtoE,//空・空
+	BtoB,//本体・本体
+	BtoE//本体・空
+};
 class Collision2D : public IGameObject
 {
 public:
-	//当たり判定の生成
+//判定の生成
 	void SquareDataSet(float  Wide , float Height , float PositionX , float PositionY , const char* ObjectName , const char* Tag);
 	void CircleDataSet(float Radius , float CenterX , float CenterY , const char* ObjectName , const char* Tag);
+//判定の複製
+	//本体
+	bool CopyBodyData(SquareData& Decision   , const char* ObjectName);
+	bool CopyBodyData(CircleData& Decision   , const char* ObjectName);
 
-	//コピー
-	bool CopyBodyData(SquareData& Decision   , const char* ObjectName);//【本体】のコピー
-	bool CopyBodysData(SquareData& Decision  , const char* Tag        , int Count);//【タグが付いた複数の本体】のコピー
-	bool CopyEmptyData(SquareData& Decision  , const char* ObjectName , SquareDirection Direction);//【空】のコピー
-	bool CopyEmptysData(SquareData& Decision , const char* Tag        , SquareDirection Direction , int Count);//【タグが付いた複数の空】のコピー
+	//【タグが付いた複数の本体】のコピー
+	bool CopyBodysData(SquareData& Decision , const char* Tag , int Count);
+	bool CopyBodysData(CircleData& Decision , const char* Tag , int Count);
 
-	//座標更新
-	void BodySetPosition(float PositionX , float PositionY , const char* ObjectName);
+	//空
+	bool CopyEmptyData(SquareData& Decision  , const char* ObjectName , SquareDirection Direction);
 
-	//衝突判定
-	bool EmptyAndEmptyCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* ObjectName2 , SquareDirection Direction2);//【空同士】の衝突
-	bool BodyAndBodyCollision(const char* ObjectName1   , const char* ObjectName2);//【本体同士】の衝突
+	//【タグが付いた複数の空】のコピー
+	bool CopyEmptysData(SquareData& Decision , const char* Tag        , SquareDirection Direction , int Count);
 
-	bool EmptyAndBodyCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* ObjectName2);//【空】と【本体】の衝突
+//判定の更新
+	void BodySetPosition(float PositionX , float PositionY , const char* ObjectName)
+	{
+		for (int Count = 0 ; Count < 256 ; Count++)
+		{
+			if (strcmp(Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName, ObjectName) == 0)
+			{
+				Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX = (PositionX - (Square[Count][static_cast<int>(SquareDirection::NON)].Wide / 2));
+				Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY = (PositionY + (Square[Count][static_cast<int>(SquareDirection::NON)].Height / 2));
+				Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX = (PositionX + (Square[Count][static_cast<int>(SquareDirection::NON)].Wide / 2));
+				Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY = (PositionY - (Square[Count][static_cast<int>(SquareDirection::NON)].Height / 2));
 
-	bool EmptyAndBodysCollision(const char* ObjectName1  , SquareDirection Direction1 , const char* Tag2);//【空】と【タグが付いた複数の本体】の衝突
-	bool EmptyAndEmptysCollision(const char* ObjectName1 , SquareDirection Direction1 , const char* Tag2 , SquareDirection Direction2);//【空】と【タグが付いた複数の空】の衝突
+				BodyUpSetPosition(Count);
+				BodyRightSetPosition(Count);
+				BodyLeftSetPosition(Count);
+				BodyDownSetPosition(Count);
+				return;
+			}
+		}
+	}
 
-	bool BodyAndBodysCollision(const char* ObjectName1  , const char* Tag2);//【本体】と【タグが付いた複数の本体】の衝突
-	bool BodyAndEmptysCollision(const char* ObjectName1 , const char* Tag2 , SquareDirection Direction1);//【本体】と【タグが付いた複数の空】の衝突
+//判定の衝突
+	bool SquareAndSquare(const char* ObjectName1 , SquareDirection Direction1 , const char* ObjectName2 , SquareDirection Direction2 , CrashType Type);
+	bool SquareAndSquare(const char* ObjectName1 , const char* ObjectName2 , CrashType Type);
+	bool SquareAndSquare(const char* ObjectName1 , const char* ObjectName2 , SquareDirection Direction2 , CrashType Type);
+
+	bool CircleAndCircle(const char* ObjectName1 , const char* ObjectName2 , CrashType Type);
+
+	bool SquareAndCircle(CrashType Type);
 private:
-	void BodyInSideDataSet(int Count);
-	void BodyUpSetPosition(int Count);
-	void BodyRightSetPosition(int Count);
-	void BodyDownSetPosition(int Count);
-	void BodyLeftSetPosition(int Count);
+	void BodyInSideDataSet(int Count)
+	{
+		for (int Direction = static_cast<int>(SquareDirection::UP) ; Direction <= static_cast<int>(SquareDirection::LEFT) ; Direction++)
+		{
+			strcpy(Square[Count][static_cast<int>(Direction)].ObjectName , Square[Count][static_cast<int>(SquareDirection::NON)].ObjectName);
+			strcpy(Square[Count][static_cast<int>(Direction)].Tag        , Square[Count][static_cast<int>(SquareDirection::NON)].Tag);
+		}
+
+		BodyUpSetPosition(Count);
+		BodyRightSetPosition(Count);
+		BodyDownSetPosition(Count);
+		BodyLeftSetPosition(Count);
+	}
+	void BodyUpSetPosition(int Count)
+	{
+		Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::UP)].UpperLeftVertexY  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY);
+		Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::UP)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+	}
+	void BodyRightSetPosition(int Count)
+	{
+		Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::RIGHT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexX = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX);
+		Square[Count][static_cast<int>(SquareDirection::RIGHT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
+	}
+	void BodyDownSetPosition(int Count)
+	{
+		Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexX  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::DOWN)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexX + (-EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::DOWN)].LowerRightVertexY = (Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY);
+	}
+	void BodyLeftSetPosition(int Count)
+	{
+		Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexX  = (Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX);
+		Square[Count][static_cast<int>(SquareDirection::LEFT)].UpperLeftVertexY  = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexY + (-EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexX = Square[Count][static_cast<int>(SquareDirection::NON)].UpperLeftVertexX + (EmptyWidth);
+		Square[Count][static_cast<int>(SquareDirection::LEFT)].LowerRightVertexY = Square[Count][static_cast<int>(SquareDirection::NON)].LowerRightVertexY + (EmptyWidth);
+	}
 private:
 	SquareData Square[256][5];
 	CircleData Circle[256];
