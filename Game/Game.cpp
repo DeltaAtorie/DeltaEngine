@@ -18,11 +18,17 @@ Game::Game()
 	Test.Init("Assets/Sprite/Frame.DDS", 1920.0f, 1080.0f);
 	Test.Update();
 
-	P_Data2D->P_Collision2D->CircleDataSet(10.0f , 10.0f , 10.0f , "Test1" , "Non");
-	P_Data2D->P_Collision2D->CircleDataSet(10.0f , 20.0f , 20.0f , "Test2" , "Non");
+	Test1.Init("Assets/Sprite/Test1.DDS", 150.0f, 150.0f);
+	Test1.SetPosition(Position1);
+	Test1.Update();
 
-	P_Data2D->P_Collision2D->SquareDataSet(100.0f,100.0f, 0.0f, 0.0f, "Test1", "Non");
-	P_Data2D->P_Collision2D->SquareDataSet(100.0f,100.0f, 100.0f, 100.0f, "Test2", "Non");
+	Test2.Init("Assets/Sprite/Test2.DDS", 150.0f, 150.0f);
+	Test2.SetPosition(Position2);
+	Test2.Update();
+
+	P_Data2D->P_Collision2D->CircleDataSet(75.0f , Position1.x , Position1.y , "Test1" , "Non");
+	P_Data2D->P_Collision2D->CircleDataSet(75.0f , Position2.x , Position2.y , "Test2" , "Non");
+
 }
 Game::~Game()
 {
@@ -35,11 +41,41 @@ Game::~Game()
 	P_Other->OtherDeleteGO();
 	P_Sprite->SpriteDeleteGO();
 }
+
+void Game::Update()
+{
+	
+	if (g_pad[0]->IsPress(enButtonUp))
+	{
+		Position1.y += 0.5f;
+	}
+	if (g_pad[0]->IsPress(enButtonDown))
+	{
+		Position1.y -= 0.5f;
+	}
+	if (g_pad[0]->IsPress(enButtonRight))
+	{
+		Position1.x += 0.5f;
+	}
+	if (g_pad[0]->IsPress(enButtonLeft))
+	{
+		Position1.x -= 0.5f;
+	}
+
+
+	P_Data2D->P_Collision2D->CircleSetPosition(Position1.x, Position1.y, "Test1");
+	Test1.SetPosition(Position1);
+	Test1.Update();
+
+	P_Data2D->P_Collision2D->CircleSetPosition(Position2.x, Position2.y, "Test2");
+	Test2.SetPosition(Position2);
+	Test2.Update();
+}
 void Game::Render(RenderContext& rc)
 {
 	if (P_Data2D->P_Collision2D->CircleAndCircle("Test1" , "Test2" , CrashType::BtoB))
 	{Test.Draw(rc);}
 
-	/*if (P_Data2D->P_Collision2D->SquareAndSquare("Test1", "Test2", CrashType::BtoB))
-	{Test.Draw(rc);}*/
+	Test1.Draw(rc);
+	Test2.Draw(rc);
 }

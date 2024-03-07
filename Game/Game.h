@@ -12,6 +12,7 @@ class Game : public IGameObject
 public:
 	Game();
 	~Game();
+	void Update();
 	void Render(RenderContext& rc);
 private:
 	Sprite2D* P_Sprite2D   = nullptr;
@@ -24,4 +25,9 @@ private:
 	GameSprite* P_Sprite         =nullptr;
 
 	SpriteRender Test;
+	SpriteRender Test1;
+	SpriteRender Test2;
+
+	Vector3 Position1 = { 15.0f , 15.0f , 0.0f };
+	Vector3 Position2 = { 0.0f , 0.0f , 0.0f };
 };

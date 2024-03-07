@@ -58,7 +58,7 @@ public:
 	bool CopyEmptysData(SquareData& Decision , const char* Tag        , SquareDirection Direction , int Count);
 
 //îªíËÇÃçXêV
-	void BodySetPosition(float PositionX , float PositionY , const char* ObjectName)
+	void SquareSetPosition(float PositionX , float PositionY , const char* ObjectName)
 	{
 		for (int Count = 0 ; Count < 256 ; Count++)
 		{
@@ -73,6 +73,18 @@ public:
 				BodyRightSetPosition(Count);
 				BodyLeftSetPosition(Count);
 				BodyDownSetPosition(Count);
+				return;
+			}
+		}
+	}
+	void CircleSetPosition(float PositionX, float PositionY, const char* ObjectName)
+	{
+		for (int Count = 0; Count < 256; Count++)
+		{
+			if (strcmp(Circle[Count].ObjectName, ObjectName) == 0)
+			{
+				Circle[Count].CenterX = PositionX;
+				Circle[Count].CenterY = PositionY;
 				return;
 			}
 		}

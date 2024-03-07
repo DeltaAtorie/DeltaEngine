@@ -213,7 +213,7 @@ bool Collision2D::CircleAndCircle(const char* ObjectName1 , const char* ObjectNa
 	CopyBodyData(Body1 , ObjectName1);
 	CopyBodyData(Body2 , ObjectName2);
 
-	for (Body1.Angle = 0.0f ; Body1.Angle < 360.0f ; Body1.Angle += 1.0f)
+	for (Body1.Angle = 0.0f; Body1.Angle < 360.0f; Body1.Angle += 1.0f)
 	{
 		Body1.Radian = Body1.Angle * Pi / 180.0f;
 
@@ -223,7 +223,7 @@ bool Collision2D::CircleAndCircle(const char* ObjectName1 , const char* ObjectNa
 		Body1.CircleX += Body1.CenterX;
 		Body1.CircleY += Body1.CenterY;
 
-		for (Body2.Angle = 0.0f ; Body2.Angle < 360.0f ; Body2.Angle += 1.0f)
+		for (Body2.Angle = 0.0f; Body2.Angle < 360.0f; Body2.Angle += 1.0f)
 		{
 			Body2.Radian = Body2.Angle * Pi / 180.0f;
 
@@ -233,6 +233,7 @@ bool Collision2D::CircleAndCircle(const char* ObjectName1 , const char* ObjectNa
 			Body2.CircleX += Body2.CenterX;
 			Body2.CircleY += Body2.CenterY;
 
+			//âEè„
 			if (Body1.CircleX >= Body2.CenterX && Body1.CircleY >= Body2.CenterY)
 			{
 				if (Body1.CircleX <= Body2.CircleX && Body1.CircleY <= Body2.CircleY)
@@ -240,9 +241,36 @@ bool Collision2D::CircleAndCircle(const char* ObjectName1 , const char* ObjectNa
 					return true;
 				}
 			}
+
+			//âEâ∫
+			if (Body1.CircleX >= Body2.CenterX && Body1.CircleY <= Body2.CenterY)
+			{
+				if (Body1.CircleX <= Body2.CircleX && Body1.CircleY >= Body2.CircleY)
+				{
+					return true;
+				}
+			}
+
+			//ç∂è„
+			if (Body1.CircleX <= Body2.CenterX && Body1.CircleY >= Body2.CenterY)
+			{
+				if (Body1.CircleX >= Body2.CircleX && Body1.CircleY <= Body2.CircleY)
+				{
+					return true;
+				}
+			}
+
+			//ç∂â∫
+			if (Body1.CircleX <= Body2.CenterX && Body1.CircleY <= Body2.CenterY)
+			{
+				if (Body1.CircleX >= Body2.CircleX && Body1.CircleY >= Body2.CircleY)
+				{
+					return true;
+				}
+			}
 		}
 	}
-	return true;
+	return false;
 }
 bool Collision2D::SquareAndCircle(CrashType Type)
 {

@@ -32,7 +32,7 @@ void Mouse::Update()
 
     MouseCurSorSetPosition(M_MouseCursorPosition);
 
-	P_Data2D->P_Collision2D->BodySetPosition(M_MouseCursorPosition.x, M_MouseCursorPosition.y, "Mouse");
+	P_Data2D->P_Collision2D->SquareSetPosition(M_MouseCursorPosition.x, M_MouseCursorPosition.y, "Mouse");
 }
 
 void Mouse::MouseCurSorSetPosition(Vector3& Position)
