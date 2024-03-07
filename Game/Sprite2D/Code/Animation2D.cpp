@@ -10,7 +10,7 @@ Animation2D::~Animation2D()
 }
 void Animation2D::Update()
 {
-	if (M_AnimationState == ANIMATION_PLAY)
+	if (M_State == AnimationState::ANIMATION_PLAY)
 	{
 		M_Frame++;
 		if (M_Frame > M_FrameLimit)
@@ -34,7 +34,7 @@ void Animation2D::Update()
 }
 void Animation2D::Render(RenderContext& rc)
 {
-	if (M_AnimationState == ANIMATION_PLAY)
+	if (M_State == AnimationState::ANIMATION_PLAY)
 	{M_AnimationTexture.Draw(rc);}
 }
 

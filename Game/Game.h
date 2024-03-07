@@ -23,11 +23,4 @@ private:
 	GameBackGround* P_BackGround = nullptr;
 	GameOther* P_Other           = nullptr;
 	GameSprite* P_Sprite         =nullptr;
-
-	SpriteRender Test;
-	SpriteRender Test1;
-	SpriteRender Test2;
-
-	Vector3 Position1 = { 15.0f , 15.0f , 0.0f };
-	Vector3 Position2 = { 0.0f , 0.0f , 0.0f };
 };

@@ -14,21 +14,6 @@ Game::Game()
 
 	P_Data2D->Data2DNewGO();
 	P_Operation->OperationNewGO();
-
-	Test.Init("Assets/Sprite/Frame.DDS", 1920.0f, 1080.0f);
-	Test.Update();
-
-	Test1.Init("Assets/Sprite/Test1.DDS", 150.0f, 150.0f);
-	Test1.SetPosition(Position1);
-	Test1.Update();
-
-	Test2.Init("Assets/Sprite/Test2.DDS", 150.0f, 150.0f);
-	Test2.SetPosition(Position2);
-	Test2.Update();
-
-	P_Data2D->P_Collision2D->CircleDataSet(75.0f , Position1.x , Position1.y , "Test1" , "Non");
-	P_Data2D->P_Collision2D->CircleDataSet(75.0f , Position2.x , Position2.y , "Test2" , "Non");
-
 }
 Game::~Game()
 {
@@ -45,37 +30,8 @@ Game::~Game()
 void Game::Update()
 {
 	
-	if (g_pad[0]->IsPress(enButtonUp))
-	{
-		Position1.y += 0.5f;
-	}
-	if (g_pad[0]->IsPress(enButtonDown))
-	{
-		Position1.y -= 0.5f;
-	}
-	if (g_pad[0]->IsPress(enButtonRight))
-	{
-		Position1.x += 0.5f;
-	}
-	if (g_pad[0]->IsPress(enButtonLeft))
-	{
-		Position1.x -= 0.5f;
-	}
-
-
-	P_Data2D->P_Collision2D->CircleSetPosition(Position1.x, Position1.y, "Test1");
-	Test1.SetPosition(Position1);
-	Test1.Update();
-
-	P_Data2D->P_Collision2D->CircleSetPosition(Position2.x, Position2.y, "Test2");
-	Test2.SetPosition(Position2);
-	Test2.Update();
 }
 void Game::Render(RenderContext& rc)
 {
-	if (P_Data2D->P_Collision2D->CircleAndCircle("Test1" , "Test2" , CrashType::BtoB))
-	{Test.Draw(rc);}
-
-	Test1.Draw(rc);
-	Test2.Draw(rc);
+	
 }

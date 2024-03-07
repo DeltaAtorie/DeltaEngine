@@ -1,5 +1,5 @@
 #pragma once
-enum AnimationStorage
+enum class AnimationState
 {
 	ANIMATION_PLAY,
 	ANIMATION_STOP,
@@ -19,16 +19,16 @@ public:
 		M_FrameLimit          = FrameLimit;
 		M_AnimationPosition   = Position;
 		M_LoopFlag            = Loop;
-		M_AnimationState      = ANIMATION_PLAY;
+		M_State               = AnimationState::ANIMATION_PLAY;
 		SetFilePath(Sprite);
 	}
 	void SetFilePath(const char* Sprite);
 	void GetFileNumber(char* Word , int AnimationFrame);
 
 	void Play()
-	{M_AnimationState = ANIMATION_PLAY;}
+	{M_State = AnimationState::ANIMATION_PLAY;}
 	void Stop()
-	{M_AnimationState = ANIMATION_STOP;}
+	{M_State = AnimationState::ANIMATION_STOP;}
 private:
 	SpriteRender M_AnimationTexture;
 	Vector3 M_AnimationPosition;
@@ -40,7 +40,7 @@ private:
 	int M_AnimationFrame      = 0;
 	int M_Frame               = 0;
 	int M_FrameLimit          = 0;
-	int M_AnimationState      = ANIMATION_STOP;
+	AnimationState M_State    = AnimationState::ANIMATION_STOP;
 	bool M_LoopFlag           = false;
 	float M_Wide              = 0.0f;
 	float M_Height            = 0.0f;
